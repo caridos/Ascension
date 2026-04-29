@@ -96,17 +96,15 @@ public class FiveElementCultivationTechnique implements ITechnique {
 
     @Override
     public void onRealmChange(IEntityData entityData, int oldMajorRealm, int oldMinorRealm, int newMajorRealm, int newMinorRealm) {
-        statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMajorRealm,newMajorRealm,newMinorRealm);
+        statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm);
         if(oldMajorRealm<newMajorRealm){
             for(int i = oldMajorRealm+1;i<=newMajorRealm;i++){
                 if(i < elements.size()){
                     entityData.getPathBonusHandler().addPathBonus(elements.get(i),2);
-
                 }
                 if(i-1 < elements.size() && i-1 >=0){
                     entityData.addPathData(elements.get(i-1), AscensionRegistries.Paths.PATHS_REGISTRY.get(elements.get(i-1)).freshPathData(entityData));
                 }
-
             }
         }
         if(oldMajorRealm>newMajorRealm){
@@ -117,28 +115,44 @@ public class FiveElementCultivationTechnique implements ITechnique {
             }
         }
         if(newMajorRealm != oldMajorRealm) {
-            for(int i =oldMinorRealm+1;i<=getMaxMinorRealm(oldMajorRealm);i++){
-                //apply elemental bonus for old minor realm
-                applyElementalBonus(entityData,oldMajorRealm);
-            }
-            for (int i = oldMajorRealm+1; i <= newMajorRealm; i++) {
-
-                int minorRealmsForRealm = getMaxMinorRealm(i);
-                for(int j = 0;j<=minorRealmsForRealm;j++){
-                    applyElementalBonus(entityData,i);
+            if(newMajorRealm > oldMajorRealm){
+                for(int i = oldMinorRealm+1; i <= getMaxMinorRealm(oldMajorRealm); i++){
+                    applyElementalBonus(entityData, oldMajorRealm);
+                }
+                for(int i = oldMajorRealm+1; i < newMajorRealm; i++){
+                    int minorRealmsForRealm = getMaxMinorRealm(i);
+                    for(int j = 0; j <= minorRealmsForRealm; j++){
+                        applyElementalBonus(entityData, i);
+                    }
+                }
+                for(int i = 0; i <= newMinorRealm; i++){
+                    applyElementalBonus(entityData, newMajorRealm);
+                }
+            }else{
+                for(int i = oldMinorRealm; i >= 0; i--){
+                    removeElementalBonus(entityData, oldMajorRealm);
+                }
+                for(int i = oldMajorRealm-1; i > newMajorRealm; i--){
+                    int minorRealmsForRealm = getMaxMinorRealm(i);
+                    for(int j = minorRealmsForRealm; j >= 0; j--){
+                        removeElementalBonus(entityData, i);
+                    }
+                }
+                int minorRealms = getMaxMinorRealm(newMajorRealm);
+                for(int i = minorRealms; i > newMinorRealm; i--){
+                    removeElementalBonus(entityData, newMajorRealm);
                 }
             }
-
-            for(int i =0;i<=newMinorRealm;i++){
-                applyElementalBonus(entityData,newMajorRealm);
+        }else if(newMinorRealm > oldMinorRealm){
+            for(int i = oldMinorRealm+1; i <= newMinorRealm; i++){
+                applyElementalBonus(entityData, newMajorRealm);
             }
-        }else{
-            for(int i = oldMinorRealm+1;i<=newMinorRealm;i++){
-                //apply element
-                applyElementalBonus(entityData,newMajorRealm);
+        }else if(newMinorRealm < oldMinorRealm){
+            for(int i = oldMinorRealm; i > newMinorRealm; i--){
+                removeElementalBonus(entityData, newMajorRealm);
             }
         }
-        //TODO handle minor realms decreasing
+        if(entityData.isLoading()) return;
         if(entityData.getAttachedEntity().level().isClientSide()) return;
         if(!(entityData.getAttachedEntity() instanceof  ServerPlayer serverPlayer)) return;
         if(serverPlayer.connection == null) return;

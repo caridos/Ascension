@@ -7,21 +7,21 @@ import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
-import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
 import net.thejadeproject.ascension.refactor_packages.techniques.ModTechniques;
-import net.thejadeproject.ascension.refactor_packages.techniques.custom.BodyElementTechnique;
-import net.thejadeproject.ascension.refactor_packages.techniques.custom.technique_data.BodyTechniqueData;
-import net.thejadeproject.ascension.refactor_packages.techniques.custom.CombinedBodyElementTechnique;
 
 import java.util.*;
 
 public class TechniqueMergeHandler {
 
-    // Maps a set of technique IDs → the merged result technique ID.
+    // Maps {currentTechnique, candidateTechnique} → merged result.
+    // Only sequential generative-cycle pairs are valid; history is NOT used.
     private static final Map<Set<ResourceLocation>, ResourceLocation> MERGE_TABLE = new HashMap<>();
 
+    // Maps result technique ID → element count, used for realm gating.
+    private static final Map<ResourceLocation, Integer> RESULT_ELEMENT_COUNT = new HashMap<>();
+
     static {
-        // 2-element merges (generative cycle pairs)
+        // 2-element merges (adjacent generative-cycle singles)
         MERGE_TABLE.put(Set.of(
             ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
             ModTechniques.HEART_FIRE_TECHNIQUE.getId()
@@ -47,38 +47,7 @@ public class TechniqueMergeHandler {
             ModTechniques.LIVER_WOOD_TECHNIQUE.getId()
         ), ModTechniques.WATER_WOOD_BODY_TECHNIQUE.getId());
 
-        // 3-element merges: 3 singles (all at once)
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId(),
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId()
-        ), ModTechniques.WOOD_FIRE_EARTH_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId(),
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId(),
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId()
-        ), ModTechniques.FIRE_EARTH_METAL_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId(),
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId(),
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId()
-        ), ModTechniques.EARTH_METAL_WATER_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId(),
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId(),
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId()
-        ), ModTechniques.METAL_WATER_WOOD_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId(),
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId()
-        ), ModTechniques.WATER_WOOD_FIRE_BODY_TECHNIQUE.getId());
-
-        // 3-element merges: 2-element combined + 1 new adjacent single
+        // 3-element merges: 2-element combined + next adjacent single
         MERGE_TABLE.put(Set.of(
             ModTechniques.WOOD_FIRE_BODY_TECHNIQUE.getId(),
             ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId()
@@ -104,43 +73,7 @@ public class TechniqueMergeHandler {
             ModTechniques.HEART_FIRE_TECHNIQUE.getId()
         ), ModTechniques.WATER_WOOD_FIRE_BODY_TECHNIQUE.getId());
 
-        // 4-element merges: 4 singles (all at once)
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId(),
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId(),
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId()
-        ), ModTechniques.WOOD_FIRE_EARTH_METAL_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId(),
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId(),
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId(),
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId()
-        ), ModTechniques.FIRE_EARTH_METAL_WATER_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId(),
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId(),
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId(),
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId()
-        ), ModTechniques.EARTH_METAL_WATER_WOOD_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId(),
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId(),
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId()
-        ), ModTechniques.METAL_WATER_WOOD_FIRE_BODY_TECHNIQUE.getId());
-
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId(),
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId(),
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId()
-        ), ModTechniques.WATER_WOOD_FIRE_EARTH_BODY_TECHNIQUE.getId());
-
-        // 4-element merges: 3-element combined + 1 new adjacent single
+        // 4-element merges: 3-element combined + next adjacent single
         MERGE_TABLE.put(Set.of(
             ModTechniques.WOOD_FIRE_EARTH_BODY_TECHNIQUE.getId(),
             ModTechniques.LUNG_METAL_TECHNIQUE.getId()
@@ -166,7 +99,7 @@ public class TechniqueMergeHandler {
             ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId()
         ), ModTechniques.WATER_WOOD_FIRE_EARTH_BODY_TECHNIQUE.getId());
 
-        // 5-element merges: 4-element combined + 1 new adjacent single
+        // 5-element merges: 4-element combined + next adjacent single
         MERGE_TABLE.put(Set.of(
             ModTechniques.WOOD_FIRE_EARTH_METAL_BODY_TECHNIQUE.getId(),
             ModTechniques.KIDNEY_WATER_TECHNIQUE.getId()
@@ -192,87 +125,81 @@ public class TechniqueMergeHandler {
             ModTechniques.LUNG_METAL_TECHNIQUE.getId()
         ), ModTechniques.FIVE_ELEMENT_BODY_TECHNIQUE.getId());
 
-        // 5-element merge: all 5 singles at once
-        MERGE_TABLE.put(Set.of(
-            ModTechniques.HEART_FIRE_TECHNIQUE.getId(),
-            ModTechniques.KIDNEY_WATER_TECHNIQUE.getId(),
-            ModTechniques.LIVER_WOOD_TECHNIQUE.getId(),
-            ModTechniques.SPLEEN_EARTH_TECHNIQUE.getId(),
-            ModTechniques.LUNG_METAL_TECHNIQUE.getId()
-        ), ModTechniques.FIVE_ELEMENT_BODY_TECHNIQUE.getId());
+        // Element counts for realm gating
+        RESULT_ELEMENT_COUNT.put(ModTechniques.WOOD_FIRE_BODY_TECHNIQUE.getId(), 2);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.FIRE_EARTH_BODY_TECHNIQUE.getId(), 2);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.EARTH_METAL_BODY_TECHNIQUE.getId(), 2);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.METAL_WATER_BODY_TECHNIQUE.getId(), 2);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.WATER_WOOD_BODY_TECHNIQUE.getId(), 2);
+
+        RESULT_ELEMENT_COUNT.put(ModTechniques.WOOD_FIRE_EARTH_BODY_TECHNIQUE.getId(), 3);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.FIRE_EARTH_METAL_BODY_TECHNIQUE.getId(), 3);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.EARTH_METAL_WATER_BODY_TECHNIQUE.getId(), 3);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.METAL_WATER_WOOD_BODY_TECHNIQUE.getId(), 3);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.WATER_WOOD_FIRE_BODY_TECHNIQUE.getId(), 3);
+
+        RESULT_ELEMENT_COUNT.put(ModTechniques.WOOD_FIRE_EARTH_METAL_BODY_TECHNIQUE.getId(), 4);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.FIRE_EARTH_METAL_WATER_BODY_TECHNIQUE.getId(), 4);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.EARTH_METAL_WATER_WOOD_BODY_TECHNIQUE.getId(), 4);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.METAL_WATER_WOOD_FIRE_BODY_TECHNIQUE.getId(), 4);
+        RESULT_ELEMENT_COUNT.put(ModTechniques.WATER_WOOD_FIRE_EARTH_BODY_TECHNIQUE.getId(), 4);
+
+        RESULT_ELEMENT_COUNT.put(ModTechniques.FIVE_ELEMENT_BODY_TECHNIQUE.getId(), 5);
     }
 
-    private static double baseSuccessChance(int techniqueCount) {
-        return switch (techniqueCount) {
-            case 2 -> 0.90;
-            case 3 -> 0.70;
-            case 4 -> 0.50;
-            case 5 -> 0.20;
-            default -> 0.0;
+    /**
+     * Given a candidate technique the player is about to use, returns the merged technique ID
+     * if the player's current technique forms a valid generative-cycle pair with it AND the
+     * player meets the realm requirement. Returns null otherwise.
+     */
+    public static ResourceLocation findMergeResult(IEntityData entityData, ResourceLocation candidateId) {
+        ResourceLocation result = findMatchingResult(entityData, candidateId);
+        if (result == null) return null;
+        if (!meetsRealmRequirement(entityData, candidateId, result)) return null;
+        return result;
+    }
+
+    /**
+     * Returns the element count of the merge result if a combo exists but realm blocks it,
+     * or -1 if no combo exists at all. Used for error messaging.
+     */
+    public static int findBlockedComboSize(IEntityData entityData, ResourceLocation candidateId) {
+        ResourceLocation result = findMatchingResult(entityData, candidateId);
+        if (result == null) return -1;
+        if (meetsRealmRequirement(entityData, candidateId, result)) return -1;
+        return RESULT_ELEMENT_COUNT.getOrDefault(result, -1);
+    }
+
+    private static ResourceLocation findMatchingResult(IEntityData entityData, ResourceLocation candidateId) {
+        ResourceLocation currentTechnique = getCurrentTechnique(entityData);
+        if (currentTechnique == null) return null;
+        return MERGE_TABLE.get(Set.of(currentTechnique, candidateId));
+    }
+
+    private static boolean meetsRealmRequirement(IEntityData entityData, ResourceLocation candidateId, ResourceLocation resultId) {
+        var technique = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(candidateId);
+        if (technique == null) return false;
+        PathData pathData = entityData.getPathData(technique.getPath());
+        int majorRealm = pathData != null ? pathData.getMajorRealm() : 0;
+        int minorRealm = pathData != null ? pathData.getMinorRealm() : 0;
+        int elementCount = RESULT_ELEMENT_COUNT.getOrDefault(resultId, 0);
+        return switch (elementCount) {
+            case 2 -> majorRealm >= 2;
+            case 3 -> majorRealm >= 3;
+            case 4 -> majorRealm >= 4;
+            case 5 -> majorRealm >= 4 && minorRealm >= 9;
+            default -> false;
         };
     }
 
-    /**
-     * Returns all sets of body techniques the player is currently eligible to merge.
-     */
-    public static List<Set<ResourceLocation>> findEligibleMerges(IEntityData entityData) {
-        PathData bodyPath = entityData.getPathData(ModPaths.BODY.getId());
-        if (bodyPath == null) return List.of();
-
-        long worldTime = entityData.getAttachedEntity().level().getGameTime();
-
-        Set<ResourceLocation> candidates = new LinkedHashSet<>();
-        candidates.addAll(bodyPath.getTechniqueHistory());
-        if (bodyPath.getLastUsedTechnique() != null) candidates.add(bodyPath.getLastUsedTechnique());
-
-        List<ResourceLocation> eligible = new ArrayList<>();
-        for (ResourceLocation techId : candidates) {
-            var tech = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(techId);
-            if (!(tech instanceof BodyElementTechnique) && !(tech instanceof CombinedBodyElementTechnique)) continue;
-            ITechniqueData data = bodyPath.getTechniqueData(techId);
-            if (!(data instanceof BodyTechniqueData bodyData)) continue;
-            if (bodyData.getTotalCultivationTicks() < BodyTechniqueData.PROFICIENCY_THRESHOLD) continue;
-            if (bodyData.isMergeCoolingDown(worldTime)) continue;
-            eligible.add(techId);
-        }
-
-        List<Set<ResourceLocation>> results = new ArrayList<>();
-        for (Set<ResourceLocation> combo : MERGE_TABLE.keySet()) {
-            if (eligible.containsAll(combo)) results.add(combo);
-        }
-        return results;
+    private static ResourceLocation getCurrentTechnique(IEntityData entityData) {
+        PathData pathData = entityData.getPathData(ModPaths.BODY.getId());
+        if (pathData == null) return null;
+        return pathData.getLastUsedTechnique();
     }
 
-    /**
-     * Attempts the merge. On success assigns the merged technique.
-     * On failure damages the player to 1 HP and records the cooldown on all involved techniques.
-     *
-     * @param player        the player attempting the merge
-     * @param techniqueIds  the exact set of technique IDs to merge (must be a MERGE_TABLE key)
-     * @param itemBonus     additional success chance from held items (0.0–1.0), unused until items are added
-     */
-    public static void attemptMerge(ServerPlayer player, Set<ResourceLocation> techniqueIds, double itemBonus) {
-        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
-        ResourceLocation mergedTechniqueId = MERGE_TABLE.get(techniqueIds);
-        if (mergedTechniqueId == null) return;
-
-        double successChance = Math.min(1.0, baseSuccessChance(techniqueIds.size()) + itemBonus);
-        boolean success = Math.random() < successChance;
-
-        if (success) {
-            entityData.setTechnique(mergedTechniqueId);
-        } else {
-            player.setHealth(1.0f);
-
-            long worldTime = player.level().getGameTime();
-            PathData bodyPath = entityData.getPathData(ModPaths.BODY.getId());
-            for (ResourceLocation techId : techniqueIds) {
-                ITechniqueData data = bodyPath.getTechniqueData(techId);
-                if (data instanceof BodyTechniqueData bodyData) {
-                    bodyData.recordFailedMerge(worldTime);
-                }
-            }
-        }
+    public static void applyMerge(ServerPlayer player, ResourceLocation mergedTechniqueId) {
+        player.getData(ModAttachments.ENTITY_DATA).setTechnique(mergedTechniqueId);
     }
 
     public static ResourceLocation getMergeResult(Set<ResourceLocation> techniqueIds) {

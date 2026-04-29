@@ -83,12 +83,12 @@ public class BasicStatChangeHandler{
         }
     }
     public void removeMinorRealmChanges(IEntityData entityData,int majorRealm,int minorRealm){
-        for(ResourceLocation stat : majorRealmStatModifierMap.keySet()){
+        for(ResourceLocation stat : minorRealmStatModifierMap.keySet()){
             ResourceLocation identifier = create("minor",majorRealm,minorRealm);
             Stat statInstance = AscensionRegistries.Stats.STATS_REGISTRY.get(stat);
             entityData.getActiveFormData().getStatSheet().removeStatModifier(statInstance,identifier);
         }
-        for(Holder<Attribute> attributeHolder : majorRealmAttributeModifierMap.keySet()){
+        for(Holder<Attribute> attributeHolder : minorRealmAttributeModifierMap.keySet()){
             ResourceLocation identifier = create("minor",majorRealm,minorRealm);
             entityData.getAscensionAttributeHolder().getAttribute(attributeHolder).removeModifier(identifier);
         }
@@ -124,33 +124,28 @@ public class BasicStatChangeHandler{
             }
 
         }else{
-
-            int majorRealmsChanged = newMajorRealm-oldMajorRealm;
-            for(int i =oldMajorRealm;i>newMajorRealm;i--){
-                removeMajorRealmChanges(entityData,i);
+            for(int i = oldMajorRealm; i > newMajorRealm; i--){
+                removeMajorRealmChanges(entityData, i);
             }
             if(newMajorRealm != oldMajorRealm){
-                for(int i = oldMinorRealm;i>=0;i--){
-                    removeMinorRealmChanges(entityData,oldMajorRealm,i);
+                for(int i = oldMinorRealm; i >= 0; i--){
+                    removeMinorRealmChanges(entityData, oldMajorRealm, i);
                 }
-
-                for (int i = 1; i < majorRealmsChanged; i++) {
-                    int majorRealm = oldMajorRealm+i;
-                    int minorRealmsForRealm = technique.getMaxMinorRealm(majorRealm);
-                    for(int j = 0;j<=minorRealmsForRealm;j++){
-                        removeMinorRealmChanges(entityData,majorRealm,j);
+                for(int i = oldMajorRealm - 1; i > newMajorRealm; i--){
+                    int minorRealmsForRealm = technique.getMaxMinorRealm(i);
+                    for(int j = minorRealmsForRealm; j >= 0; j--){
+                        removeMinorRealmChanges(entityData, i, j);
                     }
                 }
-                int minorRealms = technique.getMaxMinorRealm(newMinorRealm);
-                for(int i =minorRealms;i>newMinorRealm;i--){
-                    applyAllMinorRealmChanges(entityData,newMajorRealm,i);
+                int minorRealms = technique.getMaxMinorRealm(newMajorRealm);
+                for(int i = minorRealms; i > newMinorRealm; i--){
+                    removeMinorRealmChanges(entityData, newMajorRealm, i);
                 }
-            }else {
-                for(int i = oldMinorRealm;i>newMinorRealm;i--){
-                    removeMinorRealmChanges(entityData,newMajorRealm,i);
+            }else{
+                for(int i = oldMinorRealm; i > newMinorRealm; i--){
+                    removeMinorRealmChanges(entityData, newMajorRealm, i);
                 }
             }
-
         }
         entityData.getAscensionAttributeHolder().updateAttributes(entityData);
     }

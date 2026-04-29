@@ -16,6 +16,7 @@ import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.toast.ShowAscensionToast;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
+import net.thejadeproject.ascension.refactor_packages.techniques.merge.TechniqueMergeHandler;
 
 public class TechniqueTransferItem extends Item {
 
@@ -26,59 +27,61 @@ public class TechniqueTransferItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        if (level.isClientSide()) return InteractionResultHolder.pass(stack);
 
-        System.out.println("trying to learn technique");
+        String techniqueId = stack.get(ModDataComponents.TECHNIQUE_ID.get());
+        if (techniqueId == null) return InteractionResultHolder.fail(stack);
 
-        if (!level.isClientSide() && player.isShiftKeyDown()) {
-            String techniqueId = stack.get(ModDataComponents.TECHNIQUE_ID.get());
+        ResourceLocation techResLoc = ResourceLocation.parse(techniqueId);
 
-            if (techniqueId == null) {
-                System.out.println("no held technique");
-                return InteractionResultHolder.fail(stack);
-            }
-
+        if (player.isShiftKeyDown()) {
+            // Shift+right-click: learn the technique directly
             Component techniqueName = getName(stack);
-
             ItemStack toastIcon = stack.copy();
             toastIcon.setCount(1);
 
-            if (player.getData(ModAttachments.ENTITY_DATA).setTechnique(ResourceLocation.parse(techniqueId))) {
-                System.out.println("technique learned");
-
-                if (!player.getAbilities().instabuild) {
-                    stack.shrink(1);
-                }
-
-//                player.sendSystemMessage(
-//                        Component.literal("Successfully Learned:  ")
-//                                .append(techniqueName)
-//                                .append(Component.literal("!"))
-//                );
-
+            if (player.getData(ModAttachments.ENTITY_DATA).setTechnique(techResLoc)) {
+                if (!player.getAbilities().instabuild) stack.shrink(1);
                 if (player instanceof ServerPlayer serverPlayer) {
-                    PacketDistributor.sendToPlayer(
-                            serverPlayer,
-                            new ShowAscensionToast(
-                                    techniqueName.getString(),
-                                    "Technique Learned",
-                                    toastIcon
-                            )
-                    );
+                    PacketDistributor.sendToPlayer(serverPlayer,
+                        new ShowAscensionToast(techniqueName.getString(), "Technique Learned", toastIcon));
                 }
             } else {
-                System.out.println("failed to learn");
-
-                player.sendSystemMessage(
-                        Component.literal("unable to learn ")
-                                .append(techniqueName)
-                                .append(Component.literal("!"))
-                );
+                player.sendSystemMessage(Component.literal("Unable to learn ").append(techniqueName).append("!"));
             }
-
             return InteractionResultHolder.success(stack);
         }
 
-        return InteractionResultHolder.pass(stack);
+        // Right-click: attempt merge with existing technique history
+        ResourceLocation mergeResult = TechniqueMergeHandler.findMergeResult(
+            player.getData(ModAttachments.ENTITY_DATA), techResLoc);
+
+        if (mergeResult == null) {
+            int blockedSize = TechniqueMergeHandler.findBlockedComboSize(
+                player.getData(ModAttachments.ENTITY_DATA), techResLoc);
+            if (blockedSize == 5) {
+                player.sendSystemMessage(Component.literal("Requires realm 4, stage 9 to perform this merge."));
+            } else if (blockedSize > 0) {
+                player.sendSystemMessage(Component.literal("Requires realm " + blockedSize + " to perform this merge."));
+            } else {
+                player.sendSystemMessage(Component.literal("No compatible techniques to merge with."));
+            }
+            return InteractionResultHolder.fail(stack);
+        }
+
+        if (!(player instanceof ServerPlayer serverPlayer)) return InteractionResultHolder.pass(stack);
+
+        TechniqueMergeHandler.applyMerge(serverPlayer, mergeResult);
+
+        ITechnique merged = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(mergeResult);
+        Component mergedName = merged != null ? merged.getDisplayTitle() : Component.literal("Unknown");
+
+        if (!player.getAbilities().instabuild) stack.shrink(1);
+
+        PacketDistributor.sendToPlayer(serverPlayer,
+            new ShowAscensionToast(mergedName.getString(), "Techniques Merged", stack));
+
+        return InteractionResultHolder.success(stack);
     }
 
     @Override

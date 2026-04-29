@@ -1,19 +1,21 @@
 package net.thejadeproject.ascension.events;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.events.PhysiqueChangeEvent;
+import net.thejadeproject.ascension.refactor_packages.forms.IEntityFormData;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.physique.SyncPhysique;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathBonusHandler;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysique;
 import net.thejadeproject.ascension.refactor_packages.physiques.custom.ElementalBodyPhysique;
 import net.thejadeproject.ascension.refactor_packages.physiques.custom.ElementalPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
-
-import java.util.Set;
 
 @EventBusSubscriber(modid = AscensionCraft.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class ElementalPhysiqueHandler {
@@ -44,11 +46,8 @@ public class ElementalPhysiqueHandler {
         IPhysique incoming = AscensionRegistries.Physiques.PHSIQUES_REGISTRY.get(event.getNewPhysique());
         if (!(incoming instanceof ElementalBodyPhysique newElemental)) return;
 
-        ResourceLocation newElement = newElemental.getElement();
+        if (!canMerge(oldData, newElemental.getElement())) return;
 
-        if (!canMerge(oldData, newElement)) return;
-
-        // Cancel the physique swap — we upgrade in place instead
         event.setCanceled(true);
 
         IEntityData entityData = event.entityData;
@@ -61,14 +60,25 @@ public class ElementalPhysiqueHandler {
             bonuses.removePathBonus(el, oldTier);
         }
 
-        // Flag the new element
-        oldData.setFlag(newElement, true);
+        // Add the new element to the existing data in-place
+        oldData.setFlag(newElemental.getElement(), true);
 
-        // Apply new tier bonuses
+        // Apply upgraded tier bonuses
         double newTier = oldData.getActiveCount();
         bonuses.addPathBonus(ModPaths.BODY.getId(), newTier);
         for (ResourceLocation el : oldData.getActiveElements()) {
             bonuses.addPathBonus(el, newTier);
+        }
+
+        // Sync updated physique data to the client
+        if (!(entityData.getAttachedEntity() instanceof ServerPlayer serverPlayer)) return;
+        if (serverPlayer.connection == null) return;
+
+        for (IEntityFormData formData : entityData.getFormData()) {
+            if (formData.getPhysiqueKey() == null) continue;
+            PacketDistributor.sendToPlayer(serverPlayer,
+                    new SyncPhysique(formData.getEntityFormId(), formData.getPhysiqueKey(), oldData));
+            break;
         }
     }
 }

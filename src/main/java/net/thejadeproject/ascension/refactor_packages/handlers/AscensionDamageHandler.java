@@ -109,11 +109,9 @@ public class AscensionDamageHandler {
         if(event.getSource().getEntity() != null && event.getSource().getEntity().hasData(ModAttachments.ENTITY_DATA)){
             IEntityData entityData = event.getSource().getEntity().getData(ModAttachments.ENTITY_DATA);
             for(ResourceLocation path : finalDamageSource.getPathAttributes()){
-                System.out.println();
                 event.setNewDamage((float) (event.getNewDamage()*entityData.getPathBonusHandler().getPathBonus(path)));
             }
         }
-        System.out.println("final damage "+event.getNewDamage());
 
 
     }

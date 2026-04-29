@@ -30,30 +30,22 @@ public class CreativeTabHandler {
                 }))
                 .build()
         );
-        // Register a creative tab for physique transfer items
         CREATIVE_TABS.register("physique_transfers", () -> CreativeModeTab.builder()
                 .title(Component.literal("Ascension - Physique Essences"))
                 .icon(() -> {
-                    // Create a default item stack for the tab icon
                     ItemStack stack = new ItemStack(ModItems.PHYSIQUE_ESSENCE.get());
-                    // Set it to the first physique found (or empty vessel as fallback)
                     String firstPhysiqueId = "ascension:empty_vessel";
-
-                    // Try to find a more interesting physique for the icon
                     for (var entry : AscensionRegistries.Physiques.PHSIQUES_REGISTRY.entrySet()) {
                         if (!entry.getKey().toString().equals("ascension:empty_vessel")) {
                             firstPhysiqueId = entry.getKey().toString();
                             break;
                         }
                     }
-
                     stack.set(ModDataComponents.PHYSIQUE_ID.get(), firstPhysiqueId);
-                    stack.set(ModDataComponents.PURITY.get(), 100); // Full purity for the icon
+                    stack.set(ModDataComponents.PURITY.get(), 100);
                     return stack;
                 })
-                .displayItems((parameters, output) -> {
-                    generatePhysiqueTransferItems(output);
-                })
+                .displayItems((parameters, output) -> generatePhysiqueTransferItems(output))
                 .build());
 
     }
@@ -65,25 +57,12 @@ public class CreativeTabHandler {
     }
 
     private static void generatePhysiqueTransferItems(CreativeModeTab.Output output) {
-
-
         AscensionRegistries.Physiques.PHSIQUES_REGISTRY.keySet().forEach(resourceLocation -> {
-            String id = resourceLocation.toString();
-
             ItemStack stack = new ItemStack(ModItems.PHYSIQUE_ESSENCE.get());
-            stack.set(ModDataComponents.PHYSIQUE_ID.get(), id);
-            stack.set(ModDataComponents.PURITY.get(), 1); // Start with 1% purity
+            stack.set(ModDataComponents.PHYSIQUE_ID.get(), resourceLocation.toString());
+            stack.set(ModDataComponents.PURITY.get(), 100);
             output.accept(stack);
-
-            // Also add a 100% purity version for testing
-            ItemStack fullStack = new ItemStack(ModItems.PHYSIQUE_ESSENCE.get());
-            fullStack.set(ModDataComponents.PHYSIQUE_ID.get(), id);
-            fullStack.set(ModDataComponents.PURITY.get(), 100);
-            output.accept(fullStack);
-
         });
-
-
     }
 
 

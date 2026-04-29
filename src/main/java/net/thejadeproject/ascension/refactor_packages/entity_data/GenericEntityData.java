@@ -68,6 +68,10 @@ public class GenericEntityData implements IEntityData {
     private HashMap<ResourceLocation, IPersistentSkillData> cachedSkillData = new HashMap<>();
 
     private double currentHealth = 0;
+    private boolean loading = false;
+
+    @Override
+    public boolean isLoading() { return loading; }
     //========================== SAVE DATA HANDLING ==========================
     public GenericEntityData(Entity attachedEntity){
         this.attachedEntity = attachedEntity;
@@ -145,6 +149,7 @@ public class GenericEntityData implements IEntityData {
         }
 
         //TODO add cultivation
+        loading = true;
         for(int i = 0;i<pathDataTags.size();i++){
             CompoundTag pathDataTag = pathDataTags.getCompound(i);
             ResourceLocation pathId = ResourceLocation.parse(pathDataTag.getString("path"));
@@ -154,6 +159,7 @@ public class GenericEntityData implements IEntityData {
 
             //TODO add a cache for when the form does not yet exist
         }
+        loading = false;
         getSkillCastHandler().read(tag.getCompound("skill_cast_handler"));
         getAscensionAttributeHolder().updateAttributes(this);
         getQiContainer().fullFillQi();
@@ -427,7 +433,10 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public IPhysique getPhysique() {
-        return heldFormData.get(physiqueForm).getPhysique();
+        if (physiqueForm == null) return null;
+        IEntityFormData formData = heldFormData.get(physiqueForm);
+        if (formData == null) return null;
+        return formData.getPhysique();
     }
 
     @Override

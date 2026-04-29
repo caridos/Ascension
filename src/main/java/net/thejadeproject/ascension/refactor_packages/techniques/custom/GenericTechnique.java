@@ -108,6 +108,7 @@ public class GenericTechnique implements ITechnique {
         entityData.getActiveFormData().getStatSheet().log();
         entityData.getAscensionAttributeHolder().log();
 
+        if(entityData.isLoading()) return;
         if(entityData.getAttachedEntity().level().isClientSide()) return;
         if(!(entityData.getAttachedEntity() instanceof  ServerPlayer serverPlayer)) return;
         if(serverPlayer.connection == null) return;

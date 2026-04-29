@@ -3,12 +3,9 @@ package net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
-import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.techniques.ShowMergePromptPayload;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
@@ -21,14 +18,10 @@ import net.thejadeproject.ascension.refactor_packages.techniques.custom.BodyElem
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.CombinedBodyElementTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.FiveElementBodyTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.technique_data.BodyTechniqueData;
-import net.thejadeproject.ascension.refactor_packages.techniques.merge.TechniqueMergeHandler;
 
-import java.util.List;
 import java.util.Set;
 
 public class BodyCultivationSkill extends GenericCultivationSkill {
-    private static final int MERGE_PROMPT_TICKS = 1200;
-
     public BodyCultivationSkill() {
         super(5.0, ModPaths.BODY.getId());
     }
@@ -90,7 +83,7 @@ public class BodyCultivationSkill extends GenericCultivationSkill {
     public boolean continueCasting(int ticksElapsed, Entity caster, ICastData castData) {
         boolean result = super.continueCasting(ticksElapsed, caster, castData);
 
-        if (!caster.level().isClientSide() && castData instanceof BodyCultivationCastData bodyData) {
+        if (!caster.level().isClientSide() && castData instanceof BodyCultivationCastData) {
             IEntityData entityData = caster.getData(ModAttachments.ENTITY_DATA);
             PathData bodyPathData = entityData.getPathData(ModPaths.BODY.getId());
 
@@ -99,18 +92,6 @@ public class BodyCultivationSkill extends GenericCultivationSkill {
                 if (techniqueData instanceof BodyTechniqueData bodyTechData) {
                     bodyTechData.incrementCultivationTicks();
                 }
-            }
-
-            List<Set<ResourceLocation>> eligibleMerges = TechniqueMergeHandler.findEligibleMerges(entityData);
-            if (!eligibleMerges.isEmpty()) {
-                bodyData.incrementEligible();
-                if (bodyData.getConsecutiveEligibleTicks() >= MERGE_PROMPT_TICKS
-                        && caster instanceof ServerPlayer serverPlayer) {
-                    bodyData.resetEligible();
-                    PacketDistributor.sendToPlayer(serverPlayer, new ShowMergePromptPayload(eligibleMerges));
-                }
-            } else {
-                bodyData.resetEligible();
             }
         }
 

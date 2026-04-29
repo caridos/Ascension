@@ -42,7 +42,8 @@ public record MergeResponsePayload(Set<ResourceLocation> selectedTechniques) imp
     public static void handlePayload(MergeResponsePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             if (!(context.player() instanceof ServerPlayer serverPlayer)) return;
-            TechniqueMergeHandler.attemptMerge(serverPlayer, payload.selectedTechniques, 0.0);
+            ResourceLocation result = TechniqueMergeHandler.getMergeResult(payload.selectedTechniques);
+            if (result != null) TechniqueMergeHandler.applyMerge(serverPlayer, result);
         });
     }
 }
