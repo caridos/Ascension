@@ -48,7 +48,7 @@ public class EntityQiContainer {
 
     public void tryRegenQi(){
         double regenRate = attachedEntity.getAscensionAttributeHolder().getAttribute(ModAttributes.QI_REGEN_RATE).getValue();
-        currentQi = Math.max(currentQi+regenRate,getMaxQi());
+        currentQi = Math.min(currentQi+regenRate,getMaxQi());
     }
 
     public boolean tryConsumeQi(double amount){
