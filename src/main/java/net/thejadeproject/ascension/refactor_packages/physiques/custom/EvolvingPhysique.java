@@ -8,28 +8,42 @@ import net.thejadeproject.ascension.refactor_packages.physiques.IPhysique;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class EvolvingPhysique extends GenericPhysique {
 
-    private final ResourceLocation evolvesInto;
+    private final Set<ResourceLocation> possibleEvolutions = new HashSet<>();
 
-    public EvolvingPhysique(Component title, ResourceLocation evolvesInto) {
+    public EvolvingPhysique(Component title) {
         super(title);
-        this.evolvesInto = evolvesInto;
     }
 
-    public ResourceLocation getEvolvesInto() {
-        return evolvesInto;
+    public EvolvingPhysique addEvolution(ResourceLocation evolvesInto) {
+        possibleEvolutions.add(evolvesInto);
+        return this;
     }
 
+    public boolean canEvolveInto(ResourceLocation evolvesInto) {
+        return possibleEvolutions.contains(evolvesInto);
+    }
 
-    public boolean tryEvolve(ServerPlayer player, IEntityData entityData) {
+    public Set<ResourceLocation> getPossibleEvolutions() {
+        return possibleEvolutions;
+    }
+
+    public boolean tryEvolveInto(ServerPlayer player, IEntityData entityData, ResourceLocation evolvesInto) {
+        if (player == null) return false;
         if (entityData == null) return false;
+
         if (entityData.getPhysique() != this) return false;
 
         ResourceLocation currentForm = entityData.getPhysiqueForm();
         if (currentForm == null) return false;
 
-        if (!canEvolve(player, entityData)) return false;
+        if (!possibleEvolutions.contains(evolvesInto)) return false;
+
+        if (!meetsEvolutionRequirements(player, entityData, evolvesInto)) return false;
 
         IPhysique newPhysique = AscensionRegistries.Physiques.PHSIQUES_REGISTRY.get(evolvesInto);
         if (newPhysique == null) return false;
@@ -47,7 +61,8 @@ public class EvolvingPhysique extends GenericPhysique {
         return changed;
     }
 
-    protected boolean canEvolve(ServerPlayer player, IEntityData entityData) {
+    // Override in Physique Registration to change evolution conditions
+    protected boolean meetsEvolutionRequirements(ServerPlayer player, IEntityData entityData, ResourceLocation evolvesInto) {
         return true;
     }
 }

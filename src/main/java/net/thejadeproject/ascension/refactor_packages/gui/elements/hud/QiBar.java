@@ -65,7 +65,7 @@ public class QiBar extends RenderableElement {
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         if(getProgress() != 0){
-            System.out.println(getProgress());
+            //System.out.println(getProgress());
             textureData.render(guiGraphics, (int) ((getWidth())*getProgress()),getHeight());
         }
     }

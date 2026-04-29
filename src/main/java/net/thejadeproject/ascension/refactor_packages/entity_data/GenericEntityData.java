@@ -412,12 +412,18 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public IPhysiqueData getPhysiqueData() {
-        return null; //TODO
+
+        if (physiqueForm == null) return null;
+        if (!heldFormData.containsKey(physiqueForm)) return null;
+
+        return heldFormData.get(physiqueForm).getPhysiqueData();
+        //return null; //TODO
     }
 
     @Override
     public ResourceLocation getPhysiqueForm() {
-        return null; //TODO
+        return physiqueForm;
+        //return null; //TODO
     }
 
     @Override
