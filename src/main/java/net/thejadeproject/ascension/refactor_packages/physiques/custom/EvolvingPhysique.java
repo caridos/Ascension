@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.thejadeproject.ascension.clients.toast.AscensionToast;
+import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.toast.ShowAscensionToast;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysique;
@@ -76,7 +77,9 @@ public class EvolvingPhysique extends GenericPhysique {
     }
 
     protected ItemStack getEvolutionToastIcon(ResourceLocation evolvesInto) {
-        return ItemStack.EMPTY;
+        ItemStack stack = new ItemStack(ModItems.PHYSIQUE_ESSENCE.get());
+        stack.setCount(1);
+        return stack;
     }
 
     // Override in Physique Registration to change evolution conditions

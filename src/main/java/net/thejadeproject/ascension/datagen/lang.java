@@ -184,6 +184,7 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.academic_spirit", "Academic Soul");
         add("ascension.physiques.stone_monkey", "Stone Monkey");
         add("ascension.physiques.blood_fiend", "Blood Fiend");
+        add("ascension.physiques.blood_wraith", "Blood Wraith");
         add("ascension.physiques.virtuoso_buddha", "Virtuoso Buddha");
         add("ascension.physiques.pointed_eyes", "Pointed Eyes");
         add("ascension.physiques.bruised_knuckle_body", "Bruised Knuckle Body");
@@ -208,6 +209,10 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.world_dominator", "World Dominator");
         add("ascension.message.physique.world_dominator.acquired", "%s has become the %s. Bear witness to their Ascension!");
 
+
+        // Physique Evolution Messages
+        add("ascension.message.physique_evolution.pacifist_mortal_reset", "Your peaceful mortal streak has been broken.");
+        add("ascension.message.physique_evolution.pacifist_blessed_broken", "The Blessed path has been stained by blood.");
 
 
         //Techniques

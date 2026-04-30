@@ -412,18 +412,15 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public IPhysiqueData getPhysiqueData() {
-
         if (physiqueForm == null) return null;
         if (!heldFormData.containsKey(physiqueForm)) return null;
 
         return heldFormData.get(physiqueForm).getPhysiqueData();
-        //return null; //TODO
     }
 
     @Override
     public ResourceLocation getPhysiqueForm() {
         return physiqueForm;
-        //return null; //TODO
     }
 
     @Override
@@ -433,6 +430,9 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public IPhysique getPhysique() {
+        if (physiqueForm == null) return null;
+        if (!heldFormData.containsKey(physiqueForm)) return null;
+
         return heldFormData.get(physiqueForm).getPhysique();
     }
 
