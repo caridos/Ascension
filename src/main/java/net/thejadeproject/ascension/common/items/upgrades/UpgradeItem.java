@@ -15,7 +15,7 @@ public class UpgradeItem extends Item {
     private final String upgradeType;
 
     public UpgradeItem(String upgradeType, Rarity rarity) {
-        super(new Item.Properties()
+        super(new Properties()
                 .stacksTo(1)
                 .rarity(rarity));
         this.upgradeType = upgradeType;

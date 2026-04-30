@@ -190,11 +190,11 @@ public class PathData {
                     minorRealm =0;
                     technique.onRealmChange(entityData,oldMajorRealm,oldMinorRealm,majorRealm,minorRealm);
                     ITechnique breakthroughTechnique = technique;
-                    if(!getLastUsedTechnique().equals(techniqueHistory.get(majorRealm))){
+                    if(!getLastUsedTechnique().equals(techniqueHistory.get(majorRealm - 1))){
                         removeLastUsedTechnique();
                         technique.onTechniqueRemoved(entityData,techniqueData);
 
-                        setLastUsedTechnique(techniqueHistory.get(majorRealm));
+                        setLastUsedTechnique(techniqueHistory.get(majorRealm - 1));
 
                         breakthroughTechnique = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(getLastUsedTechnique());
                         breakthroughTechnique.onTechniqueAdded(entityData);

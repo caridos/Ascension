@@ -149,6 +149,10 @@ public class GenericCultivationSkill implements ICastableSkill {
         return new CastResult(CastResult.Type.SUCCESS);
     }
 
+    protected double getEffectiveRate(Entity caster) {
+        return baseRate;
+    }
+
     @Override
     public boolean continueCasting(int ticksElapsed, Entity caster, ICastData castData) {
         if(!caster.hasData(ModAttachments.INPUT_STATES)) return false;
@@ -160,7 +164,7 @@ public class GenericCultivationSkill implements ICastableSkill {
 
             //TODO add a cultivate event
             ITechnique technique = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(pathData.getLastUsedTechnique());
-            double amount = baseRate;
+            double amount = getEffectiveRate(caster);
 
 
             if(pathData.getCurrentRealmProgress()+amount >= technique.getMaxQiForRealm(pathData.getMajorRealm(),pathData.getMinorRealm())){

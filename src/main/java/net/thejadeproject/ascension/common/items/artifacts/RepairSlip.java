@@ -16,7 +16,7 @@ public class RepairSlip extends Item {
     private static final int DEFAULT_REPAIR_AMOUNT = 2;
 
     public RepairSlip(Properties properties) {
-        super(new Item.Properties().stacksTo(1));
+        super(new Properties().stacksTo(1));
     }
 
     @Override

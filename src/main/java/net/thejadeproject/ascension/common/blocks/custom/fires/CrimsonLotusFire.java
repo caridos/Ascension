@@ -159,7 +159,7 @@ public class CrimsonLotusFire extends BaseFireBlock {
                 block == Blocks.SOUL_SAND ||
                 block == Blocks.SOUL_SOIL ||
                 CampfireBlock.isLitCampfire(state) ||
-                block instanceof net.minecraft.world.level.block.BaseFireBlock;
+                block instanceof BaseFireBlock;
     }
 
     @Override

@@ -68,6 +68,10 @@ public class GenericEntityData implements IEntityData {
     private HashMap<ResourceLocation, IPersistentSkillData> cachedSkillData = new HashMap<>();
 
     private double currentHealth = 0;
+    private boolean loading = false;
+
+    @Override
+    public boolean isLoading() { return loading; }
     //========================== SAVE DATA HANDLING ==========================
     public GenericEntityData(Entity attachedEntity){
         this.attachedEntity = attachedEntity;
@@ -88,7 +92,7 @@ public class GenericEntityData implements IEntityData {
     }
     //TODO add better error handling so an error does not delete all data
     public GenericEntityData(Entity attachedEntity, CompoundTag tag){
-//        System.out.println("creating player data");
+        System.out.println("creating player data");
         this.attachedEntity = attachedEntity;
         //TODO load cached form data
         ListTag formDataTags = tag.getList("form_data", Tag.TAG_COMPOUND);
@@ -145,6 +149,7 @@ public class GenericEntityData implements IEntityData {
         }
 
         //TODO add cultivation
+        loading = true;
         for(int i = 0;i<pathDataTags.size();i++){
             CompoundTag pathDataTag = pathDataTags.getCompound(i);
             ResourceLocation pathId = ResourceLocation.parse(pathDataTag.getString("path"));
@@ -154,6 +159,7 @@ public class GenericEntityData implements IEntityData {
 
             //TODO add a cache for when the form does not yet exist
         }
+        loading = false;
         getSkillCastHandler().read(tag.getCompound("skill_cast_handler"));
         getAscensionAttributeHolder().updateAttributes(this);
         getQiContainer().fullFillQi();
@@ -412,15 +418,12 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public IPhysiqueData getPhysiqueData() {
-        if (physiqueForm == null) return null;
-        if (!heldFormData.containsKey(physiqueForm)) return null;
-
-        return heldFormData.get(physiqueForm).getPhysiqueData();
+        return null; //TODO
     }
 
     @Override
     public ResourceLocation getPhysiqueForm() {
-        return physiqueForm;
+        return null; //TODO
     }
 
     @Override
@@ -431,9 +434,9 @@ public class GenericEntityData implements IEntityData {
     @Override
     public IPhysique getPhysique() {
         if (physiqueForm == null) return null;
-        if (!heldFormData.containsKey(physiqueForm)) return null;
-
-        return heldFormData.get(physiqueForm).getPhysique();
+        IEntityFormData formData = heldFormData.get(physiqueForm);
+        if (formData == null) return null;
+        return formData.getPhysique();
     }
 
     @Override

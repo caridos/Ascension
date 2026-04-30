@@ -148,7 +148,7 @@ public abstract class ElementalEssenceTechnique extends GenericTechnique {
 
     @Override
     public boolean isCompatibleWith(ResourceLocation technique) {
-        ITechnique otherTechnique = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(technique);
-        return otherTechnique instanceof ElementalEssenceTechnique;
+        ITechnique other = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(technique);
+        return other instanceof ElementalEssenceTechnique;
     }
 }

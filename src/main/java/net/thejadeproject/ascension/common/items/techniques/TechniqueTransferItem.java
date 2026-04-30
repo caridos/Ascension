@@ -18,6 +18,7 @@ import net.thejadeproject.ascension.refactor_packages.network.client_bound.toast
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
 
+
 public class TechniqueTransferItem extends Item {
 
     public TechniqueTransferItem(Properties properties) {

@@ -28,7 +28,6 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.elem
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.flight.TrueFlightSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.weapon.*;
 
-
 public class ModSkills {
     public static final DeferredRegister<ISkill> SKILLS =DeferredRegister.create(AscensionRegistries.Skills.SKILL_REGISTRY, AscensionCraft.MOD_ID);
 
@@ -163,6 +162,9 @@ public class ModSkills {
             throw new IllegalStateException(skillHolder.getId() + " is not an ITickingSkill.");
         }
     }
+
+    public static final DeferredHolder<ISkill,? extends QiRelease> QI_RELEASE = SKILLS.register("qi_release",
+            QiRelease::new);
 
     public static void register(IEventBus modEventBus){
         SKILLS.register(modEventBus);

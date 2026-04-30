@@ -92,10 +92,10 @@ public class StemSlowCropBlock extends CropBlock {
         List<ItemStack> drops = new ArrayList<>(super.getDrops(state, builder));
         if (getAge(state) < getMaxAge()) return drops;
 
-        net.minecraft.server.level.ServerLevel level = null;
+        ServerLevel level = null;
         BlockPos pos = null;
         try {
-            if (builder.getLevel() instanceof net.minecraft.server.level.ServerLevel sl) level = sl;
+            if (builder.getLevel() instanceof ServerLevel sl) level = sl;
             var origin = builder.getOptionalParameter(
                     net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN);
             if (origin != null) pos = BlockPos.containing(origin);

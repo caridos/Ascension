@@ -19,7 +19,7 @@ public class CustomHerbs extends FlowerBlock {
     private final Set<Block> blocksToSurviveOn;
 
     public CustomHerbs(Supplier<Set<Block>> blocksToSurviveOn) {
-        super(MobEffects.MOVEMENT_SPEED, 100, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).sound(SoundType.GRASS).instabreak().noCollission().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY));
+        super(MobEffects.MOVEMENT_SPEED, 100, Properties.of().mapColor(MapColor.PLANT).sound(SoundType.GRASS).instabreak().noCollission().offsetType(OffsetType.XZ).pushReaction(PushReaction.DESTROY));
         this.blocksToSurviveOn = blocksToSurviveOn.get();
     }
 

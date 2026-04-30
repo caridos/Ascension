@@ -2,6 +2,7 @@ package net.thejadeproject.ascension.refactor_packages.techniques;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -9,6 +10,9 @@ import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.stats.custom.ModStats;
+import net.thejadeproject.ascension.refactor_packages.techniques.custom.BodyElementTechnique;
+import net.thejadeproject.ascension.refactor_packages.techniques.custom.CombinedBodyElementTechnique;
+import net.thejadeproject.ascension.refactor_packages.techniques.custom.FiveElementBodyTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.FiveElementCultivationTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.GenericTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.ScholarlySoulTechnique;
@@ -21,21 +25,205 @@ import net.thejadeproject.ascension.refactor_packages.util.value_modifiers.Value
 import java.util.Set;
 
 public class ModTechniques {
-    public static final DeferredRegister<ITechnique> TECHNIQUES =DeferredRegister.create(AscensionRegistries.Techniques.TECHNIQUES_REGISTRY, AscensionCraft.MOD_ID);
+    public static final DeferredRegister<ITechnique> TECHNIQUES = DeferredRegister.create(AscensionRegistries.Techniques.TECHNIQUES_REGISTRY, AscensionCraft.MOD_ID);
 
-    public static final ResourceLocation test = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"test");
+    // --- Resource location keys for modifiers ---
+    public static final ResourceLocation test = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "test");
+    public static final ResourceLocation FIRE_BODY_KEY   = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "fire_body_tech");
+    public static final ResourceLocation WATER_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "water_body_tech");
+    public static final ResourceLocation WOOD_BODY_KEY   = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "wood_body_tech");
+    public static final ResourceLocation EARTH_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "earth_body_tech");
+    public static final ResourceLocation METAL_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "metal_body_tech");
+    public static final ResourceLocation TIER2_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "tier2_body_tech");
+    public static final ResourceLocation TIER3_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "tier3_body_tech");
+    public static final ResourceLocation TIER4_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "tier4_body_tech");
+    public static final ResourceLocation TIER5_BODY_KEY  = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "tier5_body_tech");
+
+    // --- Essence/Sword placeholder handler (unchanged) ---
     public static BasicStatChangeHandler testHandler = new BasicStatChangeHandler()
             .addMinorRealmStatModifier(ModStats.VITALITY.getId(),new ValueContainerModifier(2, ModifierOperation.ADD_BASE, test))
             .addMajorRealmStatModifier(ModStats.VITALITY.getId(),new ValueContainerModifier(0.2,ModifierOperation.MULTIPLY_FINAL,test))
             .addMinorRealmStatModifier(ModStats.AGILITY.getId(),new ValueContainerModifier(5,ModifierOperation.ADD_BASE,test));
 
+
+
+
+
+
+
+
+
+
     // ──── ESSENCE TECHNIQUES ────────────────────────────────────────────
     public static final DeferredHolder<ITechnique, ? extends GenericTechnique> BASIC_CULTIVATION_TECHNIQUE = TECHNIQUES.register("basic_cultivation_technique",()->
             new GenericTechnique(ModPaths.ESSENCE.getId(),Component.translatable("ascension.technique.basic_cultivation_technique"),2.0, Set.of())
+
+    // --- Single-element body technique handlers ---
+    // Fire: Vitality + Strength focus, max health
+    public static BasicStatChangeHandler fireBodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(3, ModifierOperation.ADD_BASE, FIRE_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(2, ModifierOperation.ADD_BASE, FIRE_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(4, ModifierOperation.ADD_BASE, FIRE_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.15, ModifierOperation.MULTIPLY_FINAL, FIRE_BODY_KEY));
+
+    // Water: Vitality focus, max health, no strength
+    public static BasicStatChangeHandler waterBodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(5, ModifierOperation.ADD_BASE, WATER_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(4, ModifierOperation.ADD_BASE, WATER_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.2, ModifierOperation.MULTIPLY_FINAL, WATER_BODY_KEY));
+
+    // Wood: Agility focus, some vitality
+    public static BasicStatChangeHandler woodBodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.AGILITY.getId(), new ValueContainerModifier(4, ModifierOperation.ADD_BASE, WOOD_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(2, ModifierOperation.ADD_BASE, WOOD_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.AGILITY.getId(), new ValueContainerModifier(0.15, ModifierOperation.MULTIPLY_FINAL, WOOD_BODY_KEY));
+
+    // Earth: Vitality + Strength, highest max health
+    public static BasicStatChangeHandler earthBodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(4, ModifierOperation.ADD_BASE, EARTH_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(3, ModifierOperation.ADD_BASE, EARTH_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(4, ModifierOperation.ADD_BASE, EARTH_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.2, ModifierOperation.MULTIPLY_FINAL, EARTH_BODY_KEY));
+
+    // Metal: Strength focus, some vitality
+    public static BasicStatChangeHandler metalBodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(4, ModifierOperation.ADD_BASE, METAL_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(2, ModifierOperation.ADD_BASE, METAL_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(0.15, ModifierOperation.MULTIPLY_FINAL, METAL_BODY_KEY));
+
+    // --- Combined body technique handlers (tier-based) ---
+    // Tier 2 (2-element): noticeably stronger than single
+    public static BasicStatChangeHandler tier2BodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(6, ModifierOperation.ADD_BASE, TIER2_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(4, ModifierOperation.ADD_BASE, TIER2_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(6, ModifierOperation.ADD_BASE, TIER2_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.2, ModifierOperation.MULTIPLY_FINAL, TIER2_BODY_KEY));
+
+    // Tier 3 (3-element)
+    public static BasicStatChangeHandler tier3BodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(10, ModifierOperation.ADD_BASE, TIER3_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(6, ModifierOperation.ADD_BASE, TIER3_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(8, ModifierOperation.ADD_BASE, TIER3_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.25, ModifierOperation.MULTIPLY_FINAL, TIER3_BODY_KEY));
+
+    // Tier 4 (4-element)
+    public static BasicStatChangeHandler tier4BodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(14, ModifierOperation.ADD_BASE, TIER4_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(8, ModifierOperation.ADD_BASE, TIER4_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.AGILITY.getId(), new ValueContainerModifier(5, ModifierOperation.ADD_BASE, TIER4_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(10, ModifierOperation.ADD_BASE, TIER4_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.3, ModifierOperation.MULTIPLY_FINAL, TIER4_BODY_KEY));
+
+    // Tier 5 (5-element / Five Harmony)
+    public static BasicStatChangeHandler tier5BodyHandler = new BasicStatChangeHandler()
+            .addMinorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(20, ModifierOperation.ADD_BASE, TIER5_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(12, ModifierOperation.ADD_BASE, TIER5_BODY_KEY))
+            .addMinorRealmStatModifier(ModStats.AGILITY.getId(), new ValueContainerModifier(8, ModifierOperation.ADD_BASE, TIER5_BODY_KEY))
+            .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH, new ValueContainerModifier(14, ModifierOperation.ADD_BASE, TIER5_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.VITALITY.getId(), new ValueContainerModifier(0.4, ModifierOperation.MULTIPLY_FINAL, TIER5_BODY_KEY))
+            .addMajorRealmStatModifier(ModStats.STRENGTH.getId(), new ValueContainerModifier(0.25, ModifierOperation.MULTIPLY_FINAL, TIER5_BODY_KEY));
+
+    // --- Essence / Sword techniques ---
+    public static final DeferredHolder<ITechnique, ? extends GenericTechnique> BASIC_CULTIVATION_TECHNIQUE = TECHNIQUES.register("basic_cultivation_technique", () ->
+            new GenericTechnique(ModPaths.ESSENCE.getId(), Component.literal("Basic Cultivation Technique"), 2.0, Set.of())
                     .setStatChangeHandler(testHandler));
     public static final DeferredHolder<ITechnique, ? extends GenericTechnique> ADVANCED_CULTIVATION_TECHNIQUE = TECHNIQUES.register("advanced_cultivation_technique",()->
             new GenericTechnique(ModPaths.ESSENCE.getId(),Component.translatable("ascension.technique.advanced_cultivation_technique"),10.0,Set.of())
                     .setStatChangeHandler(testHandler));
+    public static final DeferredHolder<ITechnique, ? extends GenericTechnique> SWORD_COMPREHENSION_TECHNIQUE = TECHNIQUES.register("sword_comprehension_technique",()->
+            new GenericTechnique(ModPaths.SWORD.getId(),Component.translatable("ascension.technique.sword_comprehension_technique"),10.0,Set.of()));
+
+    public static final DeferredHolder<ITechnique, ? extends FiveElementCultivationTechnique> FIVE_ELEMENT_CIRCULATION_METHOD = TECHNIQUES.register("five_element_cultivation_technique", () ->
+            new FiveElementCultivationTechnique(testHandler));
+
+    // --- Single-element body techniques (tier 1, rate 3.0) ---
+    public static final DeferredHolder<ITechnique, ? extends BodyElementTechnique> HEART_FIRE_TECHNIQUE =
+        TECHNIQUES.register("heart_fire_technique", () ->
+            new BodyElementTechnique(ModPaths.FIRE.getId(), Component.literal("Heart Flame Cultivation"), 3.0, fireBodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends BodyElementTechnique> KIDNEY_WATER_TECHNIQUE =
+        TECHNIQUES.register("kidney_water_technique", () ->
+            new BodyElementTechnique(ModPaths.WATER.getId(), Component.literal("Kidney Tide Cultivation"), 3.0, waterBodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends BodyElementTechnique> LIVER_WOOD_TECHNIQUE =
+        TECHNIQUES.register("liver_wood_technique", () ->
+            new BodyElementTechnique(ModPaths.WOOD.getId(), Component.literal("Liver Grove Cultivation"), 3.0, woodBodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends BodyElementTechnique> SPLEEN_EARTH_TECHNIQUE =
+        TECHNIQUES.register("spleen_earth_technique", () ->
+            new BodyElementTechnique(ModPaths.EARTH.getId(), Component.literal("Spleen Mountain Cultivation"), 3.0, earthBodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends BodyElementTechnique> LUNG_METAL_TECHNIQUE =
+        TECHNIQUES.register("lung_metal_technique", () ->
+            new BodyElementTechnique(ModPaths.METAL.getId(), Component.literal("Lung Forge Cultivation"), 3.0, metalBodyHandler));
+
+    // --- 5-element body technique (tier 5, rate 15.0) ---
+    public static final DeferredHolder<ITechnique, ? extends FiveElementBodyTechnique> FIVE_ELEMENT_BODY_TECHNIQUE =
+        TECHNIQUES.register("five_element_body_technique", () ->
+            new FiveElementBodyTechnique(tier5BodyHandler));
+
+    // --- 2-element combined body techniques (tier 2, rate 6.0) ---
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> WOOD_FIRE_BODY_TECHNIQUE =
+        TECHNIQUES.register("wood_fire_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Rising Flame Method"), 6.0, Set.of(ModPaths.WOOD.getId(), ModPaths.FIRE.getId()), tier2BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> FIRE_EARTH_BODY_TECHNIQUE =
+        TECHNIQUES.register("fire_earth_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Smoldering Earth Method"), 6.0, Set.of(ModPaths.FIRE.getId(), ModPaths.EARTH.getId()), tier2BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> EARTH_METAL_BODY_TECHNIQUE =
+        TECHNIQUES.register("earth_metal_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Hidden Vein Method"), 6.0, Set.of(ModPaths.EARTH.getId(), ModPaths.METAL.getId()), tier2BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> METAL_WATER_BODY_TECHNIQUE =
+        TECHNIQUES.register("metal_water_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Jade Spring Method"), 6.0, Set.of(ModPaths.METAL.getId(), ModPaths.WATER.getId()), tier2BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> WATER_WOOD_BODY_TECHNIQUE =
+        TECHNIQUES.register("water_wood_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Evergreen Current Method"), 6.0, Set.of(ModPaths.WATER.getId(), ModPaths.WOOD.getId()), tier2BodyHandler));
+
+    // --- 3-element combined body techniques (tier 3, rate 9.0) ---
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> WOOD_FIRE_EARTH_BODY_TECHNIQUE =
+        TECHNIQUES.register("wood_fire_earth_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Ascending Pyre Method"), 9.0, Set.of(ModPaths.WOOD.getId(), ModPaths.FIRE.getId(), ModPaths.EARTH.getId()), tier3BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> FIRE_EARTH_METAL_BODY_TECHNIQUE =
+        TECHNIQUES.register("fire_earth_metal_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Forge and Harvest Method"), 9.0, Set.of(ModPaths.FIRE.getId(), ModPaths.EARTH.getId(), ModPaths.METAL.getId()), tier3BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> EARTH_METAL_WATER_BODY_TECHNIQUE =
+        TECHNIQUES.register("earth_metal_water_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Deep Vein Spring Method"), 9.0, Set.of(ModPaths.EARTH.getId(), ModPaths.METAL.getId(), ModPaths.WATER.getId()), tier3BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> METAL_WATER_WOOD_BODY_TECHNIQUE =
+        TECHNIQUES.register("metal_water_wood_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Iron Root Current Method"), 9.0, Set.of(ModPaths.METAL.getId(), ModPaths.WATER.getId(), ModPaths.WOOD.getId()), tier3BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> WATER_WOOD_FIRE_BODY_TECHNIQUE =
+        TECHNIQUES.register("water_wood_fire_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Morning Mist Method"), 9.0, Set.of(ModPaths.WATER.getId(), ModPaths.WOOD.getId(), ModPaths.FIRE.getId()), tier3BodyHandler));
+
+    // --- 4-element combined body techniques (tier 4, rate 12.0) ---
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> WOOD_FIRE_EARTH_METAL_BODY_TECHNIQUE =
+        TECHNIQUES.register("wood_fire_earth_metal_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Earthbound Cycle Method"), 12.0, Set.of(ModPaths.WOOD.getId(), ModPaths.FIRE.getId(), ModPaths.EARTH.getId(), ModPaths.METAL.getId()), tier4BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> FIRE_EARTH_METAL_WATER_BODY_TECHNIQUE =
+        TECHNIQUES.register("fire_earth_metal_water_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Sunken Forge Method"), 12.0, Set.of(ModPaths.FIRE.getId(), ModPaths.EARTH.getId(), ModPaths.METAL.getId(), ModPaths.WATER.getId()), tier4BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> EARTH_METAL_WATER_WOOD_BODY_TECHNIQUE =
+        TECHNIQUES.register("earth_metal_water_wood_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Rooted Tide Method"), 12.0, Set.of(ModPaths.EARTH.getId(), ModPaths.METAL.getId(), ModPaths.WATER.getId(), ModPaths.WOOD.getId()), tier4BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> METAL_WATER_WOOD_FIRE_BODY_TECHNIQUE =
+        TECHNIQUES.register("metal_water_wood_fire_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Untempered Blaze Method"), 12.0, Set.of(ModPaths.METAL.getId(), ModPaths.WATER.getId(), ModPaths.WOOD.getId(), ModPaths.FIRE.getId()), tier4BodyHandler));
+
+    public static final DeferredHolder<ITechnique, ? extends CombinedBodyElementTechnique> WATER_WOOD_FIRE_EARTH_BODY_TECHNIQUE =
+        TECHNIQUES.register("water_wood_fire_earth_body_technique", () ->
+            new CombinedBodyElementTechnique(Component.literal("Smoldering Grove Method"), 12.0, Set.of(ModPaths.WATER.getId(), ModPaths.WOOD.getId(), ModPaths.FIRE.getId(), ModPaths.EARTH.getId()), tier4BodyHandler));
 
 
     // ──── ESSENCE-ELEMENTAL HYBRID TECHNIQUES ────────────────────────────────────────────

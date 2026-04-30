@@ -173,6 +173,8 @@ public interface IEntityData {
         return FMLEnvironment.dist.isClient();
     }
 
+    default boolean isLoading() { return false; }
+
 
 
 }

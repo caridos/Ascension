@@ -140,7 +140,7 @@ public class GenericSlowCropBlock extends CropBlock {
         if (getAge(state) < getMaxAge()) return drops;
 
         // Retrieve from cache — null if chunk was unloaded/reloaded (treat as Young)
-        net.minecraft.server.level.ServerLevel level = null;
+        ServerLevel level = null;
         try {
             var contextParam = net.minecraft.world.level.storage.loot.parameters.LootContextParams.BLOCK_STATE;
             // Access level via the origin param
@@ -148,7 +148,7 @@ public class GenericSlowCropBlock extends CropBlock {
                     net.minecraft.world.level.storage.loot.parameters.LootContextParams.ORIGIN);
             if (origin != null) {
                 var levelParam = builder.getLevel();
-                if (levelParam instanceof net.minecraft.server.level.ServerLevel sl) level = sl;
+                if (levelParam instanceof ServerLevel sl) level = sl;
             }
         } catch (Exception ignored) {}
 

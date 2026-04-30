@@ -2,24 +2,29 @@ package net.thejadeproject.ascension.common.command.cultivation;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
+import net.thejadeproject.ascension.refactor_packages.qi.EntityQiContainer;
+import net.thejadeproject.ascension.refactor_packages.physiques.IPhysique;
+import net.thejadeproject.ascension.refactor_packages.physiques.custom.ElementalBodyPhysique;
+import net.thejadeproject.ascension.refactor_packages.physiques.custom.ElementalPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysique;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
+import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class SetCultivationCommand {
 
@@ -28,13 +33,9 @@ public class SetCultivationCommand {
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.literal("set")
                         .then(Commands.argument("target", EntityArgument.players())
-                                .then(Commands.argument("path", StringArgumentType.string())
-                                        .suggests((context, builder) -> {
-                                            List<String> suggestions = new ArrayList<>();
-                                            AscensionRegistries.Paths.PATHS_REGISTRY.keySet()
-                                                    .forEach(loc -> suggestions.add(loc.toString()));
-                                            return SharedSuggestionProvider.suggest(suggestions, builder);
-                                        })
+                                .then(Commands.argument("path", ResourceLocationArgument.id())
+                                        .suggests((context, builder) -> SharedSuggestionProvider.suggestResource(
+                                                AscensionRegistries.Paths.PATHS_REGISTRY.keySet(), builder))
                                         .then(Commands.argument("majorRealm", IntegerArgumentType.integer(0, 11))
                                                 .then(Commands.argument("minorRealm", IntegerArgumentType.integer(0, 9))
                                                         .executes(SetCultivationCommand::setCultivationRealm)
@@ -49,6 +50,9 @@ public class SetCultivationCommand {
                 .then(Commands.literal("get")
                         .then(Commands.argument("target", EntityArgument.player())
                                 .executes(SetCultivationCommand::getCultivationInfo)
+                                .then(Commands.literal("physique")
+                                        .executes(SetCultivationCommand::getPhysiqueInfo)
+                                )
                         )
                 )
         );
@@ -56,7 +60,7 @@ public class SetCultivationCommand {
 
     private static int setCultivationRealm(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         var players = EntityArgument.getPlayers(context, "target");
-        String inputPath = StringArgumentType.getString(context, "path").toLowerCase();
+        ResourceLocation pathId = ResourceLocationArgument.getId(context, "path");
         int majorRealm = IntegerArgumentType.getInteger(context, "majorRealm");
         int minorRealm = IntegerArgumentType.getInteger(context, "minorRealm");
 
@@ -67,11 +71,9 @@ public class SetCultivationCommand {
             // Not provided — fine
         }
 
-        ResourceLocation pathId = normalizePath(inputPath);
-
-        if (pathId == null || !isValidPath(pathId)) {
+        if (!isValidPath(pathId)) {
             context.getSource().sendFailure(
-                    Component.literal("Invalid path '" + inputPath + "'. Use a registered path ID (e.g. ascension:essence).")
+                    Component.literal("Unknown path '" + pathId + "'. Use a registered path ID (e.g. ascension:body).")
             );
             return 0;
         }
@@ -158,25 +160,72 @@ public class SetCultivationCommand {
                     Component.translatable("command.ascension.cultivation.info.no_paths"), false);
         }
 
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== ").append(player.getName().getString()).append(" — Cultivation ===\n");
+
+        EntityQiContainer qi = entityData.getQiContainer();
+        sb.append(String.format("  Qi: %.1f / %.1f (regen: %.2f/s)\n",
+                qi.getCurrentQi(ModPaths.ESSENCE.getId()),
+                qi.getMaxQi(ModPaths.ESSENCE.getId()),
+                entityData.getAscensionAttributeHolder().getAttribute(net.thejadeproject.ascension.util.ModAttributes.QI_REGEN_RATE).getValue()
+        ));
+
+        for (ResourceLocation pathId : AscensionRegistries.Paths.PATHS_REGISTRY.keySet()) {
+            PathData data = entityData.getPathData(pathId);
+            if (data == null) continue;
+
+            String pathName = AscensionRegistries.Paths.PATHS_REGISTRY.get(pathId).getDisplayTitle().getString();
+            String realmStr = data.getMajorRealm() + "." + data.getMinorRealm();
+
+            String techniqueStr = "none";
+            if (data.getLastUsedTechnique() != null) {
+                ITechnique tech = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(data.getLastUsedTechnique());
+                techniqueStr = (tech != null) ? tech.getDisplayTitle().getString() : data.getLastUsedTechnique().toString();
+            }
+
+            sb.append("  ").append(pathName).append(": realm ").append(realmStr)
+              .append(" | technique: ").append(techniqueStr).append("\n");
+        }
+
+        context.getSource().sendSuccess(() -> Component.literal(sb.toString()), false);
         return 1;
     }
 
-    /**
-     * Normalizes path input:
-     *   "essence"           -> ascension:essence
-     *   "ascension:essence" -> ascension:essence
-     *   "mymod:somepath"    -> mymod:somepath
-     * Returns null if the input cannot be parsed as a ResourceLocation.
-     */
-    private static ResourceLocation normalizePath(String input) {
-        try {
-            if (input.contains(":")) {
-                return ResourceLocation.parse(input);
-            }
-            return ResourceLocation.fromNamespaceAndPath("ascension", input);
-        } catch (Exception e) {
-            return null;
+    private static int getPhysiqueInfo(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        ServerPlayer player = EntityArgument.getPlayer(context, "target");
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        IPhysique physique = entityData.getPhysique();
+        if (physique == null) {
+            context.getSource().sendFailure(Component.literal(player.getName().getString() + " has no physique."));
+            return 0;
         }
+
+        ResourceLocation physiqueId = AscensionRegistries.Physiques.PHSIQUES_REGISTRY.getKey(physique);
+        var physiqueData = entityData.getActiveFormData().getPhysiqueData();
+
+        String name;
+        if (physique instanceof ElementalBodyPhysique ebp && physiqueData instanceof ElementalPhysiqueData ep) {
+            name = ebp.getDisplayTitle(ep).getString();
+        } else {
+            name = physique.getDisplayTitle().getString();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== ").append(player.getName().getString()).append(" — Physique ===\n");
+        sb.append("  Name: ").append(name).append("\n");
+        sb.append("  ID:   ").append(physiqueId != null ? physiqueId : "unknown").append("\n");
+
+        if (physiqueData instanceof ElementalPhysiqueData ep) {
+            sb.append("  Elements (").append(ep.getActiveCount()).append("/5): ");
+            sb.append(ep.getActiveElements().stream()
+                    .map(el -> AscensionRegistries.Paths.PATHS_REGISTRY.get(el).getDisplayTitle().getString())
+                    .reduce((a, b) -> a + ", " + b).orElse("none"));
+            sb.append("\n");
+        }
+
+        context.getSource().sendSuccess(() -> Component.literal(sb.toString()), false);
+        return 1;
     }
 
     /** Validates against the live registry so any registered path is accepted. */

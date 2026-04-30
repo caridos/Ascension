@@ -12,6 +12,8 @@ import net.thejadeproject.ascension.refactor_packages.network.client_bound.entit
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncCurrentHealth;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.path_data.SyncPathData;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.physique.SyncPhysique;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.techniques.ShowMergePromptPayload;
+import net.thejadeproject.ascension.refactor_packages.network.server_bound.techniques.MergeResponsePayload;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.skills.casting.SyncCastingInstance;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.skills.casting.SyncSlot;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.stats.SyncStat;
@@ -90,6 +92,12 @@ public class ModPayloads {
                 SyncMobRank::handlePayload
         );
 
+        registrar.playToClient(
+                ShowMergePromptPayload.TYPE,
+                ShowMergePromptPayload.STREAM_CODEC,
+                ShowMergePromptPayload::handlePayload
+        );
+
         //===================================== SERVER ==================================
 
 
@@ -122,11 +130,12 @@ public class ModPayloads {
                 SetActiveSlot.TYPE,
                 SetActiveSlot.STREAM_CODEC,
                 SetActiveSlot::handlePayload
-
         );
 
-
-
-
+        registrar.playToServer(
+                MergeResponsePayload.TYPE,
+                MergeResponsePayload.STREAM_CODEC,
+                MergeResponsePayload::handlePayload
+        );
     }
 }

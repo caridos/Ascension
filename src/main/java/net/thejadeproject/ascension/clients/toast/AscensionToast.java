@@ -16,6 +16,7 @@ public class AscensionToast implements Toast {
     public static final ResourceLocation DEFAULT_BACKGROUND =
             ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "toast/ascension_toast");
 
+
     private static final long DISPLAY_TIME = 5000L;
 
     private static final int WIDTH = 190;

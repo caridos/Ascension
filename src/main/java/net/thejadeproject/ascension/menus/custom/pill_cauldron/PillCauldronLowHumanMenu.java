@@ -134,7 +134,7 @@ public class PillCauldronLowHumanMenu extends AbstractContainerMenu {
      * A slot that cannot be interacted with by the player.
      * Used to show pedestal item mirrors without allowing insertion/removal.
      */
-    private static class LockedSlot extends net.neoforged.neoforge.items.SlotItemHandler {
+    private static class LockedSlot extends SlotItemHandler {
         public LockedSlot(net.neoforged.neoforge.items.IItemHandler handler, int index, int x, int y) {
             super(handler, index, x, y);
         }

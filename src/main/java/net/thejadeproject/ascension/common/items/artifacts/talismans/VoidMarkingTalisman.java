@@ -165,7 +165,7 @@ public class VoidMarkingTalisman extends BaseTeleportTalisman {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
 
         SavedLocationData location = getSavedLocation(stack);

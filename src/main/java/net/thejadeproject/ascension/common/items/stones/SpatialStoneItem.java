@@ -13,7 +13,7 @@ public class SpatialStoneItem extends Item {
     private final String tierName;
 
     public SpatialStoneItem(int rowsAdded, String tierName, Rarity rarity) {
-        super(new Item.Properties()
+        super(new Properties()
                 .stacksTo(1)
                 .rarity(rarity)
                 .component(ModDataComponents.EXTRA_SLOTS,rowsAdded*9));

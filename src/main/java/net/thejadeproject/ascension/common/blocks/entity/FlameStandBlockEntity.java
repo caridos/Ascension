@@ -195,7 +195,7 @@ public class FlameStandBlockEntity extends BlockEntity {
         if (!litFlameItem.isEmpty()) {
             tag.put("litFlameItem", litFlameItem.save(reg));
         } else {
-            tag.put("litFlameItem", new net.minecraft.nbt.CompoundTag());
+            tag.put("litFlameItem", new CompoundTag());
         }
     }
 
@@ -207,7 +207,7 @@ public class FlameStandBlockEntity extends BlockEntity {
         purityBonus = tag.getInt("purityBonus");
         realmBonus  = tag.getInt("realmBonus");
         if (tag.contains("litFlameItem")) {
-            net.minecraft.nbt.CompoundTag itemTag = tag.getCompound("litFlameItem");
+            CompoundTag itemTag = tag.getCompound("litFlameItem");
             litFlameItem = itemTag.isEmpty()
                     ? ItemStack.EMPTY
                     : ItemStack.parse(reg, itemTag).orElse(ItemStack.EMPTY);

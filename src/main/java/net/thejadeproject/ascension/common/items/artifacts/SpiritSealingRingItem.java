@@ -384,7 +384,7 @@ public class SpiritSealingRingItem extends Item {
         entity.load(data.entityData());
 
         // Explicitly ensure AI is enabled (remove NoAI if present)
-        if (entity instanceof net.minecraft.world.entity.Mob mob) {
+        if (entity instanceof Mob mob) {
             // Remove the NoAI tag if it was saved
             if (mob.getPersistentData().contains("NoAI")) {
                 mob.getPersistentData().remove("NoAI");

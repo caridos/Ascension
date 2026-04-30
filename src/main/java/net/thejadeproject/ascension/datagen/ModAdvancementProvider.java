@@ -21,7 +21,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
         super(output, registries, existingFileHelper, List.of(new QiGeneration()));
     }
 
-    public static class QiGeneration implements AdvancementProvider.AdvancementGenerator {
+    public static class QiGeneration implements AdvancementGenerator {
 
         @Override
         public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
