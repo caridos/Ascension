@@ -1,5 +1,6 @@
 package net.thejadeproject.ascension.common.items;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -349,32 +350,42 @@ public class ModItems {
             () -> new DeferredSpawnEggItem(ModEntities.RAT, 0x4F2242, 0x703240,
                     new Item.Properties()));
 
-    //Scholar Chapters
 
+    // ── Scholarly Soul Technique Chapters ──────────────────────────────────────────────
     public static final DeferredItem<ScholarlySoulChapterItem> SCHOLARLY_SOUL_RECTIFICATION_OF_NAMES =
-            ITEMS.register("scholarly_soul_rectification_of_names",
-                    () -> new ScholarlySoulChapterItem(
-                            new Item.Properties(),
-                            ScholarlySoulTechniqueData.RECTIFICATION_OF_NAMES
-                    ));
+            registerScholarlySoulChapter(
+                    "rectification_of_names",
+                    ScholarlySoulTechniqueData.RECTIFICATION_OF_NAMES
+            );
+
     public static final DeferredItem<ScholarlySoulChapterItem> SCHOLARLY_SOUL_GREAT_LEARNING =
-            ITEMS.register("scholarly_soul_great_learning",
-                    () -> new ScholarlySoulChapterItem(
-                            new Item.Properties(),
-                            ScholarlySoulTechniqueData.GREAT_LEARNING
-                    ));
+            registerScholarlySoulChapter(
+                    "great_learning",
+                    ScholarlySoulTechniqueData.GREAT_LEARNING
+            );
+
     public static final DeferredItem<ScholarlySoulChapterItem> SCHOLARLY_SOUL_THOUSAND_COMMENTARIES =
-            ITEMS.register("scholarly_soul_thousand_commentaries",
-                    () -> new ScholarlySoulChapterItem(
-                            new Item.Properties(),
-                            ScholarlySoulTechniqueData.THOUSAND_COMMENTARIES
-                    ));
+            registerScholarlySoulChapter(
+                    "thousand_commentaries",
+                    ScholarlySoulTechniqueData.THOUSAND_COMMENTARIES
+            );
+
     public static final DeferredItem<ScholarlySoulChapterItem> SCHOLARLY_SOUL_SAGE_MANDATE =
-            ITEMS.register("scholarly_soul_sage_mandate",
-                    () -> new ScholarlySoulChapterItem(
-                            new Item.Properties(),
-                            ScholarlySoulTechniqueData.SAGE_MANDATE
-                    ));
+            registerScholarlySoulChapter(
+                    "sage_mandate",
+                    ScholarlySoulTechniqueData.SAGE_MANDATE
+            );
+
+    private static DeferredItem<ScholarlySoulChapterItem> registerScholarlySoulChapter(
+            String name,
+            ResourceLocation chapter
+    ) {
+        return ITEMS.register("scholarly_soul_" + name,
+                () -> new ScholarlySoulChapterItem(
+                        new Item.Properties(),
+                        chapter
+                ));
+    }
 
 
 

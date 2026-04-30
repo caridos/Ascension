@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thejadeproject.ascension.AscensionCraft;
@@ -29,29 +30,19 @@ public class ModPhysiques {
      */
 
 
-
     public static final DeferredHolder<IPhysique,? extends GenericPhysique> MORTAL = PHYSIQUES.register("mortal",()->
             new EvolvingPhysique(Component.translatable("ascension.physiques.mortal"))
                     .addEvolution(ModPhysiques.BLESSED.getId())
                     .addEvolution(ModPhysiques.BLOOD_FIEND.getId())
-                    .addPath(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"body"))
-                    .addPath(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"essence"))
-                    .addPathBonus(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"body"),0.5)
-                    .addPathBonus(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"essence"),0.5)
+                    .addPath(ModPaths.BODY.getId())
+                    .addPath(ModPaths.ESSENCE.getId())
+                    .addPathBonus(ModPaths.BODY.getId(),0.5)
+                    .addPathBonus(ModPaths.ESSENCE.getId(),0.5)
             );
 
     public static final DeferredHolder<IPhysique,? extends GenericPhysique> CRIPPLE = PHYSIQUES.register("cripple",()->
             new EvolvingPhysique(Component.translatable("ascension.physiques.cripple"))
                     .addEvolution(MORTAL.getId())
-    );
-
-    public static final DeferredHolder<IPhysique,? extends GenericPhysique> BLESSED = PHYSIQUES.register("blessed",()->
-            new EvolvingPhysique(Component.translatable("ascension.physiques.blessed"))
-                    .addEvolution(ModPhysiques.VIRTUOSO_BUDDHA.getId())
-                    .addPath(ModPaths.VIRTUOUS.getId())
-                    .addPath(ModPaths.BODY.getId())
-                    .addPathBonus(ModPaths.VIRTUOUS.getId(), 1.5)
-                    .addPathBonus(ModPaths.BODY.getId(), 1.0)
     );
 
 
@@ -202,6 +193,16 @@ public class ModPhysiques {
     );
 
     // Other Physiques
+
+    public static final DeferredHolder<IPhysique,? extends GenericPhysique> BLESSED = PHYSIQUES.register("blessed",()->
+            new EvolvingPhysique(Component.translatable("ascension.physiques.blessed"))
+                    .addEvolution(ModPhysiques.VIRTUOSO_BUDDHA.getId())
+                    .addPath(ModPaths.VIRTUOUS.getId())
+                    .addPath(ModPaths.BODY.getId())
+                    .addPathBonus(ModPaths.VIRTUOUS.getId(), 1.5)
+                    .addPathBonus(ModPaths.BODY.getId(), 1.0)
+    );
+
     public static final DeferredHolder<IPhysique, ? extends GenericPhysique> VIRTUOSO_BUDDHA = PHYSIQUES.register("virtuoso_buddha",()->
             new GenericPhysique(Component.translatable("ascension.physiques.virtuoso_buddha"))
                     .addPath(ModPaths.BODY.getId())
@@ -213,11 +214,20 @@ public class ModPhysiques {
     );
 
     public static final DeferredHolder<IPhysique, ? extends GenericPhysique> BLOOD_FIEND = PHYSIQUES.register("blood_fiend",()->
-            new GenericPhysique(Component.translatable("ascension.physiques.blood_fiend"))
+            new EvolvingPhysique(Component.translatable("ascension.physiques.blood_fiend"))
+                    .addEvolution(ModPhysiques.BLOOD_WRAITH.getId())
+                    .addPath(ModPaths.SOUL.getId())
+                    .addPath(ModPaths.DEMONIC.getId())
+                    .addPathBonus(ModPaths.SOUL.getId(),1.0)
+                    .addPathBonus(ModPaths.DEMONIC.getId(),2.0)
+    );
+
+    public static final DeferredHolder<IPhysique, ? extends GenericPhysique> BLOOD_WRAITH = PHYSIQUES.register("blood_wraith",()->
+            new GenericPhysique(Component.translatable("ascension.physiques.blood_wraith"))
                     .addPath(ModPaths.SOUL.getId())
                     .addPath(ModPaths.DEMONIC.getId())
                     .addPathBonus(ModPaths.SOUL.getId(),2.0)
-                    .addPathBonus(ModPaths.DEMONIC.getId(),3.0)
+                    .addPathBonus(ModPaths.DEMONIC.getId(),4.0)
     );
 
     public static final DeferredHolder<IPhysique, ? extends GenericPhysique> STONE_MONKEY = PHYSIQUES.register("stone_monkey",()->

@@ -17,7 +17,7 @@ import net.thejadeproject.ascension.mob_ranks.MobRankData;
 import org.joml.Matrix4f;
 
 /*
-* TODO: Remove in favour of Spirit Sensing
+* TODO: Remove in favour of Sensing Skill
 * */
 
 @EventBusSubscriber(modid = AscensionCraft.MOD_ID, value = Dist.CLIENT)

@@ -48,17 +48,6 @@ public class WoodEssenceCultivationSkill extends ElementalEssenceCultivationSkil
         return WoodEssenceTechnique.class;
     }
 
-    @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Wood Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through nearby plants, trees, and living growth."
-        );
-    }
 
     @Override
     public ITextureData getIcon() {

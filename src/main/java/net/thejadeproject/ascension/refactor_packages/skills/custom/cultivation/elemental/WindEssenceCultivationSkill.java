@@ -49,18 +49,6 @@ public class WindEssenceCultivationSkill extends ElementalEssenceCultivationSkil
     }
 
     @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Wind Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through open sky and high altitude. It weakens in enclosed spaces and strengthens the higher you stand beneath the wind."
-        );
-    }
-
-    @Override
     public ITextureData getIcon() {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(

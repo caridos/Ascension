@@ -245,11 +245,11 @@ public class FiveElementCirculation implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return null;
+        return Component.translatable("ascension.skill.five_element_circulation");
     }
 
     @Override
     public Component getDescription() {
-        return null;
+        return Component.translatable("ascension.skill.five_element_circulation.description");
     }
 }

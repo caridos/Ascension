@@ -3,7 +3,6 @@ package net.thejadeproject.ascension.common.items.techniques;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -11,7 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.clients.toast.AscensionToast;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 import net.thejadeproject.ascension.common.items.ModItems;
@@ -64,7 +63,7 @@ public class TechniqueTransferItem extends Item {
                                     techniqueName.getString(),
                                     "Technique Learned",
                                     toastIcon,
-                                    ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "textures/gui/sprites/toast/ascension_toast.png")
+                                    AscensionToast.DEFAULT_BACKGROUND
                             )
                     );
                 }

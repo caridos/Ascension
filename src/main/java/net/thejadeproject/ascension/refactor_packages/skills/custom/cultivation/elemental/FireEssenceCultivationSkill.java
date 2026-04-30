@@ -37,18 +37,6 @@ public class FireEssenceCultivationSkill extends ElementalEssenceCultivationSkil
     }
 
     @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Fire Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through fire. 75% base speed, 150% while burning, and 225% while in lava."
-        );
-    }
-
-    @Override
     public ITextureData getIcon() {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(

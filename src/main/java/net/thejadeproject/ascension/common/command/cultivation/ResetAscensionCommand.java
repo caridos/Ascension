@@ -23,13 +23,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.attributes.AscensionAttributeHolder;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.forms.IEntityFormData;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.SyncEntityForm;
-import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.skills.SyncHeldSkills;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncAttributeHolder;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncCurrentHealth;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.skills.HeldSkill;
+import net.thejadeproject.ascension.util.ModAttributes;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,64 +41,67 @@ import java.util.concurrent.CompletableFuture;
 
 public class ResetAscensionCommand {
 
-    // DOES NOT WORK
-    // TODO: IMPLEMENT REMOVE METHODS IN GENERIC ENTITY DATA
+    // DOES NOT WORK -> methods missing
+    // TODO: IMPLEMENT REMOVE METHODS IN GENERIC ENTITY DATA - PLEASE OLLI, UNLESS U ARE BUSY, THEN I CAN DO IT
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("ascensionreset")
+        dispatcher.register(Commands.literal("ascension")
                 .requires(source -> source.hasPermission(2))
 
-                .then(Commands.literal("all")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .executes(ResetAscensionCommand::resetAll)
-                        )
-                )
+                .then(Commands.literal("reset")
 
-                .then(Commands.literal("attributes")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .executes(ResetAscensionCommand::resetAttributesOnly)
-                        )
-                )
-
-                .then(Commands.literal("paths")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .executes(ResetAscensionCommand::resetAllPaths)
-                        )
-                )
-
-                .then(Commands.literal("path")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .then(Commands.argument("path", StringArgumentType.string())
-                                        .suggests(ResetAscensionCommand::suggestPaths)
-                                        .executes(ResetAscensionCommand::resetSpecificPath)
+                        .then(Commands.literal("all")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ResetAscensionCommand::resetAll)
                                 )
                         )
-                )
 
-                .then(Commands.literal("skills")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .executes(ResetAscensionCommand::resetAllSkills)
-                        )
-                )
-
-                .then(Commands.literal("techniques")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .executes(ResetAscensionCommand::resetAllTechniques)
-                        )
-                )
-
-                .then(Commands.literal("technique")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .then(Commands.argument("path", StringArgumentType.string())
-                                        .suggests(ResetAscensionCommand::suggestPaths)
-                                        .executes(ResetAscensionCommand::resetSpecificTechnique)
+                        .then(Commands.literal("attributes")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ResetAscensionCommand::resetAttributesOnly)
                                 )
                         )
-                )
 
-                .then(Commands.literal("physique")
-                        .then(Commands.argument("targets", EntityArgument.players())
-                                .executes(ResetAscensionCommand::resetPhysique)
+                        .then(Commands.literal("paths")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ResetAscensionCommand::resetAllPaths)
+                                )
+                        )
+
+                        .then(Commands.literal("path")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .then(Commands.argument("path", StringArgumentType.string())
+                                                .suggests(ResetAscensionCommand::suggestPaths)
+                                                .executes(ResetAscensionCommand::resetSpecificPath)
+                                        )
+                                )
+                        )
+
+                        .then(Commands.literal("skills")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ResetAscensionCommand::resetAllSkills)
+                                )
+                        )
+
+                        .then(Commands.literal("techniques")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ResetAscensionCommand::resetAllTechniques)
+                                )
+                        )
+
+                        .then(Commands.literal("technique")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .then(Commands.argument("path", StringArgumentType.string())
+                                                .suggests(ResetAscensionCommand::suggestPaths)
+                                                .executes(ResetAscensionCommand::resetSpecificTechnique)
+                                        )
+                                )
+                        )
+
+                        .then(Commands.literal("physique")
+                                .then(Commands.argument("targets", EntityArgument.players())
+                                        .executes(ResetAscensionCommand::resetPhysique)
+                                )
                         )
                 )
         );
@@ -109,19 +115,19 @@ public class ResetAscensionCommand {
         for (ServerPlayer player : players) {
             IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
 
-            resetPlayerSkills(player, entityData);
+            resetPlayerSkills(entityData);
             resetPlayerTechniques(entityData);
             resetPlayerPaths(entityData);
             resetPlayerPhysique(entityData);
-            resetPlayerVanillaAttributes(player);
+            resetPlayerAscensionAttributes(player, entityData);
 
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your Ascension data was reset."));
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.all"));
             successCount++;
         }
 
-        sendCount(context, "Reset all Ascension data for", successCount);
+        sendCount(context, "command.ascension.reset.count.all", successCount);
         return successCount;
     }
 
@@ -130,17 +136,15 @@ public class ResetAscensionCommand {
         int successCount = 0;
 
         for (ServerPlayer player : players) {
-            resetPlayerVanillaAttributes(player);
-
             IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
 
-            entityData.addDefaultAttributes(player);
+            resetPlayerAscensionAttributes(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your vanilla attributes were reset."));
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.attributes"));
             successCount++;
         }
 
-        sendCount(context, "Reset attributes for", successCount);
+        sendCount(context, "command.ascension.reset.count.attributes", successCount);
         return successCount;
     }
 
@@ -154,21 +158,24 @@ public class ResetAscensionCommand {
             resetPlayerPaths(entityData);
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your cultivation paths were reset."));
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.paths"));
             successCount++;
         }
 
-        sendCount(context, "Reset paths for", successCount);
+        sendCount(context, "command.ascension.reset.count.paths", successCount);
         return successCount;
     }
 
     private static int resetSpecificPath(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Collection<ServerPlayer> players = EntityArgument.getPlayers(context, "targets");
-        ResourceLocation pathId = normalizeId(StringArgumentType.getString(context, "path"));
+
+        String inputPath = StringArgumentType.getString(context, "path");
+        ResourceLocation pathId = normalizeId(inputPath);
 
         if (!isValidPath(pathId)) {
-            context.getSource().sendFailure(Component.literal("Invalid path: " + pathId));
-            return 0;
+            context.getSource().sendFailure(
+                    Component.translatable("command.ascension.reset.error.invalid_path", inputPath)
+            );            return 0;
         }
 
         int successCount = 0;
@@ -177,20 +184,26 @@ public class ResetAscensionCommand {
             IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
 
             if (!entityData.hasPath(pathId)) {
-                context.getSource().sendFailure(Component.literal(
-                        player.getName().getString() + " does not have path " + pathId
-                ));
+                context.getSource().sendFailure(
+                        Component.translatable(
+                                "command.ascension.reset.error.player_no_path",
+                                player.getDisplayName(),
+                                pathId.toString()
+                        )
+                );
                 continue;
             }
 
             entityData.removePath(pathId);
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your path was reset: " + pathId));
+            player.sendSystemMessage(
+                    Component.translatable("command.ascension.reset.path", pathId.toString())
+            );
             successCount++;
         }
 
-        sendCount(context, "Reset path " + pathId + " for", successCount);
+        sendCount(context, "command.ascension.reset.count.path", pathId.toString(), successCount);
         return successCount;
     }
 
@@ -201,14 +214,14 @@ public class ResetAscensionCommand {
         for (ServerPlayer player : players) {
             IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
 
-            resetPlayerSkills(player, entityData);
+            resetPlayerSkills(entityData);
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your skills were reset."));
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.skills"));
             successCount++;
         }
 
-        sendCount(context, "Reset skills for", successCount);
+        sendCount(context, "command.ascension.reset.count.skills", successCount);
         return successCount;
     }
 
@@ -222,20 +235,23 @@ public class ResetAscensionCommand {
             resetPlayerTechniques(entityData);
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your techniques were reset."));
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.techniques"));
             successCount++;
         }
 
-        sendCount(context, "Reset techniques for", successCount);
+        sendCount(context, "command.ascension.reset.count.techniques", successCount);
         return successCount;
     }
 
     private static int resetSpecificTechnique(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         Collection<ServerPlayer> players = EntityArgument.getPlayers(context, "targets");
-        ResourceLocation pathId = normalizeId(StringArgumentType.getString(context, "path"));
+        String inputPath = StringArgumentType.getString(context, "path");
+        ResourceLocation pathId = normalizeId(inputPath);
 
         if (!isValidPath(pathId)) {
-            context.getSource().sendFailure(Component.literal("Invalid path: " + pathId));
+            context.getSource().sendFailure(
+                    Component.translatable("command.ascension.reset.error.invalid_path", String.valueOf(inputPath))
+            );
             return 0;
         }
 
@@ -245,20 +261,26 @@ public class ResetAscensionCommand {
             IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
 
             if (entityData.getTechnique(pathId) == null) {
-                context.getSource().sendFailure(Component.literal(
-                        player.getName().getString() + " has no technique for path " + pathId
-                ));
+                context.getSource().sendFailure(
+                        Component.translatable(
+                                "command.ascension.reset.error.player_no_technique",
+                                player.getDisplayName(),
+                                pathId.toString()
+                        )
+                );
                 continue;
             }
 
             entityData.removeTechnique(pathId);
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your technique was reset for path: " + pathId));
+            player.sendSystemMessage(
+                    Component.translatable("command.ascension.reset.technique", pathId.toString())
+            );
             successCount++;
         }
 
-        sendCount(context, "Reset technique for path " + pathId + " for", successCount);
+        sendCount(context, "command.ascension.reset.count.technique", pathId.toString(), successCount);
         return successCount;
     }
 
@@ -272,16 +294,16 @@ public class ResetAscensionCommand {
             resetPlayerPhysique(entityData);
             syncAllForms(player, entityData);
 
-            player.sendSystemMessage(Component.literal("Your physique was reset."));
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.physique"));
             successCount++;
         }
 
-        sendCount(context, "Reset physique for", successCount);
+        sendCount(context, "command.ascension.reset.count.physique", successCount);
         return successCount;
     }
 
     // helpers
-    private static void resetPlayerSkills(ServerPlayer player, IEntityData entityData) {
+    private static void resetPlayerSkills(IEntityData entityData) {
         for (IEntityFormData formData : new ArrayList<>(entityData.getFormData())) {
             ResourceLocation formId = formData.getEntityFormId();
 
@@ -294,8 +316,6 @@ public class ResetAscensionCommand {
             for (ResourceLocation skillId : skillsToRemove) {
                 entityData.removeSkill(skillId, formId);
             }
-
-            syncHeldSkills(player, formId);
         }
     }
 
@@ -333,25 +353,52 @@ public class ResetAscensionCommand {
         }
     }
 
-    private static void resetPlayerVanillaAttributes(ServerPlayer player) {
-        resetToEntityDefault(player, Attributes.MAX_HEALTH);
-        resetToEntityDefault(player, Attributes.JUMP_STRENGTH);
-        resetToEntityDefault(player, Attributes.KNOCKBACK_RESISTANCE);
-        resetToEntityDefault(player, Attributes.MOVEMENT_SPEED);
-        resetToEntityDefault(player, Attributes.FLYING_SPEED);
-        resetToEntityDefault(player, Attributes.ATTACK_DAMAGE);
-        resetToEntityDefault(player, Attributes.ATTACK_KNOCKBACK);
-        resetToEntityDefault(player, Attributes.ATTACK_SPEED);
-        resetToEntityDefault(player, Attributes.ARMOR);
-        resetToEntityDefault(player, Attributes.ARMOR_TOUGHNESS);
-        resetToEntityDefault(player, Attributes.LUCK);
-        resetToEntityDefault(player, Attributes.MAX_ABSORPTION);
+    private static void resetPlayerAscensionAttributes(ServerPlayer player, IEntityData entityData) {
+        if (entityData.getActiveFormData() == null) {
+            player.sendSystemMessage(Component.translatable("command.ascension.reset.attributes.no_form"));
+            return;
+        }
 
-        player.setHealth(player.getMaxHealth());
+        resetPlayerAttributeShell(player);
+
+        AscensionAttributeHolder freshHolder = new AscensionAttributeHolder(player);
+        entityData.setAscensionAttributeHolder(player, freshHolder);
+
+        entityData.addDefaultAttributes(player);
+        entityData.getAscensionAttributeHolder().updateAttributes(entityData);
+
+        double maxHealth = entityData.getAttributeValue(Attributes.MAX_HEALTH);
+        if (maxHealth > 0) {
+            entityData.setHealth(maxHealth);
+        } else {
+            player.setHealth(player.getMaxHealth());
+        }
+
         player.setAbsorptionAmount(0.0F);
+
+        syncAscensionAttributes(player, entityData);
     }
 
-    private static void resetToEntityDefault(ServerPlayer player, Holder<Attribute> attributeHolder) {
+    private static void resetPlayerAttributeShell(ServerPlayer player) {
+        resetAttributeShell(player, Attributes.MAX_HEALTH);
+        resetAttributeShell(player, Attributes.JUMP_STRENGTH);
+        resetAttributeShell(player, Attributes.KNOCKBACK_RESISTANCE);
+        resetAttributeShell(player, Attributes.MOVEMENT_SPEED);
+        resetAttributeShell(player, Attributes.FLYING_SPEED);
+        resetAttributeShell(player, Attributes.ATTACK_DAMAGE);
+        resetAttributeShell(player, Attributes.ATTACK_KNOCKBACK);
+        resetAttributeShell(player, Attributes.ATTACK_SPEED);
+        resetAttributeShell(player, Attributes.ARMOR);
+        resetAttributeShell(player, Attributes.ARMOR_TOUGHNESS);
+        resetAttributeShell(player, Attributes.LUCK);
+        resetAttributeShell(player, Attributes.MAX_ABSORPTION);
+        resetAttributeShell(player, Attributes.WATER_MOVEMENT_EFFICIENCY);
+
+        resetAttributeShell(player, ModAttributes.MAX_QI);
+        resetAttributeShell(player, ModAttributes.QI_REGEN_RATE);
+    }
+
+    private static void resetAttributeShell(ServerPlayer player, Holder<Attribute> attributeHolder) {
         AttributeInstance instance = player.getAttribute(attributeHolder);
         if (instance == null) return;
 
@@ -359,27 +406,34 @@ public class ResetAscensionCommand {
             instance.removeModifier(modifier);
         }
 
-        double defaultValue = DefaultAttributes.getSupplier(EntityType.PLAYER).getBaseValue(attributeHolder);
-        instance.setBaseValue(defaultValue);
+        instance.setBaseValue(getPlayerAttributeDefault(attributeHolder));
+    }
+
+    private static double getPlayerAttributeDefault(Holder<Attribute> attributeHolder) {
+        try {
+            return DefaultAttributes.getSupplier(EntityType.PLAYER).getBaseValue(attributeHolder);
+        } catch (Exception ignored) {
+            return attributeHolder.value().getDefaultValue();
+        }
     }
 
     // sync
-    private static void syncHeldSkills(ServerPlayer player, ResourceLocation formId) {
-        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
-        IEntityFormData formData = entityData.getEntityFormData(formId);
-
-        if (formData == null) return;
-
-        PacketDistributor.sendToPlayer(
-                player,
-                new SyncHeldSkills(formId.toString(), formData.getHeldSkills())
-        );
-    }
-
     private static void syncAllForms(ServerPlayer player, IEntityData entityData) {
         for (IEntityFormData formData : entityData.getFormData()) {
             PacketDistributor.sendToPlayer(player, new SyncEntityForm(formData));
         }
+    }
+
+    private static void syncAscensionAttributes(ServerPlayer player, IEntityData entityData) {
+        PacketDistributor.sendToPlayer(
+                player,
+                new SyncAttributeHolder(entityData.getAscensionAttributeHolder())
+        );
+
+        PacketDistributor.sendToPlayer(
+                player,
+                new SyncCurrentHealth(entityData.getHealth())
+        );
     }
 
     private static CompletableFuture<Suggestions> suggestPaths(
@@ -414,8 +468,8 @@ public class ResetAscensionCommand {
         );
     }
 
-    private static void sendCount(CommandContext<CommandSourceStack> context, String action, int successCount) {
+    private static void sendCount(CommandContext<CommandSourceStack> context, String translationKey, Object... args) {
         context.getSource().sendSuccess(() ->
-                Component.literal(action + " " + successCount + " player(s)."), true);
+                Component.translatable(translationKey, args), true);
     }
 }

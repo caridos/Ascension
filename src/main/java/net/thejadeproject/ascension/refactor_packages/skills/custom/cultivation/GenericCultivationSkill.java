@@ -100,14 +100,25 @@ public class GenericCultivationSkill implements ICastableSkill {
         );
     }
 
+    private Component getPathTitle() {
+        var pathObj = AscensionRegistries.Paths.PATHS_REGISTRY.get(path);
+        return pathObj != null ? pathObj.getDisplayTitle() : Component.literal(path.toString());
+    }
+
     @Override
     public Component getTitle() {
-        return Component.empty().append(AscensionRegistries.Paths.PATHS_REGISTRY.get(path).getDisplayTitle()).append(" Cultivation Skill");
+        return Component.translatable(
+                "ascension.skill.cultivation_skill",
+                getPathTitle()
+        );
     }
 
     @Override
     public Component getDescription() {
-        return Component.empty();
+        return Component.translatable(
+                "ascension.skill.cultivation_skill.description",
+                getPathTitle()
+        );
     }
 
 

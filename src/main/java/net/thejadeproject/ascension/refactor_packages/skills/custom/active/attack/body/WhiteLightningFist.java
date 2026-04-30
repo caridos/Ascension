@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -37,19 +38,72 @@ import java.util.HashSet;
 
 public class WhiteLightningFist implements ICastableSkill {
 
+    private static final double QI_COST = 10.0D;
     private static final double REACH = 4.5D;
     private static final float BASE_DAMAGE = 15.0F;
     private static final int COOLDOWN_TICKS = 120;
 
     @Override
     public CastResult canCast(Entity caster, IPreCastData preCastData) {
+        if (!(caster instanceof ServerPlayer player)) {
+            return new CastResult(CastResult.Type.FAILURE);
+        }
+
+        if (!player.hasData(ModAttachments.ENTITY_DATA)) {
+            return new CastResult(CastResult.Type.FAILURE);
+        }
+
+        if (!player.getMainHandItem().isEmpty()) {
+            return new CastResult(CastResult.Type.FAILURE);
+        }
+
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        if (!entityData.getQiContainer().hasQi(QI_COST)) {
+            return new CastResult(CastResult.Type.FAILURE);
+        }
+
         return new CastResult(CastResult.Type.SUCCESS);
     }
 
     @Override
-    public boolean continueCasting(int ticksElapsed, Entity caster, ICastData castData) {
-        return false;
+    public void initialCast(Entity caster, IPreCastData preCastData) {
+        if (!(caster instanceof ServerPlayer player)) return;
+        if (!player.getMainHandItem().isEmpty()) return;
+        if (!player.hasData(ModAttachments.ENTITY_DATA)) return;
+        if (player.level().isClientSide()) return;
+
+        LivingEntity target = findTarget(player);
+        if (target == null) return;
+
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        if (!entityData.getQiContainer().tryConsumeQi(QI_COST)) {
+            return;
+        }
+
+        float damage = BASE_DAMAGE + getBodyBonus(player);
+
+        AscensionDamageHandler.AscensionDamageSource source = new AscensionDamageHandler.AscensionDamageSource(
+                new HashSet<>(){{add(ModPaths.BODY.getId());}},
+                target.damageSources().source(target.damageSources().magic().typeHolder().getKey(), caster)
+        );
+
+        //System.out.println("dealing " + damage + " base damage");
+
+        target.hurt(source, damage);
+
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
+        target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 40, 0));
+
+        Vec3 push = player.getViewVector(1.0F).scale(0.45D);
+        target.push(push.x, 0.12D, push.z);
+        target.hurtMarked = true;
+
+        player.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        playCastEffects(player, target);
     }
+
 
     private LivingEntity findTarget(Player player) {
         Vec3 eyePosition = player.getEyePosition();
@@ -113,7 +167,7 @@ public class WhiteLightningFist implements ICastableSkill {
         serverLevel.sendParticles(
                 net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
                 handPos.x, handPos.y, handPos.z,
-                12,
+                7,
                 0.15D, 0.15D, 0.15D,
                 0.05D
         );
@@ -121,7 +175,7 @@ public class WhiteLightningFist implements ICastableSkill {
         serverLevel.sendParticles(
                 net.minecraft.core.particles.ParticleTypes.END_ROD,
                 handPos.x, handPos.y, handPos.z,
-                8,
+                4,
                 0.12D, 0.12D, 0.12D,
                 0.01D
         );
@@ -131,7 +185,7 @@ public class WhiteLightningFist implements ICastableSkill {
         serverLevel.sendParticles(
                 net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
                 targetPos.x, targetPos.y, targetPos.z,
-                20,
+                12,
                 0.25D, 0.25D, 0.25D,
                 0.08D
         );
@@ -139,7 +193,7 @@ public class WhiteLightningFist implements ICastableSkill {
         serverLevel.sendParticles(
                 net.minecraft.core.particles.ParticleTypes.CRIT,
                 targetPos.x, targetPos.y, targetPos.z,
-                12,
+                7,
                 0.2D, 0.2D, 0.2D,
                 0.1D
         );
@@ -151,7 +205,7 @@ public class WhiteLightningFist implements ICastableSkill {
             net.minecraft.world.phys.Vec3 end
     ) {
         net.minecraft.world.phys.Vec3 diff = end.subtract(start);
-        int steps = 10;
+        int steps = 7;
 
         for (int i = 0; i <= steps; i++) {
             double progress = i / (double) steps;
@@ -161,16 +215,8 @@ public class WhiteLightningFist implements ICastableSkill {
             level.sendParticles(
                     net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
                     pos.x, pos.y, pos.z,
-                    2,
-                    0.03D, 0.03D, 0.03D,
-                    0.0D
-            );
-
-            level.sendParticles(
-                    net.minecraft.core.particles.ParticleTypes.END_ROD,
-                    pos.x, pos.y, pos.z,
                     1,
-                    0.01D, 0.01D, 0.01D,
+                    0.03D, 0.03D, 0.03D,
                     0.0D
             );
         }
@@ -199,55 +245,21 @@ public class WhiteLightningFist implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return Component.literal("White Lightning Fist");
+        return Component.translatable("ascension.skill.white_lightning_fist");
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal(
-                "An unarmed strike that releases purified white martial energy into the target's body."
+        return Component.translatable(
+                "ascension.skill.white_lightning_fist.description"
         );
     }
 
     @Override public void onEquip(IEntityData entityData) {}
     @Override public void onUnEquip(IEntityData entityData, IPreCastData preCastData) {}
     @Override public void finalCast(CastEndData reason, Entity caster, ICastData castData) {}
-    @Override public void initialCast(Entity caster, IPreCastData preCastData) {
-
-        if (!(caster instanceof Player player)) return;
-        if (!player.getMainHandItem().isEmpty()) return;
-
-        if (!player.level().isClientSide()) {
-            LivingEntity target = findTarget(player);
-
-            if (target != null) {
-
-                float damage = BASE_DAMAGE + getBodyBonus(player);
-
-                AscensionDamageHandler.AscensionDamageSource source = new AscensionDamageHandler.AscensionDamageSource(
-                        new HashSet<>(){{add(ModPaths.BODY.getId());}},
-                        target.damageSources().source(target.damageSources().magic().typeHolder().getKey(),caster)
-                );
-
-                System.out.println("dealing "+damage+"  base damage");
-                target.hurt(
-                        source,
-                        damage
-                );
-
-                target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
-                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 40, 0));
-
-                Vec3 push = player.getViewVector(1.0F).scale(0.45D);
-                target.push(push.x, 0.12D, push.z);
-                target.hurtMarked = true;
-
-                player.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
-                playCastEffects(player, target);
-            }
-        }
-
-
+    @Override public boolean continueCasting(int ticksElapsed, Entity caster, ICastData castData) {
+        return false;
     }
     @Override public void selected(IEntityData entityData) {}
     @Override public void unselected(IEntityData entityData) {}

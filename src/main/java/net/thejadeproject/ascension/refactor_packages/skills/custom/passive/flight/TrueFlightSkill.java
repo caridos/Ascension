@@ -10,13 +10,13 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.Simp
 public class TrueFlightSkill extends SimplePassiveSkill implements ITickingSkill {
 
     @Override
-    protected String getName() {
-        return "True Flight";
+    protected String getTitleKey() {
+        return "ascension.skill.true_flight";
     }
 
     @Override
-    protected String getTooltip() {
-        return "Grants the ability to fly freely.";
+    protected String getDescriptionKey() {
+        return "ascension.skill.true_flight.description";
     }
 
     @Override

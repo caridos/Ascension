@@ -16,13 +16,13 @@ public class VerdantRecoverySkill extends SimplePassiveSkill implements ITicking
     private static final int WOOD_REQUIRED_PLANTS = 8;
 
     @Override
-    protected String getName() {
-        return "Verdant Recovery";
+    protected String getTitleKey() {
+        return "ascension.skill.verdant_recovery";
     }
 
     @Override
-    protected String getTooltip() {
-        return "Slowly regenerates health while surrounded by plant life.";
+    protected String getDescriptionKey() {
+        return "ascension.skill.verdant_recovery.description";
     }
 
     @Override

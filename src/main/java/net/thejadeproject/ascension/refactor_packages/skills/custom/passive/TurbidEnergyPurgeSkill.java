@@ -13,14 +13,15 @@ public class TurbidEnergyPurgeSkill extends SimplePassiveSkill implements ITicki
     private static final int PURGE_INTERVAL_TICKS = 100;
     private static final int PURGE_AMOUNT_TICKS = 200;
 
+
     @Override
-    protected String getName() {
-        return "Turbid Energy Purge";
+    protected String getTitleKey() {
+        return "ascension.skill.turbid_energy_purge";
     }
 
     @Override
-    protected String getTooltip() {
-        return "Slowly burns away harmful effects through purified white martial energy.";
+    protected String getDescriptionKey() {
+        return "ascension.skill.turbid_energy_purge.description.";
     }
 
     @Override

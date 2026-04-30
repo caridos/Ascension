@@ -44,17 +44,6 @@ public class MetalEssenceCultivationSkill extends ElementalEssenceCultivationSki
         return MetalEssenceTechnique.class;
     }
 
-    @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Metal Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through nearby ores and condensed mineral power."
-        );
-    }
 
     @Override
     public ITextureData getIcon() {

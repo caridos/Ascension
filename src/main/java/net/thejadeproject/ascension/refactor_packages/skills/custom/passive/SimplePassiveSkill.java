@@ -14,9 +14,9 @@ import net.thejadeproject.ascension.refactor_packages.skills.ISkill;
 
 public abstract class SimplePassiveSkill implements ISkill {
 
-    protected abstract String getName();
+    protected abstract String getTitleKey();
 
-    protected abstract String getTooltip();
+    protected abstract String getDescriptionKey();
 
     protected String getIconPath() {
         return "textures/spells/icon/placeholder.png";
@@ -76,11 +76,11 @@ public abstract class SimplePassiveSkill implements ISkill {
 
     @Override
     public Component getTitle() {
-        return Component.literal(getName());
+        return Component.translatable(getTitleKey());
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal(getTooltip());
+        return Component.translatable(getDescriptionKey());
     }
 }
