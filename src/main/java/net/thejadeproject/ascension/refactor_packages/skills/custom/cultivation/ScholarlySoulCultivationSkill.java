@@ -5,12 +5,16 @@ import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.lucent.easygui.gui.textures.TextureData;
 import net.lucent.easygui.gui.textures.TextureDataSubsection;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.NeoForge;
@@ -42,6 +46,11 @@ public class ScholarlySoulCultivationSkill implements ICastableSkill {
 
     private static final ResourceLocation SOUL_PATH = ModPaths.SOUL.getId();
     private static final double BASE_RATE = 2.0D;
+
+    private static final int BOOKSHELF_RANGE = 4;
+    private static final int MAX_BOOKSHELF_COUNT = 24;
+    private static final double BOOKSHELF_BONUS_PER_BLOCK = 0.025D;
+    private static final double MAX_BOOKSHELF_MULTIPLIER = 1.60D;
 
     @Override
     public void onEquip(IEntityData entityData) {
@@ -93,7 +102,8 @@ public class ScholarlySoulCultivationSkill implements ICastableSkill {
             }
 
             double pathBonus = Math.max(1.0D, entityData.getPathBonusHandler().getPathBonus(SOUL_PATH));
-            double base = BASE_RATE * pathBonus;
+            double bookshelfMultiplier = getBookshelfCultivationMultiplier(caster);
+            double base = BASE_RATE * pathBonus * bookshelfMultiplier;
 
             CultivateEvent event = new CultivateEvent(
                     caster,
@@ -148,6 +158,44 @@ public class ScholarlySoulCultivationSkill implements ICastableSkill {
         }
 
         return caster.getData(ModAttachments.INPUT_STATES).isHeld("skill_cast");
+    }
+
+    private static double getBookshelfCultivationMultiplier(Entity caster) {
+        Level level = caster.level();
+        BlockPos center = caster.blockPosition();
+
+        int bookshelfCount = countNearbyBookshelves(level, center);
+
+        return Math.min(
+                MAX_BOOKSHELF_MULTIPLIER,
+                1.0D + bookshelfCount * BOOKSHELF_BONUS_PER_BLOCK
+        );
+    }
+
+    private static int countNearbyBookshelves(Level level, BlockPos center) {
+        int count = 0;
+
+        BlockPos min = center.offset(-BOOKSHELF_RANGE, -BOOKSHELF_RANGE, -BOOKSHELF_RANGE);
+        BlockPos max = center.offset(BOOKSHELF_RANGE, BOOKSHELF_RANGE, BOOKSHELF_RANGE);
+
+        for (BlockPos pos : BlockPos.betweenClosed(min, max)) {
+            BlockState state = level.getBlockState(pos);
+
+            if (isBookshelf(state)) {
+                count++;
+
+                if (count >= MAX_BOOKSHELF_COUNT) {
+                    return MAX_BOOKSHELF_COUNT;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static boolean isBookshelf(BlockState state) {
+        return state.is(Blocks.BOOKSHELF)
+                || state.is(Blocks.CHISELED_BOOKSHELF);
     }
 
     @Override
@@ -290,13 +338,13 @@ public class ScholarlySoulCultivationSkill implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return Component.literal("Scholarly Soul Cultivation");
+        return Component.translatable("ascension.skill.scholarly_soul_cultivation_skill");
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal(
-                "Cultivates the Soul path through study and understanding. Higher realms require recovered chapters."
+        return Component.translatable(
+                "ascension.skill.scholarly_soul_cultivation_skill.description"
         );
     }
 }

@@ -63,17 +63,11 @@ public class SwordCultivationSkill implements ISkill {
 
     @Override
     public Component getTitle() {
-        return Component.literal("Sword Comprehension");
+        return Component.translatable("ascension.skill.sword_cultivation_skill");
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal("""
-                        One swing splits air.
-                        Ten swings shape the blade.
-                        A hundred swings carve skill.
-                        A thousand swings awaken intent.
-                        Ten thousand swings… heaven yields to the sword.
-                        """);
+        return Component.translatable("ascension.skill.sword_cultivation_skill.description");
     }
 }

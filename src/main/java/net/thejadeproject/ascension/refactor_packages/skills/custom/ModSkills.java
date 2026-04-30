@@ -31,8 +31,6 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.flig
 public class ModSkills {
     public static final DeferredRegister<ISkill> SKILLS =DeferredRegister.create(AscensionRegistries.Skills.SKILL_REGISTRY, AscensionCraft.MOD_ID);
 
-    //TODO: swap skills to translatable keys not literal - sortofsmart
-
     //TODO update to not include any of these details (except path) and the technique defines the data
 
     // ──── Universal Skills ────────────────────────────────────────────

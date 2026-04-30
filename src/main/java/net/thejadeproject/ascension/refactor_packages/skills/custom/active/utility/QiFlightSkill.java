@@ -27,13 +27,24 @@ public class QiFlightSkill implements ICastableSkill {
 
     private static final int COOLDOWN_TICKS = 20;
 
+    private static final double START_QI_COST = 5.0D;
+    private static final double QI_COST_PER_SECOND = 2.0D;
+
     @Override
     public CastResult canCast(Entity caster, IPreCastData preCastData) {
-        if (!(caster instanceof ServerPlayer)) {
+        if (!(caster instanceof ServerPlayer player)) {
             return new CastResult(CastResult.Type.FAILURE);
         }
 
-        // TODO: When qi is implemented, check if the caster has enough qi to start flying
+        if (!player.hasData(ModAttachments.ENTITY_DATA)) {
+            return new CastResult(CastResult.Type.FAILURE);
+        }
+
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        if (!entityData.getQiContainer().hasQi(START_QI_COST)) {
+            return new CastResult(CastResult.Type.FAILURE);
+        }
 
         return new CastResult(CastResult.Type.SUCCESS);
     }
@@ -41,6 +52,13 @@ public class QiFlightSkill implements ICastableSkill {
     @Override
     public void initialCast(Entity caster, IPreCastData preCastData) {
         if (!(caster instanceof ServerPlayer player)) return;
+        if (!player.hasData(ModAttachments.ENTITY_DATA)) return;
+
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        if (!entityData.getQiContainer().tryConsumeQi(START_QI_COST)) {
+            return;
+        }
 
         FlightHelper.enableFlight(player, true);
     }
@@ -51,11 +69,24 @@ public class QiFlightSkill implements ICastableSkill {
             return false;
         }
 
+        if (!player.hasData(ModAttachments.ENTITY_DATA)) {
+            return false;
+        }
+
+        if (!player.getData(ModAttachments.INPUT_STATES).isHeld("skill_cast")) {
+            return false;
+        }
+
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        if (ticksElapsed > 0 && ticksElapsed % 20 == 0) {
+            if (!entityData.getQiContainer().tryConsumeQi(QI_COST_PER_SECOND)) {
+                return false;
+            }
+        }
+
         FlightHelper.enableFlight(player, true);
-
-        // TODO: Consume qi
-
-        return player.getData(ModAttachments.INPUT_STATES).isHeld("skill_cast");
+        return true;
     }
 
     @Override
@@ -89,12 +120,12 @@ public class QiFlightSkill implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return Component.literal("Air Step");
+        return Component.translatable("ascension.skill.air_step");
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal("Circulate qi through your body to step onto the air.");
+        return Component.translatable("ascension.skill.air_step.description");
     }
 
     @Override public void onEquip(IEntityData entityData) {}

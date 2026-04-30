@@ -185,11 +185,11 @@ public class EnterSpiritForm implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return null;
+        return Component.translatable("ascension.skill.enter_spirit_form");
     }
 
     @Override
     public Component getDescription() {
-        return null;
+        return Component.translatable("ascension.skill.enter_spirit_form.description");
     }
 }

@@ -41,17 +41,6 @@ public class LightningEssenceCultivationSkill extends ElementalEssenceCultivatio
         return LightningEssenceTechnique.class;
     }
 
-    @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Lightning Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through thunderous resonance. It cultivates normally at rest, faster beneath storms, and surges after being struck by lightning outside tribulations."
-        );
-    }
 
     @Override
     public ITextureData getIcon() {

@@ -8,14 +8,12 @@ import net.thejadeproject.ascension.refactor_packages.skills.ITickingSkill;
 public class QiSustainedBodySkill extends SimplePassiveSkill implements ITickingSkill {
 
     @Override
-    protected String getName() {
-        return "Qi-Sustained Body";
+    protected String getTitleKey() {
+        return "ascension.skill.qi_sustained_body";
     }
 
     @Override
-    protected String getTooltip() {
-        return "Your body is sustained by Qi, removing the need for ordinary food.";
-    }
+    protected String getDescriptionKey() { return "ascension.skill.qi_sustained_body.description"; }
 
     @Override
     public void onPlayerTick(ServerPlayer player, IEntityData entityData) {

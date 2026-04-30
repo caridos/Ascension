@@ -212,13 +212,13 @@ public class WhiteLightningCultivationSkill implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return Component.literal("White Lightning Cultivation");
+        return Component.translatable("ascension.skill.white_lightning_cultivation_skill");
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal(
-                "Cultivates the Body through white martial lightning, gaining speed while unarmed or purifying harmful effects."
+        return Component.translatable(
+                "ascension.skill.white_lightning_cultivation_skill.description"
         );
     }
 

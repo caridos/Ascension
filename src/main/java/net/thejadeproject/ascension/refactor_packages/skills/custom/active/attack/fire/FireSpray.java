@@ -229,11 +229,11 @@ public class FireSpray implements ICastableSkill {
 
     @Override
     public Component getTitle() {
-        return null;
+        return Component.translatable("ascension.skill.fire_spray");
     }
 
     @Override
     public Component getDescription() {
-        return null;
+        return Component.translatable("ascension.skill.fire_spray.description");
     }
 }

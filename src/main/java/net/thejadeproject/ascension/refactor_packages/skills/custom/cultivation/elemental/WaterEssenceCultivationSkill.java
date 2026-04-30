@@ -32,17 +32,6 @@ public class WaterEssenceCultivationSkill extends ElementalEssenceCultivationSki
         return WaterEssenceTechnique.class;
     }
 
-    @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Water Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through water. 80% base speed and 130% while submerged in water."
-        );
-    }
 
     @Override
     public ITextureData getIcon() {

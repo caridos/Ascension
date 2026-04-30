@@ -48,17 +48,6 @@ public class EarthEssenceCultivationSkill extends ElementalEssenceCultivationSki
         return EarthEssenceTechnique.class;
     }
 
-    @Override
-    protected Component getSkillTitle() {
-        return Component.literal("Earth Essence Cultivation");
-    }
-
-    @Override
-    protected Component getSkillDescription() {
-        return Component.literal(
-                "Cultivates Essence through stone, soil, depth, and grounded stillness."
-        );
-    }
 
     @Override
     public ITextureData getIcon() {

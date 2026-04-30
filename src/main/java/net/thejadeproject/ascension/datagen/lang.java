@@ -44,8 +44,6 @@ public class lang extends LanguageProvider {
         add("ascension.path.essence.golden_core", "Golden Core");
         add("ascension.path.essence.nascent_core", "Nascent Core");
 
-
-
         // Body realms
         add("ascension.path.body.mortal", "Mortal Body");
         add("ascension.path.body.skin_tempering", "Skin Tempering");
@@ -207,7 +205,6 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.fire_attuned", "Fire Attuned");
         add("ascension.physiques.blessed", "Blessed One");
 
-
         add("ascension.physiques.world_dominator", "World Dominator");
         add("ascension.message.physique.world_dominator.acquired", "%s has become the %s. Bear witness to their Ascension!");
 
@@ -241,6 +238,52 @@ public class lang extends LanguageProvider {
 
 
         //Skills
+        add("ascension.skill.regeneration_boost", "Regenerative Body");
+        add("ascension.skill.regeneration_boost.description", "Your refined body slowly restores lost health over time.");
+        add("ascension.skill.qi_sustained_body", "Qi-Sustained Body.");
+        add("ascension.skill.qi_sustained_body.description", "Your body is sustained by Qi, removing the need for ordinary food.");
+        add("ascension.skill.true_flight", "True Flight");
+        add("ascension.skill.true_flight.description", "Grants the ability to fly freely.");
+        add("ascension.skill.air_step", "Air Step");
+        add("ascension.skill.air_step.description", "Circulate qi through your body to step onto the air.");
+        add("ascension.skill.enter_spirit_form", "Enter Spirit Form");
+        add("ascension.skill.enter_spirit_form.description", "Project your Spirit from your Body.");
+        add("ascension.skill.cultivation_skill", "%s Cultivation Skill");
+        add("ascension.skill.cultivation_skill.description", "Allows you to cultivate the %s path.");
+        add("ascension.skill.elemental_essence_cultivation", "%s Essence Cultivation");
+        add("ascension.skill.fire_essence_cultivation.description", "Cultivates Essence through fire. 75% base speed, 150% while burning, and 225% while in lava.");
+        add("ascension.skill.water_essence_cultivation.description", "Cultivates Essence through water. 80% base speed and 130% while submerged in water");
+        add("ascension.skill.wood_essence_cultivation.description", "Cultivates Essence through nearby plants, trees, and living growth.");
+        add("ascension.skill.earth_essence_cultivation.description", "Cultivates Essence through stone, soil, depth, and grounded stillness.");
+        add("ascension.skill.metal_essence_cultivation.description", "Cultivates Essence through nearby ores and condensed mineral power.");
+        add("ascension.skill.lightning_essence_cultivation.description", "Cultivates Essence through thunderous resonance. It cultivates normally at rest, faster beneath storms, and surges after being struck by lightning outside tribulations.");
+        add("ascension.skill.wind_essence_cultivation.description", "Cultivates Essence through open sky and high altitude. It weakens in enclosed spaces and strengthens the higher you stand beneath the wind.");
+        add("ascension.skill.five_element_circulation", "Five Element Circulation");
+        add("ascension.skill.five_element_circulation.description", "Cultivate the Essence through the Five Elements, harmonising and uniting them.");
+        add("ascension.skill.flame_tempered_body", "Flame Tempered Body");
+        add("ascension.skill.flame_tempered_body.description", "Reduces fire and lava damage.");
+        add("ascension.skill.aquatic_circulation", "Aquatic Circulation");
+        add("ascension.skill.aquatic_circulation.description", "Grants conduit-like power while underwater.");
+        add("ascension.skill.verdant_recovery", "Verdant Recovery");
+        add("ascension.skill.verdant_recovery.description", "Slowly regenerates health while surrounded by plant life.");
+        add("ascension.skill.fire_spray", "Fire Spray");
+        add("ascension.skill.fire_spray.description", "Condense a beam of Fire Qi and advance fearlessly.");
+        add("ascension.skill.white_lightning_cultivation_skill", "White Lightning Cultivation");
+        add("ascension.skill.white_lightning_cultivation_skill.description", "Cultivates the Body through white martial lightning, gaining speed while unarmed or purifying harmful effects.");
+        add("ascension.skill.turbid_energy_purge", "Turbid Energy Purge");
+        add("ascension.skill.turbid_energy_purge.description", "Slowly burns away harmful effects through purified white martial energy.");
+        add("ascension.skill.white_lightning_fist", "White Lightning Fist");
+        add("ascension.skill.white_lightning_fist.description", "An unarmed strike that releases purified white martial energy into the target's body.");
+        add("ascension.skill.scholarly_soul_cultivation_skill", "Scholarly Soul Cultivation");
+        add("ascension.skill.scholarly_soul_cultivation_skill.description", "Cultivates the Soul path through study and understanding. Higher realms require recovered chapters.");
+        add("ascension.skill.sword_cultivation_skill", "Sword Comprehension");
+        add("ascension.skill.sword_cultivation_skill.description", """
+                        One swing splits air.
+                        Ten swings shape the blade.
+                        A hundred swings carve skill.
+                        A thousand swings awaken intent.
+                        Ten thousand swings… heaven yields to the sword.
+                        """);
 
 
         //Pill effects

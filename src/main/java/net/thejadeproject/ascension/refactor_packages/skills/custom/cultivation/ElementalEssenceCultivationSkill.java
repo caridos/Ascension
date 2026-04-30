@@ -48,9 +48,15 @@ public abstract class ElementalEssenceCultivationSkill implements ICastableSkill
 
     protected abstract Class<? extends ElementalEssenceTechnique> getTechniqueClass();
 
-    protected abstract Component getSkillTitle();
+    protected Component getElementTitle() {
+        var pathObj = AscensionRegistries.Paths.PATHS_REGISTRY.get(getElementPath());
 
-    protected abstract Component getSkillDescription();
+        return pathObj != null ? pathObj.getDisplayTitle() : Component.literal(getElementPath().toString());
+    }
+
+    protected String getTranslationName() {
+        return getElementPath().getPath() + "_essence_cultivation";
+    }
 
     @Override
     public CastResult canCast(Entity caster, IPreCastData preCastData) {
@@ -189,12 +195,17 @@ public abstract class ElementalEssenceCultivationSkill implements ICastableSkill
 
     @Override
     public Component getTitle() {
-        return getSkillTitle();
+        return Component.translatable(
+                "ascension.skill.elemental_essence_cultivation",
+                getElementTitle()
+        );
     }
 
     @Override
     public Component getDescription() {
-        return getSkillDescription();
+        return Component.translatable(
+                "ascension.skill." + getTranslationName() + ".description"
+        );
     }
 
     protected int countNearbyBlocks(Entity caster, int radius, java.util.function.Predicate<net.minecraft.world.level.block.state.BlockState> predicate) {

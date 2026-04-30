@@ -1,11 +1,6 @@
 package net.thejadeproject.ascension.refactor_packages.qi;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
-import net.thejadeproject.ascension.refactor_packages.paths.IPath;
-import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
-import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.util.ModAttributes;
 
 import java.util.HashMap;
@@ -28,7 +23,7 @@ public class EntityQiContainer {
 
 
     private double currentQi;
-    private IEntityData attachedEntity;
+    private final IEntityData attachedEntity;
 
     public EntityQiContainer(IEntityData attachedEntity){
         this.attachedEntity = attachedEntity;
@@ -38,6 +33,7 @@ public class EntityQiContainer {
         currentQi = getMaxQi();
     }
 
+
     public double getMaxQi(){
         return attachedEntity.getAscensionAttributeHolder().getAttribute(ModAttributes.MAX_QI).getValue();
     }
@@ -46,14 +42,24 @@ public class EntityQiContainer {
         return currentQi;
     }
 
+    public boolean hasQi(double amount) {
+        return currentQi >= amount;
+    }
+
+    public void setCurrentQi(double amount) {
+        currentQi = Math.clamp(amount, 0.0D, getMaxQi());
+    }
+
     public void tryRegenQi(){
         double regenRate = attachedEntity.getAscensionAttributeHolder().getAttribute(ModAttributes.QI_REGEN_RATE).getValue();
-        currentQi = Math.min(currentQi+regenRate,getMaxQi());
+
+        setCurrentQi(currentQi + regenRate);
     }
 
     public boolean tryConsumeQi(double amount){
-        if(currentQi-amount <0) return false;
-        currentQi -= amount;
+        if (!hasQi(amount)) return false;
+
+        setCurrentQi(currentQi - amount);
         return true;
     }
 
