@@ -26,6 +26,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.elem
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.elemental.FlameTemperedBodySkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.elemental.VerdantRecoverySkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.flight.TrueFlightSkill;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.weapon.*;
 
 
 public class ModSkills {
@@ -122,7 +123,23 @@ public class ModSkills {
     // Cultivation
     public static final DeferredHolder<ISkill,? extends SwordCultivationSkill> SWORD_CULTIVATION_SKILL =
             SKILLS.register("sword_cultivation_skill", SwordCultivationSkill::new);
-    // Passives
+
+    // Passives TODO: Give different weapons different damage multi
+    public static final DeferredHolder<ISkill, ? extends SwordMasterySkill> SWORD_MASTERY_SKILL =
+            SKILLS.register("sword_mastery_skill", SwordMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends SpearMasterySkill> SPEAR_MASTERY_SKILL =
+            SKILLS.register("spear_mastery_skill", SpearMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends AxeMasterySkill> AXE_MASTERY_SKILL =
+            SKILLS.register("axe_mastery_skill", AxeMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends MaceMasterySkill> MACE_MASTERY_SKILL =
+            SKILLS.register("mace_mastery_skill", MaceMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends TridentMasterySkill> TRIDENT_MASTERY_SKILL =
+            SKILLS.register("trident_mastery_skill", TridentMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends BowMasterySkill> BOW_MASTERY_SKILL =
+            SKILLS.register("bow_mastery_skill", BowMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends BladeMasterySkill> BLADE_MASTERY_SKILL =
+            SKILLS.register("blade_mastery_skill", BladeMasterySkill::new);
+
     // Actives
 
 

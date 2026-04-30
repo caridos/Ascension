@@ -289,6 +289,22 @@ public class lang extends LanguageProvider {
                         A thousand swings awaken intent.
                         Ten thousand swings… heaven yields to the sword.
                         """);
+        add("ascension.skill.axe_mastery_skill", "Axe Mastery");
+        add("ascension.skill.axe_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Axe.");
+        add("ascension.skill.blade_mastery_skill", "Blade Mastery");
+        add("ascension.skill.blade_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Blade.");
+        add("ascension.skill.bow_mastery_skill", "Bow Mastery");
+        add("ascension.skill.bow_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Bow.");
+        add("ascension.skill.mace_mastery_skill", "Mace Mastery");
+        add("ascension.skill.mace_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Mace.");
+        add("ascension.skill.spear_mastery_skill", "Spear Mastery");
+        add("ascension.skill.spear_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Spear.");
+        add("ascension.skill.sword_mastery_skill", "Sword Mastery");
+        add("ascension.skill.sword_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Sword.");
+        add("ascension.skill.trident_mastery_skill", "Trident Mastery");
+        add("ascension.skill.trident_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Trident.");
+
+
 
 
         //Pill effects
