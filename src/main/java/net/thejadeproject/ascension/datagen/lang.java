@@ -276,6 +276,27 @@ public class lang extends LanguageProvider {
         add("command.ascension.cultivation.info.physique", "Physique: %s");
         add("command.ascension.cultivation.info.path_header", "%s — %s %d.%d");
 
+        add("command.ascension.reset.all", "Your Ascension data was reset.");
+        add("command.ascension.reset.attributes", "Your Ascension attributes were reset.");
+        add("command.ascension.reset.attributes.no_form", "Cannot reset Ascension attributes: no active form.");
+        add("command.ascension.reset.paths", "Your cultivation paths were reset.");
+        add("command.ascension.reset.error.invalid_path", "Invalid path: %s");
+        add("command.ascension.reset.error.player_no_path", "%s does not have path %s");
+        add("command.ascension.reset.path", "Your path was reset: %s");
+        add("command.ascension.reset.skills", "Your skills were reset.");
+        add("command.ascension.reset.techniques", "Your techniques were reset.");
+        add("command.ascension.reset.error.player_no_technique", "%s has no technique for path %s");
+        add("command.ascension.reset.technique", "Your technique was reset for path: %s");
+        add("command.ascension.reset.physique", "Your physique was reset.");
+        add("command.ascension.reset.count.all", "Reset all Ascension data for %s player(s).");
+        add("command.ascension.reset.count.attributes", "Reset attributes for %s player(s).");
+        add("command.ascension.reset.count.paths", "Reset paths for %s player(s).");
+        add("command.ascension.reset.count.path", "Reset path %s for %s player(s).");
+        add("command.ascension.reset.count.skills", "Reset skills for %s player(s).");
+        add("command.ascension.reset.count.techniques", "Reset techniques for %s player(s).");
+        add("command.ascension.reset.count.technique", "Reset technique for path %s for %s player(s).");
+        add("command.ascension.reset.count.physique", "Reset physique for %s player(s).");
+
 
 
         //Menus
