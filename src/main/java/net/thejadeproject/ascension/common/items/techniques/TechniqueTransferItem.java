@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.thejadeproject.ascension.clients.toast.AscensionToast;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 import net.thejadeproject.ascension.common.items.ModItems;
@@ -61,7 +62,8 @@ public class TechniqueTransferItem extends Item {
                             new ShowAscensionToast(
                                     techniqueName.getString(),
                                     "Technique Learned",
-                                    toastIcon
+                                    toastIcon,
+                                    AscensionToast.DEFAULT_BACKGROUND
                             )
                     );
                 }
