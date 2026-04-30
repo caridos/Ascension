@@ -34,11 +34,15 @@ public class ScholarlySoulChapterItem extends Item {
             return InteractionResultHolder.success(stack);
         }
 
-        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return InteractionResultHolder.fail(stack);
+        }
+
+        IEntityData entityData = serverPlayer.getData(ModAttachments.ENTITY_DATA);
         PathData pathData = entityData.getPathData(ModPaths.SOUL.getId());
 
         if (pathData == null) {
-            player.displayClientMessage(
+            serverPlayer.displayClientMessage(
                     Component.literal("Your soul has no path to receive this chapter."),
                     true
             );
@@ -49,17 +53,15 @@ public class ScholarlySoulChapterItem extends Item {
         ITechniqueData rawData = pathData.getTechniqueData(techniqueId);
 
         if (!(rawData instanceof ScholarlySoulTechniqueData scholarlyData)) {
-            player.displayClientMessage(
+            serverPlayer.displayClientMessage(
                     Component.literal("You must learn the Scholarly Soul Technique before understanding this chapter."),
                     true
             );
             return InteractionResultHolder.fail(stack);
         }
 
-        boolean unlocked = scholarlyData.unlockChapter(chapter);
-
-        if (!unlocked) {
-            player.displayClientMessage(
+        if (!scholarlyData.unlockChapter(chapter)) {
+            serverPlayer.displayClientMessage(
                     Component.literal("You have already understood this chapter."),
                     true
             );
@@ -68,16 +70,16 @@ public class ScholarlySoulChapterItem extends Item {
 
         int maxRealm = scholarlyData.getMaxUnlockedMajorRealm();
 
-        player.displayClientMessage(
+        serverPlayer.displayClientMessage(
                 Component.literal("A new chapter settles into your soul. You can now cultivate up to major realm " + maxRealm + "."),
                 true
         );
 
-        stack.shrink(1);
-
-        if (player instanceof ServerPlayer serverPlayer) {
-            pathData.sync(serverPlayer);
+        if (!serverPlayer.getAbilities().instabuild) {
+            stack.shrink(1);
         }
+
+        pathData.sync(serverPlayer);
 
         return InteractionResultHolder.success(stack);
     }

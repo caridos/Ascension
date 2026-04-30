@@ -75,7 +75,7 @@ public class ModTechniques {
     // ──── SOUL TECHNIQUES ────────────────────────────────────────────
     public static final DeferredHolder<ITechnique, ? extends ScholarlySoulTechnique> SCHOLARLY_SOUL_TECHNIQUE =
             TECHNIQUES.register("scholarly_soul_technique",
-                    () -> new ScholarlySoulTechnique(testHandler));     //TODO: Fix the multi-part thing - sortofsmart
+                    () -> new ScholarlySoulTechnique(testHandler));
 
 
     // ──── WEAPON TECHNIQUES ────────────────────────────────────────────
@@ -87,10 +87,16 @@ public class ModTechniques {
     ──── TECHNIQUE IDEAS | Fill in as you please ────────────────────────────────────────────
 
         public static final DeferredHolder<ITechnique, ? extends IndestructibleVajraTechnique> INDESTRUCTIBLE_VAJRA_SCRIPTURE
+        public static final DeferredHolder<ITechnique, ? extends LotusHeartTechnique> LOTUS_HEART_SUTRA
+        public static final DeferredHolder<ITechnique, ? extends TripleSoulTechnique> TRIPLE_SOUL_LIFE_SUTRA
+
         public static final DeferredHolder<ITechnique, ? extends AbyssDwellerTechnique> ABYSS_DWELLERS_MANUAL
+        public static final DeferredHolder<ITechnique, ? extends HellboundMarrowTechnique> HELLBOUND_MARROW_SCRIPTURE
+        public static final DeferredHolder<ITechnique, ? extends NetherQiTechnique> NETHER_QI_DEVOURING_SCRIPTURE
 
         public static final DeferredHolder<ITechnique, ? extends MirageArrowTechnique> MIRAGE_ARROW_MANUAL
-        public static final DeferredHolder<ITechnique, ? extends GreatWallTechnique> BASTION_WALL_TECHNIQUE     public static final DeferredHolder<ITechnique, ? extends MortalNineSaberTechnique> NINE_BLADES_SABER
+        public static final DeferredHolder<ITechnique, ? extends GreatWallTechnique> BASTION_WALL_TECHNIQUE
+        public static final DeferredHolder<ITechnique, ? extends MortalNineSaberTechnique> NINE_BLADES_SABER
         public static final DeferredHolder<ITechnique, ? extends EdgeTemperingTechnique> EDGE_TEMPERING_METHOD
         public static final DeferredHolder<ITechnique, ? extends FallingLeafBladeTechnique> FALLING_LEAF_BLADE
         public static final DeferredHolder<ITechnique, ? extends >
@@ -101,6 +107,10 @@ public class ModTechniques {
         public static final DeferredHolder<ITechnique, ? extends >
         public static final DeferredHolder<ITechnique, ? extends >
         public static final DeferredHolder<ITechnique, ? extends >
+
+        P.S. I don't rally mean to make this many individual classes to extend, maybe just a couple general ones?
+        Unless someone wants to :)
+        I'm just jotting down ideas - sortofsmart
 
      ──── TECHNIQUE IDEAS | Fill in as you please ────────────────────────────────────────────
     */
