@@ -273,6 +273,7 @@ public class lang extends LanguageProvider {
         add("ascension.technique.water_wood_fire_earth_body_technique", "Smoldering Grove Method");
         add("ascension.technique.five_element_body_technique", "Five Harmony Body Method");
         add("ascension.technique.pale_moon_scripture", "Pale Moon Scripture");
+        add("ascension.technique.gibbous_moon_scripture", "Gibbous Moon Scripture");
 
 
 
@@ -356,6 +357,9 @@ public class lang extends LanguageProvider {
         add("ascension.skill.pale_moon_cultivation_skill", "Pale Moon Cultivation");
         add("ascension.skill.pale_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon pale lunar essence. Must be practised under open sky. Stronger when gazing directly at the moon. Harmful beneath direct sunlight.");
         add("ascension.skill.pale_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Pale Moon Scripture indoors.");
+        add("ascension.skill.gibbous_moon_cultivation_skill", "Gibbous Moon Cultivation");
+        add("ascension.skill.gibbous_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon the swelling power of the gibbous moon. Must be practised under open sky. Greatly empowered when gazing directly at the moon. Harmful beneath direct sunlight.");
+        add("ascension.skill.gibbous_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Gibbous Moon Scripture indoors.");
 
 
 

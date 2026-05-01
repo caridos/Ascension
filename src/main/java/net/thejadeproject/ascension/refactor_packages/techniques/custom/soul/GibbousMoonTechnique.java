@@ -9,6 +9,8 @@ import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
+import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.GenericTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.stat_change_handlers.BasicStatChangeHandler;
@@ -43,8 +45,7 @@ public class GibbousMoonTechnique extends GenericTechnique {
 
     @Override
     public void onTechniqueAdded(IEntityData heldEntity) {
-        // TODO: restore after ModSkills.GIBBOUS_MOON_CULTIVATION_SKILL is added in Task 7
-        // heldEntity.giveSkill(ModSkills.GIBBOUS_MOON_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
+        heldEntity.giveSkill(ModSkills.GIBBOUS_MOON_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
         refreshUniversalTechniqueSkills(heldEntity);
     }
 
@@ -54,8 +55,7 @@ public class GibbousMoonTechnique extends GenericTechnique {
         if (pathData != null) {
             pathData.handleRealmChange(pathData.getMajorRealm(), 0, heldEntity);
         }
-        // TODO: restore after ModSkills.GIBBOUS_MOON_CULTIVATION_SKILL is added in Task 7
-        // heldEntity.removeSkill(ModSkills.GIBBOUS_MOON_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
+        heldEntity.removeSkill(ModSkills.GIBBOUS_MOON_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
         refreshUniversalTechniqueSkills(heldEntity);
     }
 

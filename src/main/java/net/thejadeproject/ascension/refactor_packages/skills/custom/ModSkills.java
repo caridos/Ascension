@@ -14,6 +14,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attac
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.utility.QiFlightSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.body.BodyCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.GenericCultivationSkill;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.soul.GibbousMoonCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.soul.PaleMoonCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.soul.ScholarlySoulCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.weapon.SwordCultivationSkill;
@@ -125,6 +126,8 @@ public class ModSkills {
             SKILLS.register("scholarly_soul_cultivation_skill", ScholarlySoulCultivationSkill::new);
     public static final DeferredHolder<ISkill, ? extends PaleMoonCultivationSkill> PALE_MOON_CULTIVATION_SKILL =
             SKILLS.register("pale_moon_cultivation_skill", PaleMoonCultivationSkill::new);
+    public static final DeferredHolder<ISkill, ? extends GibbousMoonCultivationSkill> GIBBOUS_MOON_CULTIVATION_SKILL =
+            SKILLS.register("gibbous_moon_cultivation_skill", GibbousMoonCultivationSkill::new);
 
     // Passives
 

@@ -15,6 +15,7 @@ import net.thejadeproject.ascension.refactor_packages.techniques.custom.body.Com
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.body.FiveElementBodyTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.essence.FiveElementCultivationTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.GenericTechnique;
+import net.thejadeproject.ascension.refactor_packages.techniques.custom.soul.GibbousMoonTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.soul.PaleMoonTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.soul.ScholarlySoulTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.body.WhiteLightningTenStageTechnique;
@@ -251,6 +252,8 @@ public class ModTechniques {
                     () -> new ScholarlySoulTechnique(testHandler));
     public static final DeferredHolder<ITechnique, ? extends PaleMoonTechnique> PALE_MOON_SCRIPTURE =
             TECHNIQUES.register("pale_moon_scripture", () -> new PaleMoonTechnique(testHandler));
+    public static final DeferredHolder<ITechnique, ? extends GibbousMoonTechnique> GIBBOUS_MOON_SCRIPTURE =
+            TECHNIQUES.register("gibbous_moon_scripture", () -> new GibbousMoonTechnique(testHandler));
 
 
 
