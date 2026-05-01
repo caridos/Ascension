@@ -21,11 +21,8 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.body.WhiteLightningCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.elemental.*;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.five_element.FiveElementCirculation;
-import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.debuff.BlindedSensesDebuff;
-import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.debuff.CrackedMeridiansDebuff;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.debuff.*;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.form_change.EnterSpiritForm;
-import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.debuff.ParalyzedBodyDebuff;
-import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.debuff.VenomousMeridiansDebuff;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.universal.QiSustainedBodySkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.universal.RegenerationBoostSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.body.TurbidEnergyPurgeSkill;
