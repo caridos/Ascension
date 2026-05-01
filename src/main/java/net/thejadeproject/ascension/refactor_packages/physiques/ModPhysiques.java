@@ -1,11 +1,8 @@
 package net.thejadeproject.ascension.refactor_packages.physiques;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thejadeproject.ascension.AscensionCraft;
@@ -159,33 +156,6 @@ public class ModPhysiques {
                     .addPathBonus(ModPaths.FIST.getId(), 2.2)
     );
 
-    public static final DeferredHolder<IPhysique, ? extends GenericPhysique> WORLD_DOMINATOR =
-            PHYSIQUES.register("world_dominator", () ->
-                    new GenericPhysique(Component.translatable("ascension.physiques.world_dominator")) {
-
-                        @Override
-                        public void onPhysiqueAdded(
-                                IEntityData heldEntity,
-                                ResourceLocation oldPhysique,
-                                IPhysiqueData oldPhysiqueData
-                        ) {
-                            super.onPhysiqueAdded(heldEntity, oldPhysique, oldPhysiqueData);
-
-                            if (heldEntity.getAttachedEntity() instanceof ServerPlayer player) {
-                                Component message = Component.translatable(
-                                        "ascension.message.physique.world_dominator.acquired",
-                                        player.getDisplayName().copy().withStyle(ChatFormatting.WHITE),
-                                        Component.translatable("ascension.physiques.world_dominator")
-                                                .withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD)
-                                ).withStyle(ChatFormatting.GOLD);
-
-                                player.server.getPlayerList().broadcastSystemMessage(message, false);
-                            }
-                        }
-                    }
-                            .addPath(ModPaths.BODY.getId()).addPathBonus(ModPaths.BODY.getId(), 5.0)
-            );
-
     public static final DeferredHolder<IPhysique, ? extends GenericPhysique> STONE_MONKEY = PHYSIQUES.register("stone_monkey", () ->
             new GenericPhysique(Component.translatable("ascension.physiques.stone_monkey"))
                     .addPath(ModPaths.BODY.getId())
@@ -193,6 +163,18 @@ public class ModPhysiques {
                     .addPathBonus(ModPaths.BODY.getId(), 1.75)
                     .addPathBonus(ModPaths.EARTH.getId(), 3.0)
     );
+
+
+    public static final DeferredHolder<IPhysique, ? extends GenericPhysique> WORLD_DOMINATOR =
+            PHYSIQUES.register("world_dominator", () ->
+                    new GenericPhysique(Component.translatable("ascension.physiques.world_dominator")) {
+                        @Override
+                        public void onPhysiqueAdded(IEntityData heldEntity, ResourceLocation oldPhysique, IPhysiqueData oldPhysiqueData) {
+                            super.onPhysiqueAdded(heldEntity, oldPhysique, oldPhysiqueData);
+                            broadcastRareAcquired(heldEntity, "ascension.message.physique.world_dominator.acquired");
+                            }
+            }.addPath(ModPaths.BODY.getId()).addPathBonus(ModPaths.BODY.getId(), 5.0));
+
 
     // Soul Physiques
 
@@ -255,30 +237,12 @@ public class ModPhysiques {
     public static final DeferredHolder<IPhysique, ? extends GenericPhysique> SOUL_CROWNED_KING =
             PHYSIQUES.register("soul_crowned_mind", () ->
                     new GenericPhysique(Component.translatable("ascension.physiques.soul_crowned_king")) {
-                    @Override
-                    public void onPhysiqueAdded(
-                            IEntityData heldEntity,
-                            ResourceLocation oldPhysique,
-                            IPhysiqueData oldPhysiqueData
-                    ) {
-                        super.onPhysiqueAdded(heldEntity, oldPhysique, oldPhysiqueData);
-
-                        if (heldEntity.getAttachedEntity() instanceof ServerPlayer player) {
-                            Component message = Component.translatable(
-                                    "ascension.message.physique.soul_crowned_king.acquired",
-                                    player.getDisplayName().copy().withStyle(ChatFormatting.WHITE),
-                                    Component.translatable("ascension.physiques.soul_crowned_king")
-                                            .withStyle(ChatFormatting.BLUE, ChatFormatting.BOLD)
-                            ).withStyle(ChatFormatting.GOLD);
-
-                            player.server.getPlayerList().broadcastSystemMessage(message, false);
+                        @Override
+                        public void onPhysiqueAdded(IEntityData heldEntity, ResourceLocation oldPhysique, IPhysiqueData oldPhysiqueData) {
+                            super.onPhysiqueAdded(heldEntity, oldPhysique, oldPhysiqueData);
+                            broadcastRareAcquired(heldEntity, "ascension.message.physique.soul_crowned_king.acquired");
                         }
-                    }
-            }
-                        .addPath(ModPaths.SOUL.getId()).addPathBonus(ModPaths.SOUL.getId(), 5.0)
-    );
-
-    // TODO: a few more soul ones <3
+                    }.addPath(ModPaths.SOUL.getId()).addPathBonus(ModPaths.SOUL.getId(), 5.0));
 
 
     // Weapon Physiques
