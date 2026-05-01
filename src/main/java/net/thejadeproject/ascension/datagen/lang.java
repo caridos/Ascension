@@ -245,6 +245,7 @@ public class lang extends LanguageProvider {
         add("ascension.technique.five_element","Five Element Circulation Method");
         add("ascension.technique.scholarly_soul_technique","Scholar's Soul Transcendence");
         add("ascension.technique.white_lightning_ten_stage_technique","White Lightning Ten Stages");
+
         add("ascension.technique.fire_essence_technique","Fire Essence Technique");
         add("ascension.technique.water_essence_technique","Water Essence Technique");
         add("ascension.technique.earth_essence_technique","Earth Essence Technique");
@@ -252,26 +253,36 @@ public class lang extends LanguageProvider {
         add("ascension.technique.wood_essence_technique","Wood Essence Technique");
         add("ascension.technique.lightning_essence_technique","Lightning Essence Technique");
         add("ascension.technique.wind_essence_technique","Wind Essence Technique");
+
+        // Single-element body techniques
         add("ascension.technique.heart_fire_technique", "Heart Flame Cultivation");
         add("ascension.technique.kidney_water_technique", "Kidney Tide Cultivation");
         add("ascension.technique.liver_wood_technique", "Liver Grove Cultivation");
         add("ascension.technique.spleen_earth_technique", "Spleen Mountain Cultivation");
         add("ascension.technique.lung_metal_technique", "Lung Forge Cultivation");
+
+        // 2-element body techniques
         add("ascension.technique.wood_fire_body_technique", "Rising Flame Method");
         add("ascension.technique.fire_earth_body_technique", "Smoldering Earth Method");
         add("ascension.technique.earth_metal_body_technique", "Hidden Vein Method");
         add("ascension.technique.metal_water_body_technique", "Jade Spring Method");
         add("ascension.technique.water_wood_body_technique", "Evergreen Current Method");
+
+        // 3-element body techniques
         add("ascension.technique.wood_fire_earth_body_technique", "Ascending Pyre Method");
         add("ascension.technique.fire_earth_metal_body_technique", "Forge and Harvest Method");
         add("ascension.technique.earth_metal_water_body_technique", "Deep Vein Spring Method");
         add("ascension.technique.metal_water_wood_body_technique", "Iron Root Current Method");
         add("ascension.technique.water_wood_fire_body_technique", "Morning Mist Method");
+
+        // 4-element body techniques
         add("ascension.technique.wood_fire_earth_metal_body_technique", "Earthbound Cycle Method");
         add("ascension.technique.fire_earth_metal_water_body_technique", "Sunken Forge Method");
         add("ascension.technique.earth_metal_water_wood_body_technique", "Rooted Tide Method");
         add("ascension.technique.metal_water_wood_fire_body_technique", "Untempered Blaze Method");
         add("ascension.technique.water_wood_fire_earth_body_technique", "Smoldering Grove Method");
+
+        // 5-element body technique
         add("ascension.technique.five_element_body_technique", "Five Harmony Body Method");
         add("ascension.technique.pale_moon_scripture", "Pale Moon Scripture");
         add("ascension.technique.gibbous_moon_scripture", "Gibbous Moon Scripture");
@@ -347,6 +358,11 @@ public class lang extends LanguageProvider {
         add("ascension.skill.sword_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Sword.");
         add("ascension.skill.trident_mastery_skill", "Trident Mastery");
         add("ascension.skill.trident_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Trident.");
+
+
+
+
+        //Debuff Passive Skills
         add("ascension.skill.blinded_senses_debuff", "Blinded Senses");
         add("ascension.skill.blinded_senses_debuff.description", "A fog veils the world from your sight, restricting and limiting you.");
         add("ascension.skill.cracked_meridians_debuff", "Cracked Meridians");
@@ -355,6 +371,12 @@ public class lang extends LanguageProvider {
         add("ascension.skill.paralyzed_body_debuff.description", "An opposing energy floods your Body, halting your movement.");
         add("ascension.skill.venomous_meridians_debuff", "Venomous Meridians");
         add("ascension.skill.venomous_meridians_debuff.description", "As opposing energy floods your Meridians, corroding your flesh and blood.");
+        add("ascension.skill.qi_devouring_poison_debuff", "Qi Devouring Poison");
+        add("ascension.skill.qi_devouring_poison_debuff.description", "Slowly Devours your internal energy until empty, Then it takes your life energy.");
+        add("ascension.skill.corrosive_poison_debuff", "Corrosive Poison");
+        add("ascension.skill.corrosive_poison_debuff.description", "Slowly drains your gear of durability.");
+        add("ascension.skill.ascension.skill.scorching_yang_debuff", "Scorching Yang Poison");
+        add("ascension.skill.ascension.skill.scorching_yang_debuff.description", "Scorches the target with Extreme Yang that bypasses Immunities!");
         add("ascension.skill.pale_moon_cultivation_skill", "Pale Moon Cultivation");
         add("ascension.skill.pale_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon pale lunar essence. Must be practised under open sky. Stronger when gazing directly at the moon. Harmful beneath direct sunlight.");
         add("ascension.skill.pale_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Pale Moon Scripture indoors.");
@@ -472,11 +494,15 @@ public class lang extends LanguageProvider {
         add("needle_effect.ascension.needle_blindness", "Blindness");
         add("needle_effect.ascension.needle_slowness", "Slowness");
         add("needle_effect.ascension.needle_weakness", "Weakness");
-        add("needle_effect.ascension.needle_qi_devouring", "Qi Devouring");
+
+
+        add("needle_effect.ascension.needle_qi_devouring_poison", "Qi Devouring");
         add("needle_effect.ascension.needle_cracked_meridians", "Cracked Meridians");
         add("needle_effect.ascension.needle_blinded_senses", "Blinded Senses");
         add("needle_effect.ascension.needle_paralyzed_body", "Paralyzed Body");
         add("needle_effect.ascension.needle_venomous_meridians", "Venomous Meridians");
+        add("needle_effect.ascension.needle_corrosive_poison", "Corrosive Poison");
+        add("needle_effect.ascension.needle_scorching_yang_poison", "Scorching Yang Poison");
 
 
 
