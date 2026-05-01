@@ -272,6 +272,7 @@ public class lang extends LanguageProvider {
         add("ascension.technique.metal_water_wood_fire_body_technique", "Untempered Blaze Method");
         add("ascension.technique.water_wood_fire_earth_body_technique", "Smoldering Grove Method");
         add("ascension.technique.five_element_body_technique", "Five Harmony Body Method");
+        add("ascension.technique.pale_moon_technique", "Pale Moon Sutra");
 
 
 
@@ -352,6 +353,8 @@ public class lang extends LanguageProvider {
         add("ascension.skill.paralyzed_body_debuff.description", "An opposing energy floods your Body, halting your movement.");
         add("ascension.skill.venomous_meridians_debuff", "Venomous Meridians");
         add("ascension.skill.venomous_meridians_debuff.description", "As opposing energy floods your Meridians, corroding your flesh and blood.");
+        add("ascension.skill.pale_moon_cultivation_skill", "Pale Moon Cultivation Skill");
+        add("ascension.skill.pale_moon_cultivation_skill.description", "Cultivates the soul by drawing upon pale lunar essence. Slightly stronger beneath the night sky.");
 
 
 
