@@ -172,6 +172,10 @@ public class ModSkills {
             SKILLS.register("corrosive_poison", CorrosivePoisonDebuff::new);
     public static final DeferredHolder<ISkill, ScorchingYangPoisonDebuff> SCORCHING_YANG_POISON =
             SKILLS.register("scorching_fire_poison", ScorchingYangPoisonDebuff::new);
+    public static final DeferredHolder<ISkill, FrostSilkwormPoisonDebuff> FROST_SILKWORM_POISON =
+            SKILLS.register("frost_silkworm_poison", FrostSilkwormPoisonDebuff::new);
+    public static final DeferredHolder<ISkill, FrostSilkwormVenomDebuff> FROST_SILKWORM_POISON_TEMP =
+            SKILLS.register("frost_silkworm_poison_temp", FrostSilkwormVenomDebuff::new);
 
     // Actives
 
@@ -190,6 +194,8 @@ public class ModSkills {
         registerTickingSkill(QI_DEVOURING_POISON);
         registerTickingSkill(CORROSIVE_POISON_DEBUFF);
         registerTickingSkill(SCORCHING_YANG_POISON);
+        registerTickingSkill(FROST_SILKWORM_POISON);
+        registerTickingSkill(FROST_SILKWORM_POISON_TEMP);
     }
 
     private static void registerTickingSkill(DeferredHolder<ISkill, ? extends ISkill> skillHolder) {

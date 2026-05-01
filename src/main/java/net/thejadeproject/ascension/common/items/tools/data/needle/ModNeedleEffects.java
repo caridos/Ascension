@@ -105,6 +105,15 @@ public class ModNeedleEffects {
             "needle_corrosive_poison",
             ModSkills.CORROSIVE_POISON_DEBUFF.getId()
     );
+    public static final INeedleEffect FROST_SILKWORM_POISON_TEMP = temporaryPassive(
+            "needle_frost_silkworm_poison_temp",
+            ModSkills.FROST_SILKWORM_POISON_TEMP.getId(),
+            20 * 45 // 45 seconds
+    );
+    public static final INeedleEffect FROST_SILKWORM_POISON = permanentPassive(
+            "needle_frost_silkworm_poison",
+            ModSkills.FROST_SILKWORM_POISON.getId()
+    );
 
     private static INeedleEffect temporaryPassive(String path, ResourceLocation skillId, int durationTicks) {
         return register(new INeedleEffect() {

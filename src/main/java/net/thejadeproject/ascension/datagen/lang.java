@@ -371,12 +371,16 @@ public class lang extends LanguageProvider {
         add("ascension.skill.paralyzed_body_debuff.description", "An opposing energy floods your Body, halting your movement.");
         add("ascension.skill.venomous_meridians_debuff", "Venomous Meridians");
         add("ascension.skill.venomous_meridians_debuff.description", "As opposing energy floods your Meridians, corroding your flesh and blood.");
-        add("ascension.skill.qi_devouring_poison_debuff", "Qi Devouring Poison");
-        add("ascension.skill.qi_devouring_poison_debuff.description", "Slowly Devours your internal energy until empty, Then it takes your life energy.");
-        add("ascension.skill.corrosive_poison_debuff", "Corrosive Poison");
-        add("ascension.skill.corrosive_poison_debuff.description", "Slowly drains your gear of durability.");
-        add("ascension.skill.ascension.skill.scorching_yang_debuff", "Scorching Yang Poison");
-        add("ascension.skill.ascension.skill.scorching_yang_debuff.description", "Scorches the target with Extreme Yang that bypasses Immunities!");
+        add("ascension.skill.qi_devouring_parasite_debuff", "Qi Devouring Parasite");
+        add("ascension.skill.qi_devouring_parasite_debuff.description", "Slowly Devours your internal energy until empty, Then it takes your life energy.");
+        add("ascension.skill.corrosive_miasma_debuff", "Corrosive Poison");
+        add("ascension.skill.corrosive_miasma_debuff.description", "Slowly drains your gear of durability.");
+        add("ascension.skill.scorching_yang_debuff", "Scorching Yang Poison");
+        add("ascension.skill.scorching_yang_debuff.description", "Scorches the target with Extreme Yang that bypasses Immunities!");
+        add("ascension.skill.frost_silkworm_poison_debuff", "Frost Silkworm Poison");
+        add("ascension.skill.frost_silkworm_poison_debuff.description", "A silkworm's frost seeps into your meridians, freezing Qi and body alike. Cannot be cleansed. Leads only to death.");
+        add("ascension.skill.frost_silkworm_poison_temp_debuff", "Frost Silkworm Venom");
+        add("ascension.skill.frost_silkworm_poison_temp_debuff.description", "A concentrated burst of silkworm frost. The cold builds quickly — flee before it reaches your core.");
         add("ascension.skill.pale_moon_cultivation_skill", "Pale Moon Cultivation");
         add("ascension.skill.pale_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon pale lunar essence. Must be practised under open sky. Stronger when gazing directly at the moon. Harmful beneath direct sunlight.");
         add("ascension.skill.pale_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Pale Moon Scripture indoors.");
@@ -496,13 +500,15 @@ public class lang extends LanguageProvider {
         add("needle_effect.ascension.needle_weakness", "Weakness");
 
 
-        add("needle_effect.ascension.needle_qi_devouring_poison", "Qi Devouring");
+        add("needle_effect.ascension.needle_qi_devouring_poison", "Qi Devouring Parasite");
         add("needle_effect.ascension.needle_cracked_meridians", "Cracked Meridians");
         add("needle_effect.ascension.needle_blinded_senses", "Blinded Senses");
         add("needle_effect.ascension.needle_paralyzed_body", "Paralyzed Body");
         add("needle_effect.ascension.needle_venomous_meridians", "Venomous Meridians");
         add("needle_effect.ascension.needle_corrosive_poison", "Corrosive Poison");
         add("needle_effect.ascension.needle_scorching_yang_poison", "Scorching Yang Poison");
+        add("needle_effect.ascension.needle_frost_silkworm_poison_temp", "Frost Silkworm Venom");
+        add("needle_effect.ascension.needle_frost_silkworm_poison", "Frost Silkworm Poison");
 
 
 
