@@ -7,7 +7,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.thejadeproject.ascension.AscensionCraft;
-import net.thejadeproject.ascension.common.effects.ModEffects;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
@@ -92,11 +91,19 @@ public class ModNeedleEffects {
             ModSkills.VENOMOUS_MERIDIANS.getId(), // DoT based on max health
             20 * 10 // lasts 10 seconds
     );
+    public static final INeedleEffect SCORCHING_YANG_POISON = temporaryPassive(
+            "needle_scorching_yang_poison",
+            ModSkills.SCORCHING_YANG_POISON.getId(),
+            20 * 10 // lasts 10 seconds
+    );
 
-    public static final INeedleEffect QI_DEVOURING_POISON = temporaryPassive(
+    public static final INeedleEffect QI_DEVOURING_POISON = permanentPassive(
             "needle_qi_devouring_poison",
-            ModSkills.QI_DEVOURING_POISON.getId(),
-            20 * 20 // lasts 10 seconds
+            ModSkills.QI_DEVOURING_POISON.getId()
+    );
+    public static final INeedleEffect CORROSIVE_POISON = permanentPassive(
+            "needle_corrosive_poison",
+            ModSkills.CORROSIVE_POISON_DEBUFF.getId()
     );
 
     private static INeedleEffect temporaryPassive(String path, ResourceLocation skillId, int durationTicks) {

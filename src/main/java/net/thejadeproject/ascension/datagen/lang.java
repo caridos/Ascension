@@ -371,6 +371,10 @@ public class lang extends LanguageProvider {
         add("ascension.skill.venomous_meridians_debuff.description", "As opposing energy floods your Meridians, corroding your flesh and blood.");
         add("ascension.skill.qi_devouring_poison_debuff", "Qi Devouring Poison");
         add("ascension.skill.qi_devouring_poison_debuff.description", "Slowly Devours your internal energy until empty, Then it takes your life energy.");
+        add("ascension.skill.corrosive_poison_debuff", "Corrosive Poison");
+        add("ascension.skill.corrosive_poison_debuff.description", "Slowly drains your gear of durability.");
+        add("ascension.skill.ascension.skill.scorching_yang_debuff", "Scorching Yang Poison");
+        add("ascension.skill.ascension.skill.scorching_yang_debuff.description", "Scorches the target with Extreme Yang that bypasses Immunities!");
 
 
 
@@ -489,6 +493,8 @@ public class lang extends LanguageProvider {
         add("needle_effect.ascension.needle_blinded_senses", "Blinded Senses");
         add("needle_effect.ascension.needle_paralyzed_body", "Paralyzed Body");
         add("needle_effect.ascension.needle_venomous_meridians", "Venomous Meridians");
+        add("needle_effect.ascension.needle_corrosive_poison", "Corrosive Poison");
+        add("needle_effect.ascension.needle_scorching_yang_poison", "Scorching Yang Poison");
 
 
 
