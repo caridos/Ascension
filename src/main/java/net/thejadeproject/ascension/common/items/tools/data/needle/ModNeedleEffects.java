@@ -64,18 +64,6 @@ public class ModNeedleEffects {
             target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
         }
     });
-    public static final INeedleEffect QI_DEVOURING = register(new INeedleEffect() {
-        private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "needle_qi_devouring");
-
-        @Override
-        public ResourceLocation getId() {return id;}
-
-        @Override
-        public void onHit(LivingEntity target, LivingEntity shooter, Projectile projectile) {
-            target.addEffect(new MobEffectInstance(ModEffects.PARASITE, 100, 0));
-        }
-    });
-
 
     // Only Checks ServerPlayer because I don't think mobs can have skills? maybe
     public static final INeedleEffect CRACKED_MERIDIANS = temporaryPassive(
@@ -100,6 +88,12 @@ public class ModNeedleEffects {
             "needle_venomous_meridians",
             ModSkills.VENOMOUS_MERIDIANS.getId(), // DoT based on max health
             20 * 10 // lasts 10 seconds
+    );
+
+    public static final INeedleEffect QI_DEVOURING_POISON = temporaryPassive(
+            "needle_qi_devouring_poison",
+            ModSkills.QI_DEVOURING_POISON.getId(),
+            20 * 20 // lasts 10 seconds
     );
 
     private static INeedleEffect temporaryPassive(String path, ResourceLocation skillId, int durationTicks) {
