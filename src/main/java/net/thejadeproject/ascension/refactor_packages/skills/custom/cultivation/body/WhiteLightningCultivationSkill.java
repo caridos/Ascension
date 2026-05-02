@@ -22,6 +22,7 @@ import net.thejadeproject.ascension.refactor_packages.breakthroughs.IBreakthroug
 import net.thejadeproject.ascension.refactor_packages.breakthroughs.NineHeavenlyTribulations;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.events.CultivateEvent;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.skills.cultivation.CultivationProgressBar;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
@@ -221,7 +222,12 @@ public class WhiteLightningCultivationSkill implements ICastableSkill {
                 "ascension.skill.white_lightning_cultivation_skill.description"
         );
     }
-
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,
+                getTitle(),
+                getDescription());
+    }
     @Override public void onEquip(IEntityData entityData) {}
     @Override public void onUnEquip(IEntityData entityData, IPreCastData preCastData) {}
     @Override public void finalCast(CastEndData reason, Entity caster, ICastData castData) {}

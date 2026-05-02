@@ -18,6 +18,7 @@ import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.particle.ModParticles;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.handlers.AscensionDamageHandler;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
@@ -235,5 +236,10 @@ public class FireSpray implements ICastableSkill {
     @Override
     public Component getDescription() {
         return Component.translatable("ascension.skill.fire_spray.description");
+    }
+
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,getTitle(),getDescription());
     }
 }

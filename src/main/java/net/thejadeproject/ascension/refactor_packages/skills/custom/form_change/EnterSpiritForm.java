@@ -16,6 +16,8 @@ import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.entity.ModEntities;
 import net.thejadeproject.ascension.entity.custom.form.PlayerBodyEntity;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
+import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.skill_casting.casting.CastEndData;
 import net.thejadeproject.ascension.refactor_packages.skill_casting.casting.CastResult;
@@ -182,7 +184,12 @@ public class EnterSpiritForm implements ICastableSkill {
                 16,16
         );
     }
-
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,
+                getTitle(),
+                getDescription());
+    }
     @Override
     public Component getTitle() {
         return Component.translatable("ascension.skill.enter_spirit_form");

@@ -20,6 +20,7 @@ import net.thejadeproject.ascension.refactor_packages.breakthroughs.IBreakthroug
 import net.thejadeproject.ascension.refactor_packages.breakthroughs.NineHeavenlyTribulations;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.events.CultivateEvent;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.skills.cultivation.CultivationProgressBar;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
@@ -242,7 +243,12 @@ public class FiveElementCirculation implements ICastableSkill {
                 16,16
         );
     }
-
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,
+                getTitle(),
+                getDescription());
+    }
     @Override
     public Component getTitle() {
         return Component.translatable("ascension.skill.five_element_circulation");

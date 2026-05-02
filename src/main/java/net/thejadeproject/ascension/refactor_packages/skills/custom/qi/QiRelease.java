@@ -13,6 +13,9 @@ import net.minecraft.world.entity.Entity;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.PathDataDisplayElement;
+import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.skill_casting.casting.CastEndData;
 import net.thejadeproject.ascension.refactor_packages.skill_casting.casting.CastResult;
@@ -102,4 +105,10 @@ public class QiRelease implements ICastableSkill {
 
     @Override
     public Component getDescription() { return Component.literal("Releases 1 Qi per second while held."); }
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,
+                getTitle(),
+                getDescription());
+    }
 }

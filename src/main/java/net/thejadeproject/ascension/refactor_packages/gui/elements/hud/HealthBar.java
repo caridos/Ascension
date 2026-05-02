@@ -59,14 +59,13 @@ public class HealthBar extends RenderableElement {
         EasyLabel label = (EasyLabel) getChildren().getFirst();
 
         if(getAbsorptionProgress() != 0)label.setText(Component.literal(
-                format.format(player.getHealth())+"/"+
-                        format.format(player.getMaxHealth())+
-                        "+("+ format.format(+player.getAbsorptionAmount())+")"));
+                format.format(player.getHealth())+"+("+ format.format(+player.getAbsorptionAmount())+")"+"/"+
+                        format.format(player.getMaxHealth())));
         else label.setText(Component.literal(
                 format.format(player.getHealth())+"/"+
                         format.format(player.getMaxHealth())));
 
-        return entityData.getHealth()/player.getMaxHealth();
+        return Math.clamp(entityData.getHealth()/player.getMaxHealth(),0,1);
 
     }
     public double getAbsorptionProgress(){

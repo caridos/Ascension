@@ -4,68 +4,87 @@ import net.lucent.easygui.gui.RenderableElement;
 import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.layout.positioning.rules.PositioningRules;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.IInformationContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.main.MainContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.path_display.PathDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.skill_display.SkillDisplayContainer;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.stats_display.StatsDisplayContainer;
+
+import java.util.HashMap;
 
 public class IntrospectionContainer extends RenderableElement {
 
-    public MainContainer mainContainer;
-    public SkillDisplayContainer skillDisplayContainer;
-    public PathDisplayContainer pathDisplayContainer;
 
-    public NavButton mainBtn;
-    public NavButton skillBtn;
-    public NavButton pathBtn;
-
+    private final HashMap<String,RenderableElement> containerMap = new HashMap<>();
+    private final HashMap<String,NavButton> buttonMap = new HashMap<>();
+    private final HashMap<String, Component> nameMap = new HashMap<>();
+    private ActiveMenuTitle menuTitle;
     public IntrospectionContainer(UIFrame frame) {
         super(frame);
+
+        nameMap.put("main",Component.literal("Main"));
+        nameMap.put("stats",Component.literal("Stats"));
+        nameMap.put("skill",Component.literal("Skills"));
+        nameMap.put("path",Component.literal("Cultivation"));
+
         System.out.println("creating c1");
         getPositioning().setPositioningRule(PositioningRules.CENTER);
-        mainContainer = new MainContainer(frame);
+
+        MainContainer mainContainer = new MainContainer(frame);
         mainContainer.setActive(true);
         addChild(mainContainer);
+        containerMap.put("main",mainContainer);
 
-
-        System.out.println("creating c2");
-        skillDisplayContainer = new SkillDisplayContainer(frame);
+        menuTitle = new ActiveMenuTitle(frame);
+        menuTitle.getPositioning().setFromRawX(mainContainer.getPositioning().getRawX()+88);
+        menuTitle.getPositioning().setFromRawY(mainContainer.getPositioning().getRawY()-31);
+        addChild(menuTitle);
+        menuTitle.setMenuName(nameMap.get("main"));
+        SkillDisplayContainer skillDisplayContainer = new SkillDisplayContainer(frame);
         skillDisplayContainer.setActive(false);
         addChild(skillDisplayContainer);
+        containerMap.put("skill",skillDisplayContainer);
 
-        System.out.println("creating c3");
-        pathDisplayContainer = new PathDisplayContainer(frame);
+        PathDisplayContainer pathDisplayContainer = new PathDisplayContainer(frame);
         pathDisplayContainer.setActive(false);
         addChild(pathDisplayContainer);
+        containerMap.put("path",pathDisplayContainer);
+
+        StatsDisplayContainer statsDisplayContainer = new StatsDisplayContainer(frame);
+        statsDisplayContainer.setActive(false);
+        addChild(statsDisplayContainer);
+        containerMap.put("stats",statsDisplayContainer);
 
 
-        System.out.println("creating b1");
-        mainBtn = new NavButton(frame,"main",ResourceLocation.fromNamespaceAndPath(
+        NavButton statBtn = new NavButton(frame,"stats",ResourceLocation.fromNamespaceAndPath(
                 AscensionCraft.MOD_ID,
-                "textures/gui/main/top_tab_buttons.png"
+                "textures/gui/main/stats_menu/stats_buttons.png"
         ));
-        mainBtn.getPositioning().setX(-mainContainer.getWidth()/2+4);
-        mainBtn.getPositioning().setY(-mainContainer.getHeight()/2-27);
-        addChild(mainBtn);
-        System.out.println("creating b2");
-        skillBtn = new NavButton(frame,"skill",ResourceLocation.fromNamespaceAndPath(
+        statBtn.getPositioning().setX(-mainContainer.getWidth()/2+4);
+        statBtn.getPositioning().setY(-mainContainer.getHeight()/2-27);
+        addChild(statBtn);
+        buttonMap.put("stats",statBtn);
+
+        NavButton skillBtn = new NavButton(frame,"skill",ResourceLocation.fromNamespaceAndPath(
                 AscensionCraft.MOD_ID,
-                "textures/gui/main/skill_menu/skill_tab_button.png"
+                "textures/gui/main/skill_menu/skill_tab_buttons.png"
         ));
         skillBtn.getPositioning().setX(-mainContainer.getWidth()/2+30);
         skillBtn.getPositioning().setY(-mainContainer.getHeight()/2-27);
         addChild(skillBtn);
-        System.out.println("creating b3");
-        pathBtn = new NavButton(frame,"path",ResourceLocation.fromNamespaceAndPath(
+        buttonMap.put("skill",skillBtn);
+
+        NavButton pathBtn = new NavButton(frame,"path",ResourceLocation.fromNamespaceAndPath(
                 AscensionCraft.MOD_ID,
                 "textures/gui/main/path_menu/path_buttons.png"
         ));
         pathBtn.getPositioning().setX(-mainContainer.getWidth()/2+56);
         pathBtn.getPositioning().setY(-mainContainer.getHeight()/2-27);
         addChild(pathBtn);
-
+        buttonMap.put("path",pathBtn);
 
 
 
@@ -78,31 +97,11 @@ public class IntrospectionContainer extends RenderableElement {
     }
 
     public void openScreen(String screen){
-        switch (screen) {
-            case "main" -> {
-                mainContainer.setActive(true);
-                skillDisplayContainer.setActive(false);
-                pathDisplayContainer.setActive(false);
-                pathBtn.setActiveBtn(false);
-                skillBtn.setActiveBtn(false);
-                mainBtn.setActiveBtn(true);
-            }
-            case "skill" -> {
-                mainContainer.setActive(false);
-                skillDisplayContainer.setActive(true);
-                pathDisplayContainer.setActive(false);
-                pathBtn.setActiveBtn(false);
-                skillBtn.setActiveBtn(true);
-                mainBtn.setActiveBtn(false);
-            }
-            case "path" -> {
-                mainContainer.setActive(false);
-                skillDisplayContainer.setActive(false);
-                pathDisplayContainer.setActive(true);
-                pathBtn.setActiveBtn(true);
-                skillBtn.setActiveBtn(false);
-                mainBtn.setActiveBtn(false);
-            }
-        }
+        for(RenderableElement element : containerMap.values())element.setActive(false);
+        for(NavButton element : buttonMap.values()) element.setActiveBtn(false);
+
+        if(containerMap.containsKey(screen)) containerMap.get(screen).setActive(true);
+        if(buttonMap.containsKey(screen)) buttonMap.get(screen).setActiveBtn(true);
+        if(nameMap.containsKey(screen)) menuTitle.setMenuName(nameMap.get(screen));
     }
 }

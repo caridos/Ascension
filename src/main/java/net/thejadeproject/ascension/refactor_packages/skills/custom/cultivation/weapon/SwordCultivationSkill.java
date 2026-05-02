@@ -1,5 +1,7 @@
 package net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.weapon;
 
+import net.lucent.easygui.gui.RenderableElement;
+import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.lucent.easygui.gui.textures.TextureData;
 import net.minecraft.nbt.CompoundTag;
@@ -8,6 +10,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
+import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.skills.IPersistentSkillData;
 import net.thejadeproject.ascension.refactor_packages.skills.ISkill;
@@ -69,5 +73,11 @@ public class SwordCultivationSkill implements ISkill {
     @Override
     public Component getDescription() {
         return Component.translatable("ascension.skill.sword_cultivation_skill.description");
+    }
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,
+                getTitle(),
+                getDescription());
     }
 }

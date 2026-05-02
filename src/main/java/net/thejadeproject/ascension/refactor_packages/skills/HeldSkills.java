@@ -122,7 +122,8 @@ public class HeldSkills {
     public static void encodeFull(RegistryFriendlyByteBuf buf,HeldSkills heldSkills){
 
         buf.writeInt(heldSkills.skills.size());
-        for(HeldSkill skill : heldSkills.skills.values()){
+        Collection<HeldSkill> group = heldSkills.skills.values();
+        for(HeldSkill skill : group){
 
             skill.encode(buf);
         }

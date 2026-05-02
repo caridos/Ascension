@@ -14,6 +14,7 @@ import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.general.Container;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.IInformationContainer;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.BackButton;
 import net.thejadeproject.ascension.refactor_packages.paths.IPath;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
@@ -73,9 +74,14 @@ public class PathDisplayContainer extends RenderableElement {
 
         pathProgressBar = new PathProgressBar(frame,null);
 
-        pathProgressBar.getPositioning().setX(127);
-        pathProgressBar.getPositioning().setY(30);
-        addChild(pathContainer);
+        pathProgressBar.getPositioning().setX(128);
+        pathProgressBar.getPositioning().setY(31);
+        addChild(pathProgressBar);
+
+        BackButton button = new BackButton(frame);
+        button.getPositioning().setX(5);
+        button.getPositioning().setY(5);
+        addChild(button);
         //TODO add description box
     }
     public void selectPath(ResourceLocation path){

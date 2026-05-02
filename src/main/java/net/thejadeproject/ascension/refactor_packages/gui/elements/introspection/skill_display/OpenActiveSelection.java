@@ -1,56 +1,47 @@
-package net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.path_display;
+package net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.skill_display;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.elements.built_in.EasyButton;
-import net.lucent.easygui.gui.elements.built_in.EasyLabel;
 import net.lucent.easygui.gui.events.EasyEvents;
 import net.lucent.easygui.gui.events.type.EasyEvent;
 import net.lucent.easygui.gui.events.type.EasyMouseEvent;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.lucent.easygui.gui.textures.TextureDataSubsection;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
-import net.thejadeproject.ascension.refactor_packages.paths.IPath;
-import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
-import org.checkerframework.checker.units.qual.C;
 
-public class PathSelectionButton extends EasyButton {
+public class OpenActiveSelection extends EasyButton {
     ResourceLocation textureIdentifier = ResourceLocation.fromNamespaceAndPath(
             AscensionCraft.MOD_ID,
-            "textures/gui/main/path_menu/path_text_buttons.png"
+            "textures/gui/main/skill_menu/skill_menu.png"
     );
-    ITextureData alternateTexture = new TextureDataSubsection(
-            textureIdentifier,89,24,
-            0,0,89,12
+    ITextureData openDefaultTexture = new TextureDataSubsection(
+            textureIdentifier,
+            234,286,
+            187,241,13,11
     );
-    ITextureData defaultTexture = new TextureDataSubsection(
-            textureIdentifier,89,24,
-            0,12,89,12
+    ITextureData openAlternateTexture = new TextureDataSubsection(
+            textureIdentifier,
+            234,286,
+            187,252,13,11
     );
-    public final ResourceLocation path;
-
-    public PathSelectionButton(UIFrame frame,ResourceLocation path) {
-        super(frame, 0,0);
-        this.path = path;
-        setWidth(defaultTexture.getWidth());
-        setHeight(defaultTexture.getHeight());
-        EasyLabel label = new EasyLabel(frame);
-        label.setTextColor(-1);
-        label.setWidth(85);
-        label.setHeight(8);
-        label.getPositioning().setX(2);
-        label.getPositioning().setY(2);
-        label.setScaleToFit(true);
-        label.setTextPositioningX(EasyLabel.TextPositionRule.CENTER);
-        label.setTextPositioningY(EasyLabel.TextPositionRule.CENTER);
-        if(path != null){
-            IPath pathInstance = AscensionRegistries.Paths.PATHS_REGISTRY.get(path);
-            label.setText(pathInstance.getDisplayTitle());
-        }else label.setText(Component.empty());
-        addChild(label);
+    ITextureData closeDefaultTexture = new TextureDataSubsection(
+            textureIdentifier,
+            234,286,
+            174,241,13,11
+    );
+    ITextureData closeAlternateTexture = new TextureDataSubsection(
+            textureIdentifier,
+            234,286,
+            174,252,13,11
+    );
+    private boolean open;
+    public OpenActiveSelection(UIFrame frame, int x, int y) {
+        super(frame, x, y);
+        setWidth(openDefaultTexture.getWidth());
+        setHeight(openDefaultTexture.getHeight());
         addEventListener(EasyEvents.GLOBAL_MOUSE_MOVE_EVENT,this::globalMouseMoveEvent);
     }
     public void globalMouseMoveEvent(EasyEvent event){
@@ -86,12 +77,26 @@ public class PathSelectionButton extends EasyButton {
         }
         setPressed(false); //reset
     }
-
+    public boolean isOpen(){return open;}
+    @Override
+    public void onClick() {
+        super.onClick();
+        open = !open;
+        if(getUiFrame().getElementById("skill_bar_container") instanceof SkillBarContainer container){
+            if(open)container.open();
+            else container.setActive(false);
+        }
+    }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        if(isHovered() || isPressed()) alternateTexture.render(guiGraphics);
-        else defaultTexture.render(guiGraphics);
+        if(isOpen()){
+            if(isHovered()) closeAlternateTexture.render(guiGraphics);
+            else closeDefaultTexture.render(guiGraphics);
+        }else{
+            if(isHovered()) openAlternateTexture.render(guiGraphics);
+            else openDefaultTexture.render(guiGraphics);
+        }
     }
 }

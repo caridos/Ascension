@@ -32,8 +32,8 @@ public class SkillCastHandler {
 
     private final SkillCooldownHandler cooldownHandler = new SkillCooldownHandler();
 
-    //TODO update to use config with max 14
-    private final SkillHotBar hotBar = new SkillHotBar(6);
+
+    private final SkillHotBar hotBar = new SkillHotBar(5);
 
     public void addPersistentCastingInstance(ResourceLocation skill, IPersistentSkillInstance skillInstance){
         persistentCastingInstances.add(new PersistentCastingInstance(skillInstance,skill));

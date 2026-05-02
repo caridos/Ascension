@@ -19,6 +19,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.skills.cultivation.CultivationProgressBar;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
@@ -257,6 +258,12 @@ public class GenericCultivationSkill implements ICastableSkill {
         return CastType.LONG;
     }
 
+    @Override
+    public RenderableElement getInformationContainer(UIFrame frame) {
+        return new DescriptionDisplayContainer(frame,
+                getTitle(),
+                getDescription());
+    }
     @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getCastElement(UIFrame frame) {

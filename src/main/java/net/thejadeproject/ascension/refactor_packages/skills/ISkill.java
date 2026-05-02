@@ -1,5 +1,7 @@
 package net.thejadeproject.ascension.refactor_packages.skills;
 
+import net.lucent.easygui.gui.RenderableElement;
+import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -7,6 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 
 import java.util.UUID;
@@ -35,6 +38,8 @@ public interface ISkill {
     ITextureData getIcon();
     Component getTitle();
     Component getDescription();
+    RenderableElement getInformationContainer(UIFrame frame);
+
     //Harmful -> neutral -> buff
     /*
         boolean isHarmful();

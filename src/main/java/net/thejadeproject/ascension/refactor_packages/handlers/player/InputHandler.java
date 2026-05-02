@@ -136,14 +136,20 @@ public class InputHandler {
                 keyHandler.getValue().actionDown.accept(modifiers);
                 sendSatePacket(keyHandler.getValue().actionName,modifiers,true);
 
-            }else if (button == keyHandler.getKey().getKey().getValue() && action == GLFW.GLFW_RELEASE && keyHandler.getKey().isConflictContextAndModifierActive()){
+            }else if (button == keyHandler.getKey().getKey().getValue() && action == GLFW.GLFW_RELEASE){
                 //key released
                 state.remove(keyHandler.getKey());
                 keyHandler.getValue().actionReleased.accept(modifiers);
                 sendSatePacket(keyHandler.getValue().actionName,modifiers,false);
-            }else if (button == keyHandler.getKey().getKey().getValue() && action == GLFW.GLFW_REPEAT && keyHandler.getKey().isConflictContextAndModifierActive()){
-                //repeat press
+            }else if (button == keyHandler.getKey().getKey().getValue() && action == GLFW.GLFW_REPEAT &&keyHandler.getKey().isConflictContextAndModifierActive()){
                 keyHandler.getValue().actionHeld.accept(modifiers);
+
+            }else{
+                if(state.contains(keyHandler.getKey())){
+                    state.remove(keyHandler.getKey());
+                    keyHandler.getValue().actionReleased.accept(modifiers);
+                    sendSatePacket(keyHandler.getValue().actionName,modifiers,false);
+                }
             }
         }
 

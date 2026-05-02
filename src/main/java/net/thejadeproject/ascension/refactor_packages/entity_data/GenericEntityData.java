@@ -582,7 +582,7 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public void setPathForm(ResourceLocation path, ResourceLocation form) {
-        if(!pathDataLocation.containsKey(path) || !heldFormData.containsKey(form)) return;
+        if(pathDataLocation.containsKey(path) || !heldFormData.containsKey(form)) return;
 
         pathDataLocation.put(path,form);
     }
@@ -658,6 +658,7 @@ public class GenericEntityData implements IEntityData {
             AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(pathData.getLastUsedTechnique()).onTechniqueAdded(this);
         }
         if(getAttachedEntity() instanceof ServerPlayer serverPlayer  && serverPlayer.connection != null){
+            System.out.println("sending sync for path: "+path);
             PacketDistributor.sendToPlayer(serverPlayer,new SyncPathData(pathDataLocation.get(path),pathData));
         }
     }
