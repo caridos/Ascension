@@ -128,7 +128,6 @@ public class InputHandler {
 
 
         for(Map.Entry<KeyMapping,ActionHandler> keyHandler : actionHandlerMapping.entrySet()){
-
             if(keyHandler.getKey().getKey().getValue() == button && action == GLFW.GLFW_PRESS && keyHandler.getKey().isConflictContextAndModifierActive()){
 
                 //mouse down

@@ -18,6 +18,8 @@ import net.thejadeproject.ascension.refactor_packages.paths.IPath;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 
+import java.text.DecimalFormat;
+
 public class PathProgressBar extends RenderableElement {
     ResourceLocation selectedPath;
     ResourceLocation textureIdentifier = ResourceLocation.fromNamespaceAndPath(
@@ -30,6 +32,7 @@ public class PathProgressBar extends RenderableElement {
             1,181,
             84,9
     );
+    DecimalFormat format = new DecimalFormat("0.##");
     EasyTooltip tooltip;
     boolean hovered;
     public PathProgressBar(UIFrame frame, ResourceLocation path) {
@@ -59,7 +62,7 @@ public class PathProgressBar extends RenderableElement {
         this.selectedPath = path;
     }
     public double getMaxQi(){
-        if(selectedPath == null) return  0;
+        if(selectedPath == null) return 0;
         PathData pathData = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA).getPathData(selectedPath);
 
         double maxQi;
@@ -84,8 +87,9 @@ public class PathProgressBar extends RenderableElement {
     protected void run(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.run(guiGraphics, mouseX, mouseY, partialTick);
         if(hovered){
-            System.out.println("show progress");
-            tooltip.appendText(Component.literal(String.valueOf(getCurrentQi())).append("/").append(String.valueOf(getMaxQi())));
+            System.out.println("show progress for path : "+selectedPath);
+            tooltip = new EasyTooltip(getUiFrame());
+            tooltip.appendText(Component.literal(format.format(getCurrentQi())).append("/").append(format.format(getMaxQi())));
             getUiFrame().setTooltip(tooltip);
         }
     }
