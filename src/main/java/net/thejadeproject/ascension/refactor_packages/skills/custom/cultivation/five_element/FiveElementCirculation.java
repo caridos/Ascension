@@ -236,6 +236,7 @@ public class FiveElementCirculation implements ICastableSkill {
         return null;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {
         return new TextureData(

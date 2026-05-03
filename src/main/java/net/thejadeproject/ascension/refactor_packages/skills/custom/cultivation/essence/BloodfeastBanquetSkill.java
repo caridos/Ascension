@@ -274,6 +274,7 @@ public class BloodfeastBanquetSkill implements ICastableSkill {
         return new DescriptionDisplayContainer(frame, getTitle(), getDescription());
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {
         return new TextureData(

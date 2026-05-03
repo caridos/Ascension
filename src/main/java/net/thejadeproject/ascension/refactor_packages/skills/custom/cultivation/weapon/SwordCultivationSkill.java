@@ -59,6 +59,7 @@ public class SwordCultivationSkill implements ISkill {
         return null;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {
         return new TextureData(

@@ -182,6 +182,7 @@ public abstract class ElementalEssenceCultivationSkill implements ICastableSkill
         );
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {
         return new TextureData(

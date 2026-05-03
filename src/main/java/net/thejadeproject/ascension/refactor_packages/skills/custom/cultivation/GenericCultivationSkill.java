@@ -93,6 +93,7 @@ public class GenericCultivationSkill implements ICastableSkill {
         return new GenericCultivationSkillData(buf);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {
         return new TextureData(
