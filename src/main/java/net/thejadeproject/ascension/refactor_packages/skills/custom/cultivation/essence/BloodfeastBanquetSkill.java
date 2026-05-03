@@ -268,6 +268,7 @@ public class BloodfeastBanquetSkill implements ICastableSkill {
         return Component.translatable("ascension.skill.bloodfeast_banquet.description");
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame, getTitle(), getDescription());

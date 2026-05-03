@@ -16,6 +16,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
@@ -72,6 +74,7 @@ public class VoidstepSkill implements ICastableSkill {
         return Component.translatable("ascension.skill.voidstep.description");
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return null;
@@ -84,6 +87,7 @@ public class VoidstepSkill implements ICastableSkill {
         return CastType.INSTANT;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getCastElement(UIFrame frame) {
         return null;

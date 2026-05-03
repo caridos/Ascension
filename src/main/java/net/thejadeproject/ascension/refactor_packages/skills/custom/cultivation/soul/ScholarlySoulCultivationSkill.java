@@ -349,6 +349,7 @@ public class ScholarlySoulCultivationSkill implements ICastableSkill {
         );
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,getTitle(),getDescription());

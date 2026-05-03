@@ -10,6 +10,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
@@ -129,6 +131,7 @@ public class QiFlightSkill implements ICastableSkill {
         return Component.translatable("ascension.skill.air_step.description");
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,getTitle(),getDescription());
@@ -151,6 +154,7 @@ public class QiFlightSkill implements ICastableSkill {
     @Override public IPersistentSkillData persistentInstanceFromCompound(CompoundTag tag) { return null; }
     @Override public IPersistentSkillData persistentInstanceFromNetwork(RegistryFriendlyByteBuf buf) { return null; }
 
+    @OnlyIn(Dist.CLIENT)
     @Override public RenderableElement getCastElement(UIFrame frame) { return null; }
 
     @Override public void onAdded(IEntityData attachedEntityData) {}

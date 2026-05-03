@@ -226,6 +226,7 @@ public abstract class ElementalEssenceCultivationSkill implements ICastableSkill
 
         return count;
     }
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,

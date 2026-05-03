@@ -6,7 +6,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Panda;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.PathDataDisplayElement;
@@ -79,6 +80,7 @@ public class GenericPath implements IPath {
         return Component.literal(String.valueOf(minorRealm));
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame, PathData pathData) {
         return new PathDataDisplayElement(frame,

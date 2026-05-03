@@ -12,6 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.entity.ModEntities;
 import net.thejadeproject.ascension.entity.custom.form.PlayerBodyEntity;
@@ -132,6 +134,7 @@ public class EnterSpiritForm implements ICastableSkill {
         return CastType.INSTANT;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getCastElement(UIFrame frame) {
         return null;
@@ -184,6 +187,7 @@ public class EnterSpiritForm implements ICastableSkill {
                 16,16
         );
     }
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,

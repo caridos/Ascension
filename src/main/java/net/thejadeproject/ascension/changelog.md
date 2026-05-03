@@ -5,6 +5,7 @@
 • Added new Artifacts
 • Reworked Alchemy now uses multi block
 • Alchemy now has 4 new components with new models (Thanks SortOfSmart)
+• Mobs now have cultivation
 
 
 

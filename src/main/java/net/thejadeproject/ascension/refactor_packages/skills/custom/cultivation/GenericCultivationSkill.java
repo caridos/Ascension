@@ -258,6 +258,7 @@ public class GenericCultivationSkill implements ICastableSkill {
         return CastType.LONG;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,

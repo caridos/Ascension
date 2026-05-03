@@ -14,6 +14,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.particle.ModParticles;
@@ -192,6 +194,7 @@ public class FireSpray implements ICastableSkill {
         return CastType.LONG;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getCastElement(UIFrame frame) {
         return null;
@@ -255,6 +258,7 @@ public class FireSpray implements ICastableSkill {
         return Component.translatable("ascension.skill.fire_spray.description");
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,getTitle(),getDescription());

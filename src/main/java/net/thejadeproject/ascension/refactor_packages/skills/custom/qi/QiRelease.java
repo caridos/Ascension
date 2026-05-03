@@ -12,6 +12,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
@@ -95,6 +97,7 @@ public class QiRelease implements ICastableSkill {
     @Override
     public CastType getCastType() { return CastType.INSTANT; }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getCastElement(UIFrame frame) { return null; }
 
@@ -112,6 +115,7 @@ public class QiRelease implements ICastableSkill {
     @Override
     public Component getDescription() { return Component.literal("Releases a burst of Qi, pushing away nearby entities."); }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame, getTitle(), getDescription());

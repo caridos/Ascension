@@ -243,6 +243,7 @@ public class FiveElementCirculation implements ICastableSkill {
                 16,16
         );
     }
+    @OnlyIn(Dist.CLIENT)
     @Override
     public RenderableElement getInformationContainer(UIFrame frame) {
         return new DescriptionDisplayContainer(frame,
