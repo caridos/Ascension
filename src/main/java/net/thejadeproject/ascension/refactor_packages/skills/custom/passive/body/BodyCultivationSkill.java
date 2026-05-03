@@ -12,9 +12,11 @@ import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.qi.EntityQiContainer;
+import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.SimplePassiveSkill;
 
-@EventBusSubscriber(modid = AscensionCraft.MOD_ID)
+
 public class BodyCultivationSkill extends SimplePassiveSkill {
 
     private static final float   MIN_DAMAGE       = 10.0f;
@@ -28,11 +30,11 @@ public class BodyCultivationSkill extends SimplePassiveSkill {
         this.titleKey = titleKey;
         this.descriptionKey = descriptionKey;
         this.skillId = skillId;
-
+        NeoForge.EVENT_BUS.addListener(this::onLivingDamage);
     }
 
     @SubscribeEvent
-    public void onLivingDamage(LivingDamageEvent.Post event) {
+    public  void onLivingDamage(LivingDamageEvent.Post event) {
         if (event.getEntity().level().isClientSide()) return;
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 

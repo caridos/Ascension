@@ -24,7 +24,7 @@ public class WhiteLightningCultivationSkill extends SimplePassiveSkill {
     private static final double DEBUFF_BONUS      = 0.35;
 
     public WhiteLightningCultivationSkill() {
-        NeoForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.addListener(this::onLivingDamage);
     }
 
     @SubscribeEvent
