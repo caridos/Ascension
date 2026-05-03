@@ -41,7 +41,6 @@ public class LightningEssenceCultivationSkill extends ElementalEssenceCultivatio
         return LightningEssenceTechnique.class;
     }
 
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

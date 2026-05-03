@@ -90,7 +90,6 @@ public class PaleMoonCultivationSkill extends GenericCultivationSkill {
     }
 
     // --- Icon / display ---
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

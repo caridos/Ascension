@@ -84,7 +84,6 @@ public class DawningSunCultivationSkill extends GenericCultivationSkill {
     }
 
     // --- Icon / display ---
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

@@ -44,7 +44,6 @@ public class MetalEssenceCultivationSkill extends ElementalEssenceCultivationSki
         return MetalEssenceTechnique.class;
     }
 
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

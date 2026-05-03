@@ -48,7 +48,6 @@ public class EarthEssenceCultivationSkill extends ElementalEssenceCultivationSki
         return EarthEssenceTechnique.class;
     }
 
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

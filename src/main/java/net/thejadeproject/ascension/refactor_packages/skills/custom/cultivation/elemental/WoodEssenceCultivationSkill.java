@@ -48,7 +48,6 @@ public class WoodEssenceCultivationSkill extends ElementalEssenceCultivationSkil
         return WoodEssenceTechnique.class;
     }
 
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

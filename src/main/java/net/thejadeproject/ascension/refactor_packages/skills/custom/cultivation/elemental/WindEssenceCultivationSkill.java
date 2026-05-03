@@ -47,7 +47,6 @@ public class WindEssenceCultivationSkill extends ElementalEssenceCultivationSkil
     protected Class<? extends ElementalEssenceTechnique> getTechniqueClass() {
         return WindEssenceTechnique.class;
     }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

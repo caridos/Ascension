@@ -67,7 +67,6 @@ public class GibbousMoonCultivationSkill extends GenericCultivationSkill {
         }
         return continuing;
     }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {

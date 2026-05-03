@@ -35,7 +35,6 @@ public class FireEssenceCultivationSkill extends ElementalEssenceCultivationSkil
     protected Class<? extends ElementalEssenceTechnique> getTechniqueClass() {
         return FireEssenceTechnique.class;
     }
-
     @OnlyIn(Dist.CLIENT)
     @Override
     public ITextureData getIcon() {
