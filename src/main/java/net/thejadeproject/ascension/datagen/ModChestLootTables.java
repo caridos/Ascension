@@ -139,8 +139,6 @@ public class ModChestLootTables implements LootTableSubProvider {
                                                 .setWeight(8))
                                         .add(LootItem.lootTableItem(ModItems.TABLET_OF_DESTRUCTION_EARTH.get())
                                                 .setWeight(5))
-                                        .add(LootItem.lootTableItem(ModItems.SPATIAL_STONE_TIER_2.get())
-                                                .setWeight(12))
                                         .add(LootItem.lootTableItem(ModItems.UNDEAD_CORE.get())
                                                 .setWeight(10))
                                         .add(LootItem.lootTableItem(ModItems.FIRE_GOURD.get())

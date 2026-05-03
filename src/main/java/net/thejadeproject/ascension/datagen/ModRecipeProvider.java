@@ -166,7 +166,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('F', ModItems.HUNDRED_YEAR_FIRE_GINSENG.get())
                 .define('M', ModBlocks.RAW_MARBLE.get())
                 .unlockedBy("has_marble", has(ModBlocks.RAW_MARBLE)).save(recipeOutput, "ascension:shaped/fire_gourd");
-        /*ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SPATIAL_RING.get()) //Todo Fix Spatial Ring (Disabled for now)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SPATIAL_RING.get())
                 .pattern("FIF")
                 .pattern("BCB")
                 .pattern("FBF")
@@ -174,16 +174,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('C', Blocks.CHEST)
                 .define('F', ModItems.FROST_SILVER_INGOT.get())
                 .define('B', ModItems.BLACK_IRON_INGOT.get())
-                .unlockedBy("has_frost_silver_ingot", has(ModItems.FROST_SILVER_INGOT)).save(recipeOutput, "ascension:shaped/iron_spatial_ring");
-         */
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SPIRIT_SEALING_RING.get())
-                .pattern("BSB")
-                .pattern("BEB")
-                .pattern("BBB")
-                .define('E', Items.EGG)
-                .define('B', ModItems.BLACK_IRON_INGOT.get())
-                .define('S', ModItems.SPATIAL_STONE_TIER_2.get())
-                .unlockedBy("has_black_iron_ingot", has(ModItems.BLACK_IRON_INGOT)).save(recipeOutput, "ascension:shaped/spirit_sealing_ring");
+                .unlockedBy("has_frost_silver_ingot", has(ModItems.FROST_SILVER_INGOT)).save(recipeOutput, "ascension:shaped/spatial_ring");
+
 
 
 

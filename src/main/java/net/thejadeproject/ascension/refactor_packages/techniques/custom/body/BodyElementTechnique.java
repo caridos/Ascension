@@ -37,7 +37,7 @@ public class BodyElementTechnique extends GenericTechnique {
     @Override
     public void onTechniqueAdded(IEntityData heldEntity) {
         heldEntity.giveSkill(
-            ModSkills.BODY_CULTIVATION_SKILL.getId(),
+            ModSkills.BODY_CULTIVATION.getId(),
             new GenericCultivationSkillData(getBaseRate(), Set.of()),
             ModForms.MORTAL_VESSEL.getId()
         );
@@ -48,7 +48,7 @@ public class BodyElementTechnique extends GenericTechnique {
         heldEntity.getPathData(getPath()).handleRealmChange(
             heldEntity.getPathData(getPath()).getMajorRealm(), 0, heldEntity
         );
-        heldEntity.removeSkill(ModSkills.BODY_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
+        heldEntity.removeSkill(ModSkills.BODY_CULTIVATION.getId(), ModForms.MORTAL_VESSEL.getId());
     }
 
     @Override

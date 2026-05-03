@@ -13,7 +13,6 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attac
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.fire.FireSpray;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.utility.QiFlightSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.utility.VoidstepSkill;
-import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.body.BodyCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.GenericCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.essence.BloodfeastBanquetSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.soul.*;
@@ -21,6 +20,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.body.WhiteLightningCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.elemental.*;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.five_element.FiveElementCirculation;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.body.BodyCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.debuff.*;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.form_change.EnterSpiritForm;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.universal.QiSustainedBodySkill;
@@ -106,8 +106,8 @@ public class ModSkills {
 
     // ──── BODY SKILLS ────────────────────────────────────────────
     // Cultivation
-    public static final DeferredHolder<ISkill, ? extends BodyCultivationSkill> BODY_CULTIVATION_SKILL =
-            SKILLS.register("body_cultivation_skill", BodyCultivationSkill::new);
+    public static final DeferredHolder<ISkill, ? extends BodyCultivationSkill> BODY_CULTIVATION =
+            SKILLS.register("body_cultivation", BodyCultivationSkill::new);
     public static final DeferredHolder<ISkill, ? extends WhiteLightningCultivationSkill> WHITE_LIGHTNING_CULTIVATION_SKILL =
             SKILLS.register("white_lightning_cultivation_skill", WhiteLightningCultivationSkill::new);
 

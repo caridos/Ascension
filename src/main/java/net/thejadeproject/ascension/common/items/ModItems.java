@@ -53,9 +53,6 @@ public class ModItems {
             () -> new ShaderSummonerItem(new Item.Properties()));
 
 
-    public static final DeferredItem<Item> SPIRIT_SEALING_RING = ITEMS.register("spirit_sealing_ring",
-            () -> new SpiritSealingRingItem(new Item.Properties()));
-
 
     //Spatial Ring Stuff
 
@@ -65,8 +62,6 @@ public class ModItems {
 
     public static final DeferredItem<Item> SPATIAL_STONE_TIER_1 = ITEMS.register("spatial_stone_tier_1",
             () -> new SpatialStoneItem(1, "I", Rarity.COMMON));
-    public static final DeferredItem<Item> SPATIAL_STONE_TIER_2 = ITEMS.register("spatial_stone_tier_2",
-            () -> new SpatialStoneItem(2, "II", Rarity.UNCOMMON));
 
     // Stack Upgrades Todo Fix upgrades
     /*public static final DeferredItem<Item> STACK_UPGRADE_T1 = ITEMS.register("stack_upgrade_t1",

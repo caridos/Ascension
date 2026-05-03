@@ -31,7 +31,7 @@ import java.util.List;
 
 public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStandBlockEntity> {
 
-    private static final int MAX_VISIBLE_BODY_LINES = 6;
+    private static final int MAX_VISIBLE_BODY_LINES = 7;
     private static final float BODY_LINE_HEIGHT = 10f;
     private static final float HEADER_SCALE = 1.4f;
     private static final float HEADER_LINE_HEIGHT = BODY_LINE_HEIGHT * HEADER_SCALE;
@@ -92,14 +92,16 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
 
     private void renderHolographicText(ItemStack stack, PoseStack poseStack, MultiBufferSource bufferSource) {
         Component header = buildHeader(stack);
+        Component progressLine = buildProgressLine(stack);
         List<Component> bodyLines = buildBodyLines(stack);
 
-        if (header == null && bodyLines.isEmpty()) return;
+        if (header == null && progressLine == null && bodyLines.isEmpty()) return;
 
         boolean needsScroll = bodyLines.size() > MAX_VISIBLE_BODY_LINES;
 
         float totalHeight = 0;
         if (header != null) totalHeight += HEADER_LINE_HEIGHT + 4f;
+        if (progressLine != null) totalHeight += BODY_LINE_HEIGHT + 4f;
         int visibleCount = needsScroll ? MAX_VISIBLE_BODY_LINES : bodyLines.size();
         totalHeight += visibleCount * BODY_LINE_HEIGHT;
 
@@ -124,6 +126,13 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
                     Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
             poseStack.popPose();
             cursorY += HEADER_LINE_HEIGHT + 4f;
+        }
+
+        if (progressLine != null) {
+            float px = -font.width(progressLine) / 2.0f;
+            font.drawInBatch(progressLine, px, cursorY, 0xFFFFFFFF, false, pose, bufferSource,
+                    Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+            cursorY += BODY_LINE_HEIGHT + 4f;
         }
 
         if (!bodyLines.isEmpty()) {
@@ -219,11 +228,29 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
         return null;
     }
 
+    private Component buildProgressLine(ItemStack stack) {
+        if (stack.getItem() instanceof TechniqueBinderItem) {
+            String id = stack.get(ModDataComponents.TECHNIQUE_ID.get());
+            List<Integer> collected = stack.getOrDefault(
+                    ModDataComponents.COLLECTED_PAGE_INDICES.get(), new ArrayList<>());
+
+            if (id != null) {
+                ResourceLocation rId = ResourceLocation.parse(id);
+                var manualData = TechniqueManualRegistry.get(rId);
+                if (manualData.isPresent()) {
+                    int required = manualData.get().requiredPages();
+                    return Component.translatable("ascension.binder.progress", collected.size(), required)
+                            .withStyle(ChatFormatting.GRAY);
+                }
+            }
+        }
+        return null;
+    }
+
     private List<Component> buildBodyLines(ItemStack stack) {
         List<Component> lines = new ArrayList<>();
 
         if (stack.getItem() instanceof TechniqueTransferItem) {
-            // No body lines for manuals - name is enough
 
         } else if (stack.getItem() instanceof TechniqueBinderItem) {
             String id = stack.get(ModDataComponents.TECHNIQUE_ID.get());
@@ -234,9 +261,6 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
                 ResourceLocation rId = ResourceLocation.parse(id);
                 var manualData = TechniqueManualRegistry.get(rId);
                 if (manualData.isPresent()) {
-                    int required = manualData.get().requiredPages();
-                    lines.add(Component.translatable("ascension.binder.progress", collected.size(), required)
-                            .withStyle(ChatFormatting.GRAY));
                     List<String> chapters = manualData.get().chapterTranslationKeys();
                     for (int i = 0; i < chapters.size(); i++) {
                         boolean hasPage = collected.contains(i);

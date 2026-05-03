@@ -30,7 +30,6 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.FROST_SILVER_NUGGET);
                         output.accept(ModItems.SPIRITUAL_STONE);
                         output.accept(ModItems.SPATIAL_STONE_TIER_1);
-                        output.accept(ModItems.SPATIAL_STONE_TIER_2);
                         output.accept(ModItems.JADE_NUGGET);
                         output.accept(ModItems.JADE);
                         output.accept(ModItems.UNDEAD_CORE);
@@ -59,7 +58,6 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.TABLET_OF_DESTRUCTION_HEAVEN);
 
 
-                        output.accept(ModItems.SPIRIT_SEALING_RING);
                         output.accept(ModItems.FIRE_GOURD);
 
                         output.accept(ModItems.SPATIAL_RUPTURE_TALISMAN_T1);

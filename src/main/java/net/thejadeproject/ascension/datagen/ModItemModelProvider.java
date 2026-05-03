@@ -78,7 +78,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 
         basicItem(ModItems.SPATIAL_RING.get());
-        basicItem(ModItems.SPIRIT_SEALING_RING.get());
         basicItem(ModItems.REPAIR_SLIP.get());
         basicItem(ModItems.ENDER_POUCH.get());
 
@@ -132,7 +131,6 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 
         basicItem(ModItems.SPATIAL_STONE_TIER_1.get());
-        basicItem(ModItems.SPATIAL_STONE_TIER_2.get());
 
         basicItem(ModItems.RAW_BLACK_IRON.get());
         basicItem(ModItems.BLACK_IRON_INGOT.get());
