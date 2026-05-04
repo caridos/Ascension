@@ -85,7 +85,7 @@ public class WhiteLightningFist implements ICastableSkill {
             return;
         }
 
-        float damage = BASE_DAMAGE + getBodyBonus(player);
+        float damage = calculateDamage(player);
 
         AscensionDamageHandler.AscensionDamageSource source = new AscensionDamageHandler.AscensionDamageSource(
                 new HashSet<>(){{add(ModPaths.BODY.getId());}},
@@ -223,6 +223,24 @@ public class WhiteLightningFist implements ICastableSkill {
                     0.0D
             );
         }
+    }
+
+    private float calculateDamage(ServerPlayer player) {
+        if (!player.hasData(ModAttachments.ENTITY_DATA)) {
+            return BASE_DAMAGE;
+        }
+
+        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
+
+        PathData bodyData = entityData.getPathData(ModPaths.BODY.getId());
+        int majorRealm = bodyData != null ? bodyData.getMajorRealm() : 0;
+        int minorRealm = bodyData != null ? bodyData.getMinorRealm() : 0;
+
+        float punchDamage = (float) player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE);
+
+        float skillMultiplier = 1.75F + majorRealm * 0.35F + minorRealm * 0.035F;
+
+        return BASE_DAMAGE + punchDamage * skillMultiplier;
     }
 
     @Override

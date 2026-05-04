@@ -412,7 +412,7 @@ public class PathData {
         buf.writeInt(techniqueData.size());
         for(ResourceLocation technique:techniqueData.keySet()){
             ByteBufUtil.encodeString(buf,technique.toString());
-            System.out.println("trying to write data for skill : "+technique.toString());
+            //System.out.println("trying to write data for skill : "+technique.toString());
             techniqueData.get(technique).encode(buf);
         }
         //breakthrough stuff

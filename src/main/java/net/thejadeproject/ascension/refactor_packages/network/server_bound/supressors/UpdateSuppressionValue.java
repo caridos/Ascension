@@ -47,7 +47,7 @@ public record UpdateSuppressionValue(String attribute, double val) implements Cu
                     ResourceKey.create(BuiltInRegistries.ATTRIBUTE.key(), ResourceLocation.parse(payload.attribute))
             );
 
-            System.out.println("setting suppressed value too :"+payload.attribute);
+            //System.out.println("setting suppressed value too :"+payload.attribute);
             serverPlayer.getData(ModAttachments.ENTITY_DATA).getAttribute(attributeHolder).setSuppressedValue(payload.val);
             PacketDistributor.sendToPlayer(serverPlayer,new SyncAttributeHolder(serverPlayer.getData(ModAttachments.ENTITY_DATA).getAscensionAttributeHolder()));
         });

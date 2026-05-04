@@ -28,7 +28,7 @@ public class SkillOptionsScrollBox extends ScrollBox {
     }
     public void onMouseUp(EasyEvent event){
         if(!(event instanceof EasyMouseEvent easyMouseEvent)) return;
-        System.out.println("mouse up");
+        //System.out.println("mouse up");
         if(event.getTarget() == this) return;
         SkillSelectionButton btn = null;
         if(event.getTarget() instanceof SkillSelectionButton button) btn = button;

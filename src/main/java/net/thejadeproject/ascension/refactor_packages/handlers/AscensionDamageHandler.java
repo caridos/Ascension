@@ -60,7 +60,7 @@ public class AscensionDamageHandler {
         if(event.getSource().getDirectEntity() != event.getSource().getEntity()) return;
 
         if(!event.getSource().getEntity().hasData(ModAttachments.ENTITY_DATA)) return;
-        System.out.println("dealing increased damage");
+        //System.out.println("dealing increased damage");
         //event.setAmount((float)event.getSource().getEntity().getData(ModAttachments.ENTITY_DATA).getAscensionAttributeHolder().getAttribute(Attributes.ATTACK_DAMAGE).getValue());
     }
 

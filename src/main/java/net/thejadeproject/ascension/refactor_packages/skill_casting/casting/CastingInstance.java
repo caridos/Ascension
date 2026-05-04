@@ -88,12 +88,12 @@ public class CastingInstance {
         }
 
         this.skillKey = skillKey;
-        System.out.println("setting up UI element");
+        //System.out.println("setting up UI element");
 
         RenderableElement element = getCastableSkill().getCastElement(frame);
 
         if(element != null){
-            System.out.println("adding ui element");
+            //System.out.println("adding ui element");
             frame.setRoot(element);
         }
         this.castData = getCastableSkill().freshCastData();

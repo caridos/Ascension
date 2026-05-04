@@ -7,7 +7,7 @@ public final class AscensionStatConversions {
 
     // Subject to change
     public static double maxHealthBonus(double vitality) {
-        return vitality * 2.0;
+        return vitality * 3.5;
     }
 
     public static double attackDamageBonus(double strength) {
@@ -23,16 +23,15 @@ public final class AscensionStatConversions {
     }
 
     public static double hostileArmorBonus(MobRankStatProfile stats) {
-        return stats.vitality() * 0.0;
+        return 3.0 + stats.vitality() * 0.06 + stats.strength() * 0.03;
     }
 
     public static double hostileArmorToughnessBonus(MobRankStatProfile stats) {
-        return (stats.vitality() * 0.0) + (stats.strength() * 0.00);
+        return 1.0 + stats.vitality() * 0.015 + stats.strength() * 0.01;
     }
 
     public static double hostileWaterMovementBonus(MobRankStatProfile stats) {
         return stats.agility() * 0.02;
     }
-
 
 }

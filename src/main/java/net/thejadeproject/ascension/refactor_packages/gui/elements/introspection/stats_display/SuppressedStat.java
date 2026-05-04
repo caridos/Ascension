@@ -76,10 +76,10 @@ public class SuppressedStat extends RenderableElement {
     public void onMouseClick(EasyEvent event){
         if(!(event instanceof EasyMouseEvent easyMouseEvent)) return;
         double amt = 0;
-        System.out.println("heard button click");
-        System.out.println(event.getTarget());
+        //System.out.println("heard button click");
+        //System.out.println(event.getTarget());
         if(event.getTarget() == minusBtn){
-            System.out.println();
+            //System.out.println();
             amt = Screen.hasShiftDown() ? -0.01 : -0.1;
             amt = Screen.hasControlDown() ? -0.001 : amt;
         }
@@ -89,14 +89,14 @@ public class SuppressedStat extends RenderableElement {
         }
         AttributeValueContainer holder = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA).getAttribute(attributeHolder);
         if(holder == null) return;
-        System.out.println(holder.getValue());
-        System.out.println(holder.getValue());
-        System.out.println(holder.getValue()/holder.getUnsuppressedValue());
+        //System.out.println(holder.getValue());
+        //System.out.println(holder.getValue());
+        //System.out.println(holder.getValue()/holder.getUnsuppressedValue());
 
         double percentage = Math.clamp(amt+ holder.getValue()/holder.getUnsuppressedValue(),0.001,1);
-        System.out.println("trying to apply supression val : "+percentage);
+        //System.out.println("trying to apply supression val : "+percentage);
         double val = holder.getUnsuppressedValue()*percentage;
-        System.out.println("val :"+val);
+        //System.out.println("val :"+val);
         PacketDistributor.sendToServer(new UpdateSuppressionValue(BuiltInRegistries.ATTRIBUTE.getKey(holder.getAttributeHolder().value()).toString(),val));
     }
 

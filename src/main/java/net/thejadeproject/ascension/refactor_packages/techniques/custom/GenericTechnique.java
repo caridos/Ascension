@@ -77,7 +77,6 @@ public class GenericTechnique implements ITechnique {
     public void onTechniqueAdded(IEntityData heldEntity) {
         if(getPath().equals(ModPaths.ESSENCE.getId())){
             heldEntity.giveSkill(ModSkills.BASIC_CULTIVATION_SKILL.getId(),new GenericCultivationSkillData(baseRate, secondaryPaths), ModForms.MORTAL_VESSEL.getId());
-            heldEntity.giveSkill(ModSkills.ENTER_SPIRIT_FORM.getId(),ModForms.SOUL_FORM.getId());
         }
         if(getPath().equals(ModPaths.SWORD.getId())){
             heldEntity.giveSkill(ModSkills.SWORD_CULTIVATION_SKILL.getId(),ModForms.MORTAL_VESSEL.getId());
@@ -92,7 +91,6 @@ public class GenericTechnique implements ITechnique {
         heldEntity.getPathData(getPath()).handleRealmChange(heldEntity.getPathData(getPath()).getMajorRealm(),0,heldEntity);
         if(getPath().equals(ModPaths.ESSENCE.getId())){
             heldEntity.removeSkill(ModSkills.BASIC_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
-            heldEntity.giveSkill(ModSkills.ENTER_SPIRIT_FORM.getId(),ModForms.SOUL_FORM.getId());
         }
         if(getPath().equals(ModPaths.SWORD.getId())){
             heldEntity.removeSkill(ModSkills.SWORD_CULTIVATION_SKILL.getId(),ModForms.MORTAL_VESSEL.getId());
@@ -104,8 +102,8 @@ public class GenericTechnique implements ITechnique {
 
     @Override
     public void onRealmChange(IEntityData entityData, int oldMajorRealm, int oldMinorRealm, int newMajorRealm, int newMinorRealm) {
-        System.out.println("technique: "+AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.getKey(this).toString());
-        System.out.println("realm: ("+oldMajorRealm+","+oldMinorRealm+") -> ("+newMajorRealm+","+newMinorRealm+")");
+        //System.out.println("technique: "+AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.getKey(this).toString());
+        //System.out.println("realm: ("+oldMajorRealm+","+oldMinorRealm+") -> ("+newMajorRealm+","+newMinorRealm+")");
         statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm);
 
         UniversalTechniqueSkillHelper.refresh(entityData, newMajorRealm);
@@ -117,7 +115,7 @@ public class GenericTechnique implements ITechnique {
         if(entityData.getAttachedEntity().level().isClientSide()) return;
         if(!(entityData.getAttachedEntity() instanceof  ServerPlayer serverPlayer)) return;
         if(serverPlayer.connection == null) return;
-        System.out.println("sending out sync packets");
+        //System.out.println("sending out sync packets");
         PacketDistributor.sendToPlayer(serverPlayer,new SyncAttributeHolder(entityData.getAscensionAttributeHolder()));
         for (IEntityFormData formData : entityData.getFormData()){
             formData.getStatSheet().sync(serverPlayer,formData.getEntityFormId());

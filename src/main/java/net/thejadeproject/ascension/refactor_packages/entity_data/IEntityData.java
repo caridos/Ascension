@@ -147,13 +147,13 @@ public interface IEntityData {
         holder.getAttribute(Attributes.ATTACK_DAMAGE).addStatScaling(ModStats.STRENGTH.get(),1); //100% of strength
 
         holder.addAttribute(Attributes.JUMP_STRENGTH,Component.literal("Jump Strength"));
-        holder.getAttribute(Attributes.JUMP_STRENGTH).addStatScaling(ModStats.STRENGTH.get(),0.01); //1% of strength
+        holder.getAttribute(Attributes.JUMP_STRENGTH).addStatScaling(ModStats.STRENGTH.get(),0.005); //0.5% of strength
 
         //due to how speed scales in mc these need to be low
         //this will also be further suppressed while in combat
         holder.addAttribute(Attributes.MOVEMENT_SPEED,Component.literal("Movement Speed"));
-        holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.STRENGTH.get(),0.0001); //0.01% of strength
-        holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.AGILITY.get(),0.001); //0.1% of agility
+        holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.STRENGTH.get(),0.00005); //0.005% of strength
+        holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.AGILITY.get(),0.002); //0.05% of agility
         holder.addAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY,Component.literal("Swim Speed"));
         holder.getAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY).addStatScaling(ModStats.STRENGTH.get(),0.0001); //0.01% of strength
         holder.getAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY).addStatScaling(ModStats.AGILITY.get(),0.5); //50% of agility
@@ -165,7 +165,7 @@ public interface IEntityData {
         holder.updateAttributes(this);
 
         holder.addAttribute(Attributes.STEP_HEIGHT, Component.literal("Step Height"));
-        holder.getAttribute(Attributes.STEP_HEIGHT).addStatScaling(ModStats.AGILITY.get(),0.01);
+        holder.getAttribute(Attributes.STEP_HEIGHT).addStatScaling(ModStats.AGILITY.get(),0.05);
 
         holder.addAttribute(Attributes.ARMOR_TOUGHNESS,Component.literal("Armor Toughness"));
 

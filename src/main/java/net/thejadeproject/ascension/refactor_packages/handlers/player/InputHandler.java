@@ -42,7 +42,7 @@ public class InputHandler {
     //maps a keyMapping->handler
     private final static HashMap<KeyMapping, ActionHandler> actionHandlerMapping = new HashMap<>(){{
         put(CAST_SKILL_KEY,new ActionHandler("skill_cast").setOnDown((mod)-> {
-            System.out.println("pressed skill cast key");
+            //System.out.println("pressed skill cast key");
 
         }));
         put(SKILL_WHEEL_OVERLAY,new ActionHandler("skill_wheel").setOnDown(mod->{

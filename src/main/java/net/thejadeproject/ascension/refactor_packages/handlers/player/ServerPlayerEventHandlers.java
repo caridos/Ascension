@@ -28,7 +28,7 @@ public class ServerPlayerEventHandlers {
     public static void onInputStateChanged(PlayerInputStates.InputStateChanged inputStateChanged){
         if(inputStateChanged.input.equals("skill_cast") && inputStateChanged.state == PlayerInputStates.InputState.PRESSED){
             IEntityData entityData = inputStateChanged.player.getData(ModAttachments.ENTITY_DATA);
-            System.out.println("trying to cast active slot: "+entityData.getSkillCastHandler().getHotBar().getActiveSlot());
+            //System.out.println("trying to cast active slot: "+entityData.getSkillCastHandler().getHotBar().getActiveSlot());
             entityData.getSkillCastHandler().tryCast(inputStateChanged.player);
         }
     }

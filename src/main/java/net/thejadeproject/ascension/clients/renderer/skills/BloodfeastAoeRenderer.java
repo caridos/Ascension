@@ -60,10 +60,10 @@
 //        if (!player.hasData(ModAttachments.ENTITY_DATA)) return;
 //        var entityData = player.getData(ModAttachments.ENTITY_DATA);
 //
-////        ResourceLocation skillIdentifier = AscensionRegistries.Skills.SKILL_REGISTRY.getKey(entityData.getSkillCastHandler().getCastingInstance().getCastableSkill());
-////        if(!ModSkills.BLOODFEAST_BANQUET_SKILL.getKey().equals(skillIdentifier)){
-////            return;
-////        }
+//        ResourceLocation skillIdentifier = AscensionRegistries.Skills.SKILL_REGISTRY.getKey(entityData.getSkillCastHandler().getCastingInstance().getCastableSkill());
+//        if(!ModSkills.BLOODFEAST_BANQUET_SKILL.getKey().equals(skillIdentifier)){
+//            return;
+//        }
 //
 //
 //        if (!entityData.hasSkill(ModSkills.BLOODFEAST_BANQUET_SKILL.getId())) return;

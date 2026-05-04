@@ -51,7 +51,7 @@ public class BasicStatChangeHandler{
     }
 
     public void applyAllMinorRealmChanges(IEntityData entityData,int majorRealm,int minorRealm){
-        System.out.println("adding minor realm changes");
+        //System.out.println("adding minor realm changes");
         for(ResourceLocation stat : minorRealmStatModifierMap.keySet()){
             ResourceLocation identifier = create("minor",majorRealm,minorRealm);
             entityData.getActiveFormData().getStatSheet().addStatModifier(getStat(stat),duplicate(identifier,minorRealmStatModifierMap.get(stat)));

@@ -31,7 +31,7 @@ public final class MobRankList {
         return new MobRankDefinition(realmId, stage, stats);
     }
 
-    // Like the cultivators i hope? adds all previous minor and major realms srats with the current realms gains.
+    // Like the cultivators i hope? adds all previous minor and major realms stats with the current realms gains.
     private static MobRankStatProfile buildStats(int majorRealmIndex, int stage) {
         MobRankStatProfile stats = new MobRankStatProfile(0, 0, 0);
 

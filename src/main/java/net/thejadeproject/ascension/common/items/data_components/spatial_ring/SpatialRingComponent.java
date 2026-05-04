@@ -36,11 +36,11 @@ public class SpatialRingComponent {
         }
     }
     public SpatialRingComponent(int minSlots,List<ItemStack> items, List<ItemStack> modifiers, List<ItemStack> upgrades){
-        System.out.println("trying to create component");
-        System.out.println(minSlots);
-        System.out.println(items.size());
-        System.out.println(modifiers.size());
-        System.out.println(upgrades.size());
+        //System.out.println("trying to create component");
+        //System.out.println(minSlots);
+        //System.out.println(items.size());
+        //System.out.println(modifiers.size());
+        //System.out.println(upgrades.size());
         this.minSlots = minSlots;
         this.maxSlots = items.size();
         this.items.addAll(items);

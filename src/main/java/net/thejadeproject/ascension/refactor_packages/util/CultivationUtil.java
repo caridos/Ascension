@@ -19,7 +19,7 @@ public class CultivationUtil {
 
     public static boolean tryCultivate(Entity entity, ResourceLocation path,List<ResourceLocation> attributedPaths,double amount){
         IEntityData entityData = entity.getData(ModAttachments.ENTITY_DATA);
-        System.out.println("Player is trying to cultivate");
+        //System.out.println("Player is trying to cultivate");
         PathData pathData = entity.getData(ModAttachments.ENTITY_DATA).getPathData(path);
 
         if(pathData == null) return false;

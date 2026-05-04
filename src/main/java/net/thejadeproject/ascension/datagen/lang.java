@@ -182,14 +182,20 @@ public class lang extends LanguageProvider {
 
         // Physiques
         add("ascension.physiques.mortal", "Mortal Physique");
-        add("ascension.physiques.mortal.description","so fragile yet... full of potential");//i know cringe but needed smth
+        add("ascension.physiques.mortal.description","so fragile yet... full of potential"); //i know cringe but needed smth
         add("ascension.physiques.cripple", "Cripple");
+        add("ascension.physiques.cripple.desc", "You are unable to Cultivate");
+        add("ascension.physiques.cripple.desc.short", "Blocked Meridians, Shattered Marrow, and many other ailments destroyed your talent, stripping you of your ability to cultivate.");
         add("ascension.physiques.severed_meridians", "Severed Meridians");
         add("ascension.physiques.sword_bone", "Sword Bone");
         add("ascension.physiques.flame_touched", "Flame Touched");
         add("ascension.physiques.tyrant_body", "Tyrant Body");
+        add("ascension.physiques.tyrant_body.desc", "Strong as an Ox, domineering as Liu Bu. You are tyranny incarnate.");
         add("ascension.physiques.academic_spirit", "Academic Soul");
+        add("ascension.physiques.academic_spirit.desc", "Knowledge occupies your Soul, a library resonating within your Mind");
         add("ascension.physiques.stone_monkey", "Stone Monkey");
+        add("ascension.physiques.stone_monkey.desc", "Born from the Universe and Stone, you are as strong as the Earth and as limber as a Monkey.");
+        add("ascension.physiques.stone_monkey.desc.short", "You are born from Stone and Universe");
         add("ascension.physiques.blood_fiend", "Blood Fiend");
         add("ascension.physiques.blood_wraith", "Blood Wraith");
         add("ascension.physiques.virtuoso_buddha", "Virtuoso Buddha");
@@ -201,22 +207,46 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.thin_sword_pulse", "Thin Sword Pulse");
         add("ascension.physiques.flow_severing_eyes", "Flow Severing Eyes");
         add("ascension.physiques.divine_essence_bone", "Divine Essence Bone");
+        add("ascension.physiques.divine_essence_bone.desc", "You possess a Divine Essence Bone, wielding endless talent and an absolute attraction to Essence.");
+        add("ascension.physiques.divine_essence_bone.desc.short", "You possess a Divine Essence Bone");
         add("ascension.physiques.heavenly_essence_bone", "Heavenly Essence Bone");
+        add("ascension.physiques.heavenly_essence_bone.desc", "You possess a Heavenly Essence Bone, wielding supreme talent and a powerful attraction to Essence.");
+        add("ascension.physiques.heavenly_essence_bone.desc.short", "You possess a Heavenly Essence Bone");
         add("ascension.physiques.special_essence_bone", "Special Essence Bone");
+        add("ascension.physiques.special_essence_bone.desc", "You possess a Special Essence Bone, wielding extraordinary talent and a strong attraction to Essence.");
+        add("ascension.physiques.special_essence_bone.desc.short", "You possess a Special Essence Bone");
         add("ascension.physiques.mortal_essence_bone", "Mortal Essence Bone");
+        add("ascension.physiques.mortal_essence_bone.desc", "You possess a mortal Essence Bone, wielding average talent and a minor attraction to Essence.");
+        add("ascension.physiques.mortal_essence_bone.desc.short", "Mortal Essence Bone");
         add("ascension.physiques.wind_attuned", "Wind Attuned");
+        add("ascension.physiques.wind_attuned.des", "Innately, you feel a deep connection to wind, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.wind_attuned.des.short", "You are connected with Wind.");
         add("ascension.physiques.lightning_attuned", "Lightning Attuned");
+        add("ascension.physiques.lightning_attuned.des", "Innately, you feel a deep connection to lightning, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.lightning_attuned.des.short", "You are connected with Lightning.");
         add("ascension.physiques.metal_attuned", "Metal Attuned");
+        add("ascension.physiques.metal_attuned.des", "Innately, you feel a deep connection to metals, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.metal_attuned.des.short", "You are connected with Metal.");
         add("ascension.physiques.wood_attuned", "Wood Attuned");
+        add("ascension.physiques.wood_attuned.des", "Innately, you feel a deep connection to nature, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.wood_attuned.des.short", "You are connected with Wood.");
         add("ascension.physiques.earth_attuned", "Earth Attuned");
+        add("ascension.physiques.earth_attuned.des", "Innately, you feel a deep connection to earth, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.earth_attuned.des.short", "You are connected with Earth.");
         add("ascension.physiques.water_attuned", "Water Attuned");
+        add("ascension.physiques.water_attuned.des", "Innately, you feel a deep connection to water, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.water_attuned.des.short", "You are connected with Water.");
         add("ascension.physiques.fire_attuned", "Fire Attuned");
+        add("ascension.physiques.fire_attuned.des", "Innately, you feel a deep connection to fire, its very presence opening your pores and drawing in more Qi.");
+        add("ascension.physiques.fire_attuned.des.short", "You are connected with Fire.");
         add("ascension.physiques.blessed", "Blessed One");
+
         add("ascension.physiques.metal_body", "Metal Body");
         add("ascension.physiques.water_body", "Water Body");
         add("ascension.physiques.fire_body", "Fire Body");
         add("ascension.physiques.wood_body", "Wood Body");
         add("ascension.physiques.earth_body", "Earth Body");
+
         add("ascension.physiques.clear_spirit", "Clear Spirit");
         add("ascension.physiques.dreaming_soul", "Dreaming Soul");
         add("ascension.physiques.soul_gaze", "Soul Gazing Eyes");
@@ -250,8 +280,10 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.five_palace_immortal", "Five Palace Immortal Physique");
 
         add("ascension.physiques.world_dominator", "World Dominator");
+        add("ascension.physiques.world_dominator.desc", "You are the Dominator of Worlds, the Lord of all Flesh and Blood. Feel the earth quake under Your might.");
         add("ascension.message.physique.world_dominator.acquired", "%s has become the %s. Bear witness to their Ascension!");
         add("ascension.physiques.soul_crowned_king", "Crowned Soul King");
+        add("ascension.physiques.soul_crowned_king.desc", "You are the Peak of the Soul, Your Throne built on rivers of fallen Kings. Souls tremble before Your might.");
         add("ascension.message.physique.soul_crowned_king.acquired", "%s has become the %s. Tremble beneath their Throne!");
 
 

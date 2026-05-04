@@ -87,7 +87,7 @@ public class PathProgressBar extends RenderableElement {
     protected void run(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.run(guiGraphics, mouseX, mouseY, partialTick);
         if(hovered){
-            System.out.println("show progress for path : "+selectedPath);
+            //System.out.println("show progress for path : "+selectedPath);
             tooltip = new EasyTooltip(getUiFrame());
             tooltip.appendText(Component.literal(format.format(getCurrentQi())).append("/").append(format.format(getMaxQi())));
             getUiFrame().setTooltip(tooltip);

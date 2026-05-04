@@ -36,7 +36,7 @@ public class DescriptionDisplayContainer extends ScrollBox implements IInformati
         descriptionLabel.setTextColor(-1);
         descriptionLabel.setTextScale(0.8f);
         addChild(descriptionLabel);
-        System.out.println("created container");
+        //System.out.println("created container");
     }
 
     @Override

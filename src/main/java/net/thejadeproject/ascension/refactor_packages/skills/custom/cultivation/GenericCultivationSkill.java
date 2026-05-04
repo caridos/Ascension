@@ -52,12 +52,12 @@ public class GenericCultivationSkill implements ICastableSkill {
 
     @Override
     public void onAdded(IEntityData attachedEntityData) {
-        System.out.println("added skill : "+ AscensionRegistries.Skills.SKILL_REGISTRY.getKey(this).toString());
+        //System.out.println("added skill : "+ AscensionRegistries.Skills.SKILL_REGISTRY.getKey(this).toString());
     }
 
     @Override
     public void onRemoved(IEntityData attachedEntityData, IPersistentSkillData persistentData) {
-        System.out.println("removed skill : "+ AscensionRegistries.Skills.SKILL_REGISTRY.getKey(this).toString());
+        //System.out.println("removed skill : "+ AscensionRegistries.Skills.SKILL_REGISTRY.getKey(this).toString());
     }
 
     @Override
@@ -160,7 +160,7 @@ public class GenericCultivationSkill implements ICastableSkill {
 
         if(!caster.level().isClientSide()){
 
-            System.out.println("Player is trying to cultivate");
+            //System.out.println("Player is trying to cultivate");
             PathData pathData = caster.getData(ModAttachments.ENTITY_DATA).getPathData(path);
 
             if (pathData == null || pathData.getLastUsedTechnique() == null) return false;

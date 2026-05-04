@@ -50,11 +50,6 @@ public abstract class ElementalEssenceTechnique extends GenericTechnique {
                 ModForms.MORTAL_VESSEL.getId()
         );
 
-        heldEntity.giveSkill(
-                ModSkills.ENTER_SPIRIT_FORM.getId(),
-                ModForms.SOUL_FORM.getId()
-        );
-
         heldEntity.getPathBonusHandler().addPathBonus(elementPath, 1.0D);
 
         PathData pathData = heldEntity.getPathData(getPath());

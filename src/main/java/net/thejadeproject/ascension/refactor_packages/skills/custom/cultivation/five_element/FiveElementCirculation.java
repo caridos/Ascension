@@ -73,7 +73,7 @@ public class FiveElementCirculation implements ICastableSkill {
         if(!caster.level().isClientSide()){
 
             IEntityData entityData = caster.getData(ModAttachments.ENTITY_DATA);
-            System.out.println("Player is trying to cultivate");
+            //System.out.println("Player is trying to cultivate");
             PathData pathData = caster.getData(ModAttachments.ENTITY_DATA).getPathData(ModPaths.ESSENCE.getId());
 
             if(pathData.isBreakingThrough()) return false;

@@ -30,7 +30,7 @@ public class IntrospectionContainer extends RenderableElement {
         nameMap.put("skill",Component.literal("Skills"));
         nameMap.put("path",Component.literal("Cultivation"));
 
-        System.out.println("creating c1");
+        //System.out.println("creating c1");
         getPositioning().setPositioningRule(PositioningRules.CENTER);
 
         MainContainer mainContainer = new MainContainer(frame);
@@ -85,8 +85,6 @@ public class IntrospectionContainer extends RenderableElement {
         pathBtn.getPositioning().setY(-mainContainer.getHeight()/2-27);
         addChild(pathBtn);
         buttonMap.put("path",pathBtn);
-
-
 
     }
 

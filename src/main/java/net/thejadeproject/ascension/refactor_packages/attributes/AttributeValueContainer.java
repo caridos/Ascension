@@ -160,10 +160,10 @@ public class AttributeValueContainer extends ValueContainer {
         return container;
     }
     public void log(){
-        System.out.print(getDisplayName().getString() +" : ");
-        System.out.print((isSuppressed() ? getSuppressedValue() : getValue()));
-        if(isSuppressed()) System.out.print(" ("+getUnsuppressedValue()+")");
-        System.out.println(" base : "+getBaseValue());
-        System.out.println("suppressed value : "+getSuppressedValue());
+        //System.out.print(getDisplayName().getString() +" : ");
+        //System.out.print((isSuppressed() ? getSuppressedValue() : getValue()));
+        //if(isSuppressed()) //System.out.print(" ("+getUnsuppressedValue()+")");
+        //System.out.println(" base : "+getBaseValue());
+        //System.out.println("suppressed value : "+getSuppressedValue());
     }
 }

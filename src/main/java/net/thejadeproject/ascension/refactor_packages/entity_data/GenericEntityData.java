@@ -105,7 +105,7 @@ public class GenericEntityData implements IEntityData {
     }
     //TODO add better error handling so an error does not delete all data
     public GenericEntityData(Entity attachedEntity, CompoundTag tag){
-        System.out.println("creating player data");
+        //System.out.println("creating player data");
         this.attachedEntity = attachedEntity;
 
         ListTag formDataTags = tag.getList("form_data", Tag.TAG_COMPOUND);
@@ -343,7 +343,7 @@ public class GenericEntityData implements IEntityData {
             CompoundTag dataSource = new CompoundTag();
             dataSource.putString("type",AscensionRegistries.EntityDataSources.ENTITY_DATA_SOURCES_REGISTRY.getKey(sourceContainers.get(key).getDataSource()).toString());
             sourceContainers.get(key).write(dataSource);
-            System.out.println("writing data source:"+sourceContainers.get(key).getInstanceIdentifier());
+            //System.out.println("writing data source:"+sourceContainers.get(key).getInstanceIdentifier());
             dataSources.add(dataSource);
         }
         tag.put("entity_data_sources",dataSources);
@@ -524,7 +524,7 @@ public class GenericEntityData implements IEntityData {
             oldPhysiqueData = olPhysiqueForm.getPhysiqueData();
 
         }
-        System.out.println("trying to replace :"+(oldPhysique == null ? "none" : oldPhysique.toString()));
+        //System.out.println("trying to replace :"+(oldPhysique == null ? "none" : oldPhysique.toString()));
 
         PhysiqueChangeEvent.Pre preEvent = new PhysiqueChangeEvent.Pre(oldPhysique,oldPhysiqueData,physique,this);
         NeoForge.EVENT_BUS.post(preEvent);
@@ -551,7 +551,7 @@ public class GenericEntityData implements IEntityData {
         }
 
         PhysiqueChangeEvent.Post event = new PhysiqueChangeEvent.Post(preEvent,heldFormData.get(physiqueForm).getPhysiqueData());
-        System.out.println("changed physique to : "+heldFormData.get(physiqueForm).getPhysique().getDisplayTitle().getString());
+        //System.out.println("changed physique to : "+heldFormData.get(physiqueForm).getPhysique().getDisplayTitle().getString());
         NeoForge.EVENT_BUS.post(event);
         if(getAttachedEntity() instanceof ServerPlayer serverPlayer  && serverPlayer.connection != null)PacketDistributor.sendToPlayer(serverPlayer,new SyncPhysique(physiqueForm,physique,physiqueData));
         return true;
@@ -726,7 +726,7 @@ public class GenericEntityData implements IEntityData {
 
     @Override
     public boolean setTechnique(ResourceLocation technique, ITechniqueData techniqueData) {
-        System.out.println("trying to set technique");
+        //System.out.println("trying to set technique");
         ITechnique techniqueInstance = AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(technique);
         ResourceLocation path = techniqueInstance.getPath();
         if(!pathDataLocation.containsKey(path)) return false;
@@ -759,7 +759,7 @@ public class GenericEntityData implements IEntityData {
         pathData.addTechniqueData(technique,techniqueData);
 
         techniqueInstance.onTechniqueAdded(this);
-        System.out.println("technique changed to: "+technique.toString());
+        //System.out.println("technique changed to: "+technique.toString());
         if(getAttachedEntity() instanceof ServerPlayer serverPlayer  && serverPlayer.connection != null){
             PacketDistributor.sendToPlayer(serverPlayer,new SyncPathData(pathDataLocation.get(path),pathData));
         }
@@ -790,7 +790,7 @@ public class GenericEntityData implements IEntityData {
             AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.get(pathData.getLastUsedTechnique()).onTechniqueAdded(this);
         }
         if(getAttachedEntity() instanceof ServerPlayer serverPlayer  && serverPlayer.connection != null){
-            System.out.println("sending sync for path: "+path);
+            //System.out.println("sending sync for path: "+path);
             PacketDistributor.sendToPlayer(serverPlayer,new SyncPathData(pathDataLocation.get(path),pathData));
         }
     }

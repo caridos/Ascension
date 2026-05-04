@@ -156,7 +156,7 @@ public class FiveElementCultivationTechnique implements ITechnique {
         if(entityData.getAttachedEntity().level().isClientSide()) return;
         if(!(entityData.getAttachedEntity() instanceof  ServerPlayer serverPlayer)) return;
         if(serverPlayer.connection == null) return;
-        System.out.println("sending out sync packets");
+        //System.out.println("sending out sync packets");
         PacketDistributor.sendToPlayer(serverPlayer,new SyncAttributeHolder(entityData.getAscensionAttributeHolder()));
         for (IEntityFormData formData : entityData.getFormData()){
             formData.getStatSheet().sync(serverPlayer,formData.getEntityFormId());

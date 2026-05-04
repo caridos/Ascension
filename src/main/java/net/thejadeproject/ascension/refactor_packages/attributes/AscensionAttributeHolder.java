@@ -46,7 +46,7 @@ public class AscensionAttributeHolder {
         return List.copyOf(attributes.values());
     }
     public void log(){
-//        System.out.println("Ascension Attributes: ");
+//        //System.out.println("Ascension Attributes: ");
         for(AttributeValueContainer instance : attributes.values()){
             instance.log();
         }

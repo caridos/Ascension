@@ -91,7 +91,7 @@ public class SkillCastHandler {
 
         if(!result.isSuccess()){
             //TODO send message to client
-
+            //System.out.println(result.message.getString());
             return;
         }
 

@@ -75,7 +75,7 @@ public class FireSpray implements ICastableSkill {
 
     @Override
     public boolean continueCasting(int ticksElapsed, Entity caster, ICastData castData) {
-        System.out.println("casting skill");
+        //System.out.println("casting skill");
         final double reach = 8;
         double travelled = reach;
         HitResult blockHit = caster.pick(reach, 0.0F, true);
@@ -97,7 +97,7 @@ public class FireSpray implements ICastableSkill {
             if(caster.distanceToSqr(blockHit.getLocation()) < caster.distanceToSqr(entityHit.getLocation())){
                 travelled = Math.sqrt( caster.distanceToSqr(blockHit.getLocation()));
             }else {
-                System.out.println("hit target");
+                //System.out.println("hit target");
                 Entity targetedEntity = entityHit.getEntity();
 
                 AscensionDamageHandler.AscensionDamageSource source = new AscensionDamageHandler.AscensionDamageSource(

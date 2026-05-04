@@ -57,7 +57,7 @@ public class GenericPhysique implements IPhysique {
     @Override
     public void onPhysiqueAdded(IEntityData heldEntity, ResourceLocation oldPhysique,IPhysiqueData oldPhysiqueData) {
         //do not need to apply applied path bonuses, since this is handled by the entity data
-        System.out.println("player has been given physique");
+        //System.out.println("player has been given physique");
     }
 
     @Override
