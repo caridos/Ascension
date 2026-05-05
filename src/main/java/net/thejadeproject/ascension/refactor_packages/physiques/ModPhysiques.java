@@ -350,6 +350,7 @@ public class ModPhysiques {
     public static final DeferredHolder<IPhysique,? extends GenericPhysique> BLESSED = PHYSIQUES.register("blessed",()->
             new EvolvingPhysique(Component.translatable("ascension.physiques.blessed"))
                     .addEvolution(ModPhysiques.VIRTUOSO_BUDDHA.getId())
+                    .addEvolution(ModPhysiques.WRATHFUL_VAJRA.getId())
                     .addPath(ModPaths.VIRTUOUS.getId())
                     .addPath(ModPaths.BODY.getId())
                     .addPathBonus(ModPaths.VIRTUOUS.getId(), 1.5)
@@ -364,6 +365,14 @@ public class ModPhysiques {
                     .addPathBonus(ModPaths.BODY.getId(), 3.0)
                     .addPathBonus(ModPaths.BUDDHIST.getId(), 2.0)
                     .addPathBonus(ModPaths.VIRTUOUS.getId(), 1.0)
+    );
+
+    public static final DeferredHolder<IPhysique, ? extends GenericPhysique> WRATHFUL_VAJRA = PHYSIQUES.register("wrathful_vajra",()->
+            new GenericPhysique(Component.translatable("ascension.physiques.wrathful_vajra"))
+                    .addPath(ModPaths.BODY.getId())
+                    .addPath(ModPaths.BUDDHIST.getId())
+                    .addPathBonus(ModPaths.BODY.getId(), 3.5)
+                    .addPathBonus(ModPaths.BUDDHIST.getId(), 2.0)
     );
 
     public static final DeferredHolder<IPhysique, ? extends GenericPhysique> BLOOD_FIEND = PHYSIQUES.register("blood_fiend",()->

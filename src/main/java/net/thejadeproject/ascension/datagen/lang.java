@@ -199,6 +199,7 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.blood_fiend", "Blood Fiend");
         add("ascension.physiques.blood_wraith", "Blood Wraith");
         add("ascension.physiques.virtuoso_buddha", "Virtuoso Buddha");
+        add("ascension.physiques.wrathful_vajra", "Wrathful Vajra");
         add("ascension.physiques.pointed_eyes", "Pointed Eyes");
         add("ascension.physiques.bruised_knuckle_body", "Bruised Knuckle Body");
         add("ascension.physiques.iron_bulwark_spine", "Iron Bulwark Spine");
@@ -289,8 +290,9 @@ public class lang extends LanguageProvider {
 
 
         // Physique Evolution Messages
-        add("ascension.message.physique_evolution.pacifist_mortal_reset", "Your peaceful mortal streak has been broken.");
-        add("ascension.message.physique_evolution.pacifist_blessed_broken", "The Blessed path has been stained by blood.");
+        add("ascension.message.physique_evolution.pacifist_mortal_reset", "You have failed to maintain a peaceful streak.");
+        add("ascension.message.physique_evolution.blessed_route_lost", "The Blessed path has been stained by blood, and You no longer have a future with Virtue.");
+        add("ascension.message.physique_evolution.blessed_wrathful_path", "The Blessed path has been stained by undead blood, your rage and wrath fueling your Virtue.");
 
 
 
@@ -306,6 +308,9 @@ public class lang extends LanguageProvider {
         add("ascension.technique.white_lightning_ten_stage_technique","White Lightning Ten Stages");
         add("ascension.technique.white_lightning_ten_stage_technique.description.short","A Body/Fist technique that refines the nerves and flesh through pure white martial energy.");
         add("ascension.technique.white_lightning_ten_stage_technique.description","The White Lightning Ten-Stage Technique uses brain energy and white martial lightning to refine the body, burn away turbid energy, and sharpen unarmed combat without causing bodily transformations.");
+        add("ascension.technique.indestructible_vajra_scripture", "Indestructible Vajra Scripture");
+        add("ascension.technique.indestructible_vajra_scripture.description.short", "A Body/Buddhist technique that tempers flesh and virtue through restraint.");
+        add("ascension.technique.indestructible_vajra_scripture.description", "The Indestructible Vajra Scripture refines the body through discipline, restraint, and purified qi. By enduring hardship without relying on weapons or armor, the cultivator strengthens their flesh, burns away turbid energy, and awakens the unshaking force of the vajra body.");
 
         add("ascension.technique.fire_essence_technique","Fire Essence Technique");
         add("ascension.technique.fire_essence_technique.description.short","Cultivates Essence through flame, burning, and lava immersion.");
@@ -423,6 +428,8 @@ public class lang extends LanguageProvider {
         add("ascension.skill.fire_spray.description", "Condense a beam of Fire Qi and advance fearlessly.");
         add("ascension.skill.white_lightning_cultivation_skill", "White Lightning Cultivation");
         add("ascension.skill.white_lightning_cultivation_skill.description", "Cultivates the Body through white martial lightning, gaining speed while unarmed or purifying harmful effects.");
+        add("ascension.skill.vajra_breathing_cultivation_skill", "Vajra Breathing Skill");
+        add("ascension.skill.vajra_breathing_cultivation_skill.description", "The cultivator breathes with the stillness of vajra, turning pain into refinement. Taking significant damage consumes Qi and grants Body cultivation progress, with greater gains while unarmed, unarmored, and walking the path of restraint.");
         add("ascension.skill.turbid_energy_purge", "Turbid Energy Purge");
         add("ascension.skill.turbid_energy_purge.description", "Slowly burns away harmful effects through purified white martial energy.");
         add("ascension.skill.white_lightning_fist", "White Lightning Fist");
@@ -457,6 +464,11 @@ public class lang extends LanguageProvider {
         add("ascension.skill.gibbous_moon_cultivation_skill", "Gibbous Moon Cultivation");
         add("ascension.skill.gibbous_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon the swelling power of the gibbous moon. Must be practised under open sky. Greatly empowered when gazing directly at the moon. Harmful beneath direct sunlight.");
         add("ascension.skill.gibbous_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Gibbous Moon Scripture indoors.");
+        add("ascension.skill.purifying_mantra", "Purifying Mantra");
+        add("ascension.skill.purifying_mantra.description", "Recite a purifying mantra to cleanse harmful effects and needle-born debuffs. Temporary afflictions are purified at moderate Qi cost, while permanent impurities require far greater Qi to burn away.");
+        add("ascension.skill.purifying_mantra.no_impurity", "There are no impurities to purify.");
+        add("ascension.skill.purifying_mantra.not_enough_qi", "You do not have enough Qi to complete the purification.");
+        add("ascension.skill.purifying_mantra.success", "The impurity is burned away by purified qi.");
 
         add("ascension.skill.bloodfeast_banquet", "§4Bloodfeast Banquet");
         add("ascension.skill.bloodfeast_banquet.description", "§4Draw upon the life-force of nearby creatures, feasting on their blood to fuel your cultivation. The greater your realm, the wider your table.");

@@ -3,6 +3,7 @@ package net.thejadeproject.ascension.refactor_packages.events.physiques;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,15 +26,20 @@ public final class PacifistPhysiqueEvolutionEvents {
 
     // Blessed and Virtuoso Buddha Physique Evolution Methods
     private static final String TAG_ROOT = "ascension_pacifist_physique";
-    private static final String TAG_PEACE_START_TICK = "peace_start_tick";
-    private static final String TAG_BLESSED_PACIFIST_BROKEN = "blessed_pacifist_broken";
+
+    private static final String TAG_MORTAL_PEACE_PROGRESS = "mortal_peace_progress";
+    private static final String TAG_BLESSED_PEACE_PROGRESS = "blessed_peace_progress";
+    private static final String TAG_BLESSED_WRATHFUL_ROUTE = "blessed_wrathful_route";
+    private static final String TAG_BLESSED_ROUTE_FAILED = "blessed_route_failed";
 
     private static final long TICKS_PER_SECOND = 20L;
     private static final long TICKS_PER_MINECRAFT_DAY = 24000L;
 
-    private static final long MORTAL_PEACE_TICKS_REQUIRED = 14L * TICKS_PER_MINECRAFT_DAY;
+    private static final long MORTAL_PEACE_TICKS_REQUIRED = 30L * TICKS_PER_MINECRAFT_DAY; // 10 hours
+    private static final long BLESSED_PEACE_TICKS_REQUIRED = 45L * TICKS_PER_MINECRAFT_DAY; // 15 hours
 
-    private static final int VIRTUOSO_REQUIRED_BODY_MAJOR_REALM = 0;
+    private static final int VIRTUOSO_REQUIRED_BODY_MAJOR_REALM = 3;
+
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
@@ -69,38 +75,42 @@ public final class PacifistPhysiqueEvolutionEvents {
         CompoundTag tag = getPacifistTag(killer);
 
         if (PhysiqueEvolutionEventUtil.hasPhysique(entityData, ModPhysiques.MORTAL.getId())) {
-            tag.putLong(TAG_PEACE_START_TICK, killer.level().getGameTime());
+            tag.putLong(TAG_MORTAL_PEACE_PROGRESS, 0L);
 
-            killer.sendSystemMessage(
-                    Component.translatable("ascension.message.physique_evolution.pacifist_mortal_reset")
-            );
+            sendActionBar(killer, Component.translatable(
+                    "ascension.message.physique_evolution.pacifist_mortal_reset"
+            ));
             return;
         }
 
         if (PhysiqueEvolutionEventUtil.hasPhysique(entityData, ModPhysiques.BLESSED.getId())) {
-            tag.putBoolean(TAG_BLESSED_PACIFIST_BROKEN, true);
+            if (tag.getBoolean(TAG_BLESSED_ROUTE_FAILED)) return;
 
-            killer.sendSystemMessage(
-                    Component.translatable("ascension.message.physique_evolution.pacifist_blessed_broken")
-            );
+            if (isWrathfulValidKill(victim)) {
+                tag.putBoolean(TAG_BLESSED_WRATHFUL_ROUTE, true);
+
+                sendActionBar(killer, Component.translatable(
+                        "ascension.message.physique_evolution.blessed_wrathful_path"
+                ));
+            } else {
+                tag.putBoolean(TAG_BLESSED_ROUTE_FAILED, true);
+                tag.putLong(TAG_BLESSED_PEACE_PROGRESS, 0L);
+
+                sendActionBar(killer, Component.translatable(
+                        "ascension.message.physique_evolution.blessed_route_lost"
+                ));
+            }
         }
     }
 
     private static void tickMortalPacifistProgress(ServerPlayer player, IEntityData entityData) {
         CompoundTag tag = getPacifistTag(player);
 
-        long now = player.level().getGameTime();
+        long progress = tag.getLong(TAG_MORTAL_PEACE_PROGRESS);
+        progress += TICKS_PER_SECOND;
+        tag.putLong(TAG_MORTAL_PEACE_PROGRESS, progress);
 
-        if (!tag.contains(TAG_PEACE_START_TICK, Tag.TAG_LONG)) {
-            tag.putLong(TAG_PEACE_START_TICK, now);
-            tag.putBoolean(TAG_BLESSED_PACIFIST_BROKEN, false);
-            return;
-        }
-
-        long peaceStartTick = tag.getLong(TAG_PEACE_START_TICK);
-        long elapsedTicks = now - peaceStartTick;
-
-        if (elapsedTicks < MORTAL_PEACE_TICKS_REQUIRED) return;
+        if (progress < MORTAL_PEACE_TICKS_REQUIRED) return;
 
         boolean evolved = PhysiqueEvolutionHelper.tryEvolveInto(
                 player,
@@ -109,25 +119,37 @@ public final class PacifistPhysiqueEvolutionEvents {
         );
 
         if (evolved) {
-            tag.putLong(TAG_PEACE_START_TICK, now);
-            tag.putBoolean(TAG_BLESSED_PACIFIST_BROKEN, false);
+            tag.putLong(TAG_MORTAL_PEACE_PROGRESS, 0L);
+            tag.putLong(TAG_BLESSED_PEACE_PROGRESS, 0L);
+            tag.putBoolean(TAG_BLESSED_WRATHFUL_ROUTE, false);
+            tag.putBoolean(TAG_BLESSED_ROUTE_FAILED, false);
         }
     }
 
     private static void tickBlessedPacifistProgress(ServerPlayer player, IEntityData entityData) {
         CompoundTag tag = getPacifistTag(player);
 
-        if (tag.getBoolean(TAG_BLESSED_PACIFIST_BROKEN)) return;
+        if (tag.getBoolean(TAG_BLESSED_ROUTE_FAILED)) return;
+
+        long progress = tag.getLong(TAG_BLESSED_PEACE_PROGRESS);
+        progress += TICKS_PER_SECOND;
+        tag.putLong(TAG_BLESSED_PEACE_PROGRESS, progress);
+
+        if (progress < BLESSED_PEACE_TICKS_REQUIRED) return;
 
         PathData bodyData = entityData.getPathData(ModPaths.BODY.getId());
         if (bodyData == null) return;
 
         if (bodyData.getMajorRealm() < VIRTUOSO_REQUIRED_BODY_MAJOR_REALM) return;
 
+        ResourceLocation targetEvolution = tag.getBoolean(TAG_BLESSED_WRATHFUL_ROUTE)
+                ? ModPhysiques.WRATHFUL_VAJRA.getId()
+                : ModPhysiques.VIRTUOSO_BUDDHA.getId();
+
         boolean evolved = PhysiqueEvolutionHelper.tryEvolveInto(
                 player,
                 entityData,
-                ModPhysiques.VIRTUOSO_BUDDHA.getId()
+                targetEvolution
         );
 
         if (evolved) {
@@ -148,8 +170,18 @@ public final class PacifistPhysiqueEvolutionEvents {
     private static void clearPacifistTracking(ServerPlayer player) {
         CompoundTag tag = getPacifistTag(player);
 
-        tag.remove(TAG_PEACE_START_TICK);
-        tag.remove(TAG_BLESSED_PACIFIST_BROKEN);
+        tag.remove(TAG_MORTAL_PEACE_PROGRESS);
+        tag.remove(TAG_BLESSED_PEACE_PROGRESS);
+        tag.remove(TAG_BLESSED_WRATHFUL_ROUTE);
+        tag.remove(TAG_BLESSED_ROUTE_FAILED);
+    }
+
+    private static void sendActionBar(ServerPlayer player, Component message) {
+        player.displayClientMessage(message, true);
+    }
+
+    private static boolean isWrathfulValidKill(LivingEntity victim) {
+        return !victim.getType().getCategory().isFriendly();
     }
 
 

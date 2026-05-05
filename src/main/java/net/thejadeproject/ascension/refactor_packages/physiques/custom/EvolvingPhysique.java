@@ -9,7 +9,6 @@ import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.toast.ShowAscensionToast;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysique;
-import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 
 import java.util.HashSet;
@@ -41,11 +40,9 @@ public class EvolvingPhysique extends GenericPhysique {
     public boolean tryEvolveInto(ServerPlayer player, IEntityData entityData, ResourceLocation evolvesInto) {
         if (player == null) return false;
         if (entityData == null) return false;
+        if (evolvesInto == null) return false;
 
         if (entityData.getPhysique() != this) return false;
-
-        ResourceLocation currentForm = entityData.getPhysiqueForm();
-        if (currentForm == null) return false;
 
         if (!possibleEvolutions.contains(evolvesInto)) return false;
 
@@ -54,9 +51,7 @@ public class EvolvingPhysique extends GenericPhysique {
         IPhysique newPhysique = AscensionRegistries.Physiques.PHSIQUES_REGISTRY.get(evolvesInto);
         if (newPhysique == null) return false;
 
-        IPhysiqueData newData = newPhysique.freshPhysiqueData(entityData);
-
-        boolean changed = entityData.setPhysique(evolvesInto, newData, currentForm);
+        boolean changed = entityData.setPhysique(evolvesInto);
 
         if (changed) {
             Component physiqueName = newPhysique.getDisplayTitle();
