@@ -78,12 +78,4 @@ public class DawningSunTechnique extends GenericTechnique {
     @Override
     public ITechniqueData fromNetwork(RegistryFriendlyByteBuf buf) { return null; }
 
-    @Override
-    public IBreakthroughInstance freshBreakthroughData(IEntityData heldEntity) { return null; }
-
-    @Override
-    public IBreakthroughInstance breakthroughInstanceFromCompound(CompoundTag tag, int majorRealm, int minorRealm, ITechniqueData techniqueData) { return null; }
-
-    @Override
-    public IBreakthroughInstance breakthroughInstanceFromNetwork(RegistryFriendlyByteBuf buf, int majorRealm, int minorRealm, ITechniqueData techniqueData) { return null; }
 }

@@ -18,6 +18,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.breakthroughs.IBreakthroughInstance;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.skills.cultivation.CultivationProgressBar;
@@ -182,8 +183,23 @@ public class GenericCultivationSkill implements ICastableSkill {
                         pathData.getCurrentRealmProgress()
                 )){
                     pathData.handleRealmChange(pathData.getMajorRealm(),pathData.getMinorRealm()+1,caster.getData(ModAttachments.ENTITY_DATA));
-                } else if(pathData.getMajorRealm()<technique.getMaxMajorRealm() && technique.getStabilityHandler() != null && pathData.getCurrentRealmStability() < technique.getStabilityHandler().getMaxCultivationTicks()) {
-                    pathData.setCurrentRealmStability(pathData.getCurrentRealmStability()+1);
+                } else if (
+                        pathData.getMajorRealm() < technique.getMaxMajorRealm()
+                                && technique.canBreakthrough(
+                                caster.getData(ModAttachments.ENTITY_DATA),
+                                pathData.getMajorRealm(),
+                                pathData.getMinorRealm(),
+                                pathData.getCurrentRealmProgress()
+                        )
+                ) {
+                    IBreakthroughInstance instance = technique.freshBreakthroughData(
+                            caster.getData(ModAttachments.ENTITY_DATA)
+                    );
+
+                    if (instance != null) {
+                        pathData.setBreakthroughInstance(instance);
+                        pathData.setBreakingThrough(true);
+                    }
                 }
             }else {
                 pathData.setCurrentRealmProgress(pathData.getCurrentRealmProgress()+amount);

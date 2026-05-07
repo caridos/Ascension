@@ -107,29 +107,4 @@ public class ScholarlySoulTechnique extends GenericTechnique {
     public ITechniqueData fromNetwork(RegistryFriendlyByteBuf buf) {
         return new ScholarlySoulTechniqueData(buf);
     }
-
-    @Override
-    public IBreakthroughInstance freshBreakthroughData(IEntityData heldEntity) {
-        return null;
-    }
-
-    @Override
-    public IBreakthroughInstance breakthroughInstanceFromCompound(
-            CompoundTag tag,
-            int majorRealm,
-            int minorRealm,
-            ITechniqueData techniqueData
-    ) {
-        return null;
-    }
-
-    @Override
-    public IBreakthroughInstance breakthroughInstanceFromNetwork(
-            RegistryFriendlyByteBuf buf,
-            int majorRealm,
-            int minorRealm,
-            ITechniqueData techniqueData
-    ) {
-        return null;
-    }
 }

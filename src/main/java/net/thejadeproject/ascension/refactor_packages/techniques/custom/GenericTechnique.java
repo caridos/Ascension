@@ -11,6 +11,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.thejadeproject.ascension.refactor_packages.breakthroughs.IBreakthroughInstance;
+import net.thejadeproject.ascension.refactor_packages.breakthroughs.NineHeavenlyTribulations;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.forms.IEntityFormData;
 import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
@@ -181,16 +182,19 @@ public class GenericTechnique implements ITechnique {
 
     @Override
     public IBreakthroughInstance freshBreakthroughData(IEntityData heldEntity) {
-        return null;
+        return new NineHeavenlyTribulations(1);
     }
 
     @Override
-    public IBreakthroughInstance breakthroughInstanceFromCompound(CompoundTag tag,int majorRealm,int minorRealm,ITechniqueData data) {
-        return null;
+    public IBreakthroughInstance breakthroughInstanceFromCompound(
+            CompoundTag tag, int majorRealm, int minorRealm, ITechniqueData data) {
+        return new NineHeavenlyTribulations(1);
     }
 
     @Override
-    public IBreakthroughInstance breakthroughInstanceFromNetwork(RegistryFriendlyByteBuf buf,int majorRealm,int minorRealm,ITechniqueData data) {
-        return null;
+    public IBreakthroughInstance breakthroughInstanceFromNetwork(
+            RegistryFriendlyByteBuf buf, int majorRealm, int minorRealm, ITechniqueData data) {
+        return new NineHeavenlyTribulations(1);
     }
+
 }
