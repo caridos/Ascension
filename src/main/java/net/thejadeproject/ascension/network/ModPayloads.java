@@ -4,6 +4,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.thejadeproject.ascension.AscensionCraft;
 
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.bloodline.SyncBloodline;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.qi.SyncQi;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.mob_ranks.SyncMobRank;
 import net.thejadeproject.ascension.network.serverBound.*;
@@ -83,6 +84,12 @@ public class ModPayloads {
                 SyncPhysique.TYPE,
                 SyncPhysique.STREAM_CODEC,
                 SyncPhysique::handlePayload
+        );
+
+        registrar.playToClient(
+                SyncBloodline.TYPE,
+                SyncBloodline.STREAM_CODEC,
+                SyncBloodline::handlePayload
         );
 
         registrar.playToClient(

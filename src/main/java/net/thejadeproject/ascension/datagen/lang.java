@@ -593,9 +593,6 @@ public class lang extends LanguageProvider {
         add("ascension.skill.frost_silkworm_poison_temp_debuff.description", "A concentrated burst of silkworm frost. The cold builds quickly — flee before it reaches your core.");
 
 
-
-
-
         //Pill effects
         add("ascension.pill_effects.body_cultivation_pill_effect.name","Body Cultivation");
         add("ascension.pill_effects.body_cultivation_pill_effect.description","Increases Body cultivation");

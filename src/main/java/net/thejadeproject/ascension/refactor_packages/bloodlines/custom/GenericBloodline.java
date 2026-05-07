@@ -111,9 +111,9 @@ public class GenericBloodline implements IBloodline {
 
     @Override
     public IBloodlineData fromNetwork(RegistryFriendlyByteBuf buf) {
+        buf.readUtf();
         return new GenericBloodlineData();
     }
-
     // ─────────────────────────────── helpers ──────────────────────────────────
 
     private void applyAttributes(IEntityData heldEntity) {

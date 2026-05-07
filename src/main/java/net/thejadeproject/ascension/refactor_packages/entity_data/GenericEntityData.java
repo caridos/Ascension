@@ -23,6 +23,7 @@ import net.thejadeproject.ascension.refactor_packages.attributes.AscensionAttrib
 import net.thejadeproject.ascension.refactor_packages.attributes.AttributeValueContainer;
 import net.thejadeproject.ascension.refactor_packages.bloodlines.IBloodline;
 import net.thejadeproject.ascension.refactor_packages.bloodlines.IBloodlineData;
+import net.thejadeproject.ascension.refactor_packages.bloodlines.ModBloodlines;
 import net.thejadeproject.ascension.refactor_packages.entity_data_source.IEntityDataSource;
 import net.thejadeproject.ascension.refactor_packages.entity_data_source.IEntityDataSourceContainer;
 import net.thejadeproject.ascension.refactor_packages.events.PhysiqueChangeEvent;
@@ -32,6 +33,7 @@ import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.SyncEntityForm;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncAttributeHolder;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncCurrentHealth;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.bloodline.SyncBloodline;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.path_data.SyncPathData;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.physique.SyncPhysique;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.skills.SyncHeldSkills;
@@ -101,7 +103,8 @@ public class GenericEntityData implements IEntityData {
         currentHealth = getAscensionAttributeHolder().getAttribute(Attributes.MAX_HEALTH).getValue();
 
         setPhysique(ModPhysiques.MORTAL.getId());//give default physique
-        //setBloodline() //give default bloodline
+        //setBloodline(ModBloodlines.MORTAL_BLOODLINE.getId());
+
     }
     //TODO add better error handling so an error does not delete all data
     public GenericEntityData(Entity attachedEntity, CompoundTag tag){
@@ -177,23 +180,31 @@ public class GenericEntityData implements IEntityData {
             //if mortal vessel is present -> mortal
             //if soul is present -> smth?
         }
-        try{
-            String rawBloodline = tag.getString("bloodline");
-            //no bloodline
-            if(!rawBloodline.equals("none")){
-                ResourceLocation bloodline = ResourceLocation.bySeparator(rawBloodline,':');
-                IBloodline bloodlineInstance = AscensionRegistries.getRegistryObject(bloodline,AscensionRegistries.Bloodlines.BLOODLINE_REGISTRY);
-                IBloodlineData bloodlineData = IBloodline.getFromCompound(this,bloodlineInstance,tag.getCompound("bloodline_data"));
-
-            }
-        }catch (Exception e){
-            AscensionCraft.LOGGER.error("error when trying to load physique",e);
-            //TODO make sure to set bloodline to default
-            //if in soul form set to null
-            //yes make sure bloodline can have a null state
-        }
-
-
+//        try {
+//            String rawBloodline = tag.getString("bloodline");
+//
+//            if (rawBloodline.isBlank() || rawBloodline.equals("none")) {
+//                setBloodline(ModBloodlines.MORTAL_BLOODLINE.getId());
+//            } else {
+//                ResourceLocation bloodline = ResourceLocation.bySeparator(rawBloodline, ':');
+//                IBloodline bloodlineInstance = AscensionRegistries.getRegistryObject(
+//                        bloodline,
+//                        AscensionRegistries.Bloodlines.BLOODLINE_REGISTRY
+//                );
+//
+//                IBloodlineData bloodlineData = IBloodline.getFromCompound(
+//                        this,
+//                        bloodlineInstance,
+//                        tag.getCompound("bloodline_data")
+//                );
+//
+//                setBloodline(bloodline, bloodlineData);
+//            }
+//        } catch (Exception e) {
+//            AscensionCraft.LOGGER.error("error when trying to load bloodline", e);
+//            setBloodline(ModBloodlines.MORTAL_BLOODLINE.getId());
+//        }
+        bloodlineForm = null;
 
         loading = true;
         try {
@@ -292,10 +303,14 @@ public class GenericEntityData implements IEntityData {
         if (physiqueForm != null && heldFormData.get(physiqueForm).getPhysiqueData() != null) {
             tag.put("physique_data",heldFormData.get(physiqueForm).getPhysiqueData().write());
         }
-        tag.putString("bloodline",bloodlineForm == null ? "none" : heldFormData.get(bloodlineForm).getBloodlineKey().toString());
-        if (bloodlineForm != null && heldFormData.get(bloodlineForm).getBloodlineData() != null) {
-            tag.put("bloodline",heldFormData.get(bloodlineForm).getBloodlineData().write());
-        }
+
+//        tag.putString("bloodline", bloodlineForm == null ? "none" : heldFormData.get(bloodlineForm).getBloodlineKey().toString());
+//
+//        if (bloodlineForm != null && heldFormData.get(bloodlineForm).getBloodlineData() != null) {
+//            tag.put("bloodline_data", heldFormData.get(bloodlineForm).getBloodlineData().write());
+//        }
+
+        tag.putString("bloodline", "none");
 
         ListTag formTags = new ListTag();
         //since this is only for caching only cache forms that have data
@@ -601,37 +616,93 @@ public class GenericEntityData implements IEntityData {
     //============================ BLOODLINE HANDLING =======================================
     @Override
     public void setBloodline(ResourceLocation bloodline) {
-        //TODO
+        IBloodline bloodlineInstance = AscensionRegistries.Bloodlines.BLOODLINE_REGISTRY.get(bloodline);
+        if (bloodlineInstance == null) return;
+
+        setBloodline(bloodline, bloodlineInstance.freshBloodlineData(this));
     }
 
     @Override
     public void setBloodline(ResourceLocation bloodline, IBloodlineData existingData) {
-        //TODO
+        setBloodline(bloodline, existingData, ModForms.MORTAL_VESSEL.getId());
+    }
+
+    private void setBloodline(ResourceLocation bloodline, IBloodlineData bloodlineData, ResourceLocation form) {
+        if (!heldFormData.containsKey(form)) return;
+
+        ResourceLocation oldBloodline = null;
+
+        if (bloodlineForm != null && heldFormData.containsKey(bloodlineForm)) {
+            IEntityFormData oldFormData = heldFormData.get(bloodlineForm);
+            oldBloodline = oldFormData.getBloodlineKey();
+
+            oldFormData.setBloodline(null);
+        }
+
+        IBloodline bloodlineInstance = AscensionRegistries.Bloodlines.BLOODLINE_REGISTRY.get(bloodline);
+        if (bloodlineInstance == null) return;
+
+        if (bloodlineData == null) {
+            bloodlineData = bloodlineInstance.freshBloodlineData(this);
+        }
+
+        bloodlineForm = form;
+
+        heldFormData.get(bloodlineForm).setBloodline(bloodline, bloodlineData);
+        bloodlineInstance.onBloodlineAdded(this, bloodlineData, oldBloodline);
+
+        if (getAttachedEntity() instanceof ServerPlayer serverPlayer && serverPlayer.connection != null) {
+            PacketDistributor.sendToPlayer(
+                    serverPlayer,
+                    new SyncBloodline(bloodlineForm, bloodline, bloodlineData)
+            );
+        }
+
     }
 
     @Override
     public IBloodlineData getBloodlineData() {
-        return null;//TODO
+        if (bloodlineForm == null) return null;
+        if (!heldFormData.containsKey(bloodlineForm)) return null;
+
+        return heldFormData.get(bloodlineForm).getBloodlineData();
     }
 
     @Override
     public ResourceLocation getBloodlineForm() {
-        return null;//TODO
+        return bloodlineForm;
     }
 
     @Override
     public IBloodlineData removeBloodline() {
-        return null;//TODO
+        IBloodlineData data = getBloodlineData();
+        setBloodline(ModBloodlines.MORTAL_BLOODLINE.getId());
+        return data;
     }
 
     @Override
     public IBloodline getBloodline() {
-        return heldFormData.get(bloodlineForm).getBloodline();
+        if (bloodlineForm == null) return null;
+
+        IEntityFormData formData = heldFormData.get(bloodlineForm);
+        if (formData == null) return null;
+
+        return formData.getBloodline();
     }
 
     @Override
     public void moveBloodline(ResourceLocation form) {
+        if (bloodlineForm == null) return;
+        if (!heldFormData.containsKey(form)) return;
+        if (!heldFormData.containsKey(bloodlineForm)) return;
 
+        ResourceLocation bloodline = heldFormData.get(bloodlineForm).getBloodlineKey();
+        IBloodlineData bloodlineData = heldFormData.get(bloodlineForm).getBloodlineData();
+
+        heldFormData.get(bloodlineForm).setBloodline(null);
+        heldFormData.get(form).setBloodline(bloodline, bloodlineData);
+
+        bloodlineForm = form;
     }
 
     //============================ CULTIVATION DATA HANDLING ==================================

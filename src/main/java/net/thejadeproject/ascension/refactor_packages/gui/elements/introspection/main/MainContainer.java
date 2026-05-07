@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.bloodlines.IBloodline;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.general.Container;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.IInformationContainer;
@@ -47,6 +48,11 @@ public class MainContainer extends RenderableElement {
         physiqueOpenButton.getPositioning().setY(18);
         addChild(physiqueOpenButton);
 
+//        BloodlineOpenButton bloodlineOpenButton = new BloodlineOpenButton(frame);
+//        bloodlineOpenButton.getPositioning().setX(112);
+//        bloodlineOpenButton.getPositioning().setY(35);
+//        addChild(bloodlineOpenButton);
+
 
     }
 
@@ -58,10 +64,24 @@ public class MainContainer extends RenderableElement {
         infoContainer.addChild(element);
         if(element instanceof IInformationContainer informationContainer) informationContainer.refresh();
     }
-    public void displayBloodline(){
+
+    public void displayBloodline() {
         infoContainer.removeChildren();
 
+//        IEntityData entityData = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA);
+//        IBloodline bloodline = entityData.getBloodline();
+//
+//        if (bloodline == null) return;
+//
+//        RenderableElement element = bloodline.getInformationContainer(getUiFrame());
+//        infoContainer.addChild(element);
+//
+//        if (element instanceof IInformationContainer informationContainer) {
+//            informationContainer.refresh();
+//        }
     }
+
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);

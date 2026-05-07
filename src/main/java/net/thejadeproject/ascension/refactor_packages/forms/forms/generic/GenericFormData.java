@@ -45,6 +45,7 @@ public class GenericFormData implements IEntityFormData {
         heldSkills  = new HeldSkills();
         initStatSheet();
     }
+
     public void initStatSheet(){
         statSheet = new StatSheet();
         statSheet.addStat(ModStats.VITALITY.get(),5);

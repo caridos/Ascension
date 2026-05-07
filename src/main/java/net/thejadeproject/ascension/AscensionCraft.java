@@ -69,6 +69,7 @@ import net.thejadeproject.ascension.menus.ModMenuTypes;
 
 
 import net.thejadeproject.ascension.refactor_packages.alchemy.ModPillEffects;
+import net.thejadeproject.ascension.refactor_packages.bloodlines.ModBloodlines;
 import net.thejadeproject.ascension.refactor_packages.entity_data.GenericEntityData;
 import net.thejadeproject.ascension.refactor_packages.entity_data_source.ModDataSources;
 import net.thejadeproject.ascension.refactor_packages.forms.IEntityFormData;
@@ -150,6 +151,7 @@ public class AscensionCraft {
 
         ModPhysiques.register(modEventBus);
         ModForms.register(modEventBus);
+        ModBloodlines.register(modEventBus);
         ModPaths.register(modEventBus);
 
         ModEffects.register(modEventBus);
