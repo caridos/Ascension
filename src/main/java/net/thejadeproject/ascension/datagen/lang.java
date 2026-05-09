@@ -870,6 +870,7 @@ public class lang extends LanguageProvider {
         add("ascension.soulanchor.tooltip.dimension",   "§7Dimension: %s");
         add("ascension.soulanchor.tooltip.unset",       "§7No anchor set.");
         add("ascension.soulanchor.tooltip.hint",        "§8Shift-right-click to set anchor.");
+        add("ascension.soulanchor.tooltip.hint2",       "§8Single-use │ Pulls death drops to anchor");
         add("ascension.soulanchor.tooltip.consumed",    "§4§oSpent — this talisman is inert.");
 
 
@@ -963,6 +964,8 @@ public class lang extends LanguageProvider {
 
 
         //Decorational Blocks
+        add("block.ascension.technique_stand", "Technique Stand");
+
         add("block.ascension.cushion_white", "White Cushion");
         add("block.ascension.cushion_light_gray", "Light Gray Cushion");
         add("block.ascension.cushion_gray", "Gray Cushion");

@@ -52,7 +52,7 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
 
     @Override
     public int getViewDistance() {
-        return 64;
+        return 16;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
     private void renderItem(ItemStack stack, TechniqueStandBlockEntity blockEntity,
                             PoseStack poseStack, MultiBufferSource bufferSource) {
         poseStack.pushPose();
-        poseStack.translate(0.5, 0.85, 0.5);
+        poseStack.translate(0.5, 0.88, 0.5);
 
         net.minecraft.core.Direction facing = blockEntity.getBlockState()
                 .getValue(net.thejadeproject.ascension.common.blocks.custom.TechniqueStandBlock.FACING);
@@ -79,7 +79,7 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
             default    -> 0f;
         };
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot));
-        poseStack.mulPose(Axis.XP.rotationDegrees(-20f));
+        poseStack.mulPose(Axis.XP.rotationDegrees(65f));
         poseStack.scale(0.6f, 0.6f, 0.6f);
 
         itemRenderer.renderStatic(
@@ -106,7 +106,7 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
         totalHeight += visibleCount * BODY_LINE_HEIGHT;
 
         poseStack.pushPose();
-        poseStack.translate(0.5, 1.8 + totalHeight * 0.5 * 0.025, 0.5);
+        poseStack.translate(0.5, 2.4 + totalHeight * 0.5 * 0.025, 0);
 
         Quaternionf q = Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation();
         poseStack.mulPose(q);
@@ -265,7 +265,7 @@ public class TechniqueStandRenderer implements BlockEntityRenderer<TechniqueStan
                     for (int i = 0; i < chapters.size(); i++) {
                         boolean hasPage = collected.contains(i);
                         ChatFormatting color = hasPage ? ChatFormatting.GREEN : ChatFormatting.DARK_GRAY;
-                        String symbol = hasPage ? "+" : "-";
+                        String symbol = hasPage ? "✓" : "✗";
                         lines.add(Component.literal("  " + symbol + " ")
                                 .append(Component.translatable(chapters.get(i)))
                                 .withStyle(color));

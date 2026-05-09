@@ -105,6 +105,8 @@ public class ModCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
 
 
+                        output.accept(ModBlocks.TECHNIQUE_STAND);
+
                         output.accept(ModBlocks.CUSHION_WHITE);
                         output.accept(ModBlocks.CUSHION_LIGHT_GRAY);
                         output.accept(ModBlocks.CUSHION_GRAY);

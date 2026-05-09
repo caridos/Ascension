@@ -30,7 +30,7 @@ public class TechniqueStandBlock extends BaseEntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    private static final VoxelShape SHAPE = Block.box(4, 0, 4, 12, 12, 12);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16, 16);
 
     public TechniqueStandBlock(Properties properties) {
         super(properties);

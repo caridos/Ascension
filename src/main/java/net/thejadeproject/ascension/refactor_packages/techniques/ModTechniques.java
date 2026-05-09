@@ -93,6 +93,8 @@ public class ModTechniques {
                             new ValueContainerModifier(5,  ModifierOperation.ADD_BASE, BLOODFEAST_KEY))
                     .addMinorRealmStatModifier(ModStats.AGILITY.getId(),
                             new ValueContainerModifier(3,  ModifierOperation.ADD_BASE, BLOODFEAST_KEY))
+                    .addMinorRealmStatModifier(ModStats.INTELLIGENCE.getId(),
+                            new ValueContainerModifier(4,  ModifierOperation.ADD_BASE, BLOODFEAST_KEY))
                     .addMinorRealmAttributeModifier(Attributes.MAX_HEALTH,
                             new ValueContainerModifier(7,  ModifierOperation.ADD_BASE, BLOODFEAST_KEY))
                     // ── Major realm gains (per major realm advance) ───────────────

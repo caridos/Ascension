@@ -172,6 +172,8 @@ public class SoulAnchorTalisman extends Item {
 
         tooltip.add(Component.translatable("ascension.soulanchor.tooltip.hint")
                 .withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.translatable("ascension.soulanchor.tooltip.hint2")
+                .withStyle(ChatFormatting.DARK_GRAY));
     }
 
     @Override
