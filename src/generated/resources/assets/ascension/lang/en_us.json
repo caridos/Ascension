@@ -158,6 +158,8 @@
   "ascension.path.wood.origin_wood": "Origin Wood",
   "ascension.path.wood.sprout": "Sprout",
   "ascension.path.wood.true_wood": "True Wood",
+  "ascension.physique_essence.tooltip.fuse": "Right-click to merge into a compatible physique",
+  "ascension.physique_essence.tooltip.replace": "Shift-right-click to replace physique entirely",
   "ascension.physiques.academic_spirit": "Academic Soul",
   "ascension.physiques.academic_spirit.desc": "Knowledge occupies your Soul, a library resonating within your Mind",
   "ascension.physiques.academic_spirit.desc.short": "A library resonates within your soul.",

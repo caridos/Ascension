@@ -338,6 +338,10 @@ public class lang extends LanguageProvider {
 
 
 
+        // Physique Essence Tooltips
+        add("ascension.physique_essence.tooltip.fuse", "Right-click to merge into a compatible physique");
+        add("ascension.physique_essence.tooltip.replace", "Shift-right-click to replace physique entirely");
+
         // Physique Evolution Messages
         add("ascension.message.physique_evolution.pacifist_mortal_reset", "You have failed to maintain a peaceful streak.");
         add("ascension.message.physique_evolution.blessed_route_lost", "The Blessed path has been stained by blood, and You no longer have a future with Virtue.");

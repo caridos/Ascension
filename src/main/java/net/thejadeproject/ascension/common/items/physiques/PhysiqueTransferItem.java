@@ -35,7 +35,7 @@ public class PhysiqueTransferItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @javax.annotation.Nonnull InteractionResultHolder<ItemStack> use(@javax.annotation.Nonnull Level level, @javax.annotation.Nonnull Player player, @javax.annotation.Nonnull InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (level.isClientSide()) return InteractionResultHolder.pass(stack);
@@ -124,7 +124,7 @@ public class PhysiqueTransferItem extends Item {
     }
 
     @Override
-    public Component getName(ItemStack stack) {
+    public @javax.annotation.Nonnull Component getName(@javax.annotation.Nonnull ItemStack stack) {
         String targetPhysiqueId = stack.get(ModDataComponents.PHYSIQUE_ID.get());
         Integer purity = stack.get(ModDataComponents.PURITY.get());
 
@@ -150,7 +150,7 @@ public class PhysiqueTransferItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(@javax.annotation.Nonnull ItemStack stack, @javax.annotation.Nonnull TooltipContext context, @javax.annotation.Nonnull List<Component> tooltip, @javax.annotation.Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
 
         String targetPhysiqueId = stack.get(ModDataComponents.PHYSIQUE_ID.get());
@@ -175,9 +175,14 @@ public class PhysiqueTransferItem extends Item {
             tooltip.add(Component.literal("No physique set").withStyle(ChatFormatting.GRAY));
         }
 
-        tooltip.add(Component.literal("Right-click to fuse into current physique")
-                .withStyle(ChatFormatting.YELLOW));
-        tooltip.add(Component.literal("Shift-right-click to replace physique entirely")
+        if (targetPhysiqueId != null && !targetPhysiqueId.isEmpty()) {
+            IPhysique targetPhysique = AscensionRegistries.Physiques.PHSIQUES_REGISTRY.get(ResourceLocation.parse(targetPhysiqueId));
+            if (targetPhysique instanceof ElementalBodyPhysique) {
+                tooltip.add(Component.translatable("ascension.physique_essence.tooltip.fuse")
+                        .withStyle(ChatFormatting.YELLOW));
+            }
+        }
+        tooltip.add(Component.translatable("ascension.physique_essence.tooltip.replace")
                 .withStyle(ChatFormatting.GRAY));
 
         if (purity != null && purity >= 100) {
