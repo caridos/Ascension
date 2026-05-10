@@ -227,11 +227,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         herbs(ModItems.IRONWOOD_SPROUT.get());
 
 
-        herbsBlockItem(ModBlocks.IRONWOOD_SPROUT_CROP);
         herbsBlockItem(ModBlocks.WHITE_JADE_ORCHID_CROP);
         herbsBlockItem(ModBlocks.HUNDRED_YEAR_SNOW_GINSENG_CROP);
         herbsBlockItem(ModBlocks.HUNDRED_YEAR_FIRE_GINSENG_CROP);
         herbsBlockItem(ModBlocks.HUNDRED_YEAR_GINSENG_CROP);
+
+        herbs(ModItems.JADE_DEW_GRASS.get());
+        basicItem(ModItems.JADE_DEW_GRASS_SEEDS.get());
 
 
         //Saplings

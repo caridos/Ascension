@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ascension:block/herbs/ironwood_sprout_crop"
+    "layer0": "ascension:item/jade_dew_grass_seeds"
   }
 }
