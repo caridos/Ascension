@@ -13,8 +13,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.thejadeproject.ascension.mob_ranks.MobRankList;
-import net.thejadeproject.ascension.mob_ranks.util.MobCultivationCommandHelper;
+import net.thejadeproject.ascension.mob_cultivation.MobCultivationList;
+import net.thejadeproject.ascension.mob_cultivation.util.MobCultivationCommandHelper;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
 import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
@@ -37,7 +37,7 @@ public final class MobCultivationCommand {
                                 })
                                 .then(Commands.argument("realm", word())
                                         .suggests((context, builder) -> {
-                                            MobRankList.getRealmIds().forEach(builder::suggest);
+                                            MobCultivationList.getRealmIds().forEach(builder::suggest);
                                             return builder.buildFuture();
                                         })
                                         .then(Commands.argument("stage", integer(1, 3))
@@ -66,7 +66,7 @@ public final class MobCultivationCommand {
                         .then(Commands.argument("target", EntityArgument.entity())
                                 .then(Commands.argument("realm", word())
                                         .suggests((context, builder) -> {
-                                            MobRankList.getRealmIds().forEach(builder::suggest);
+                                            MobCultivationList.getRealmIds().forEach(builder::suggest);
                                             return builder.buildFuture();
                                         })
                                         .then(Commands.argument("stage", integer(1, 3))

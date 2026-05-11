@@ -235,6 +235,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         herbs(ModItems.JADE_DEW_GRASS.get());
         basicItem(ModItems.JADE_DEW_GRASS_SEEDS.get());
 
+        basicItem(ModItems.HERB_POUCH.get());
 
         //Saplings
         saplingItem(ModBlocks.GOLDEN_PALM_SAPLING);

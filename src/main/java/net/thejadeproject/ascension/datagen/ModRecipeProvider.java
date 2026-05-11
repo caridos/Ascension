@@ -411,6 +411,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('W', ItemTags.WOOL)
                 .unlockedBy("has_black_iron_ingot", has(ModItems.BLACK_IRON_INGOT)).save(recipeOutput, "ascension:shaped/fan");
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.HERB_POUCH.get())
+                .pattern("BCB")
+                .pattern("ADA")
+                .pattern(" A ")
+                .define('A', Items.LEATHER)
+                .define('B', Items.STRING)
+                .define('C', ModItems.SPIRITUAL_STONE)
+                .define('D', ModTags.Items.HERBS)
+                .unlockedBy("has_spiritual_stone", has(ModItems.SPIRITUAL_STONE)).save(recipeOutput, "ascension:shaped/herb_pouch");
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModBlocks.GOLDEN_PALM_PLANKS.get(), 4)
                 .requires(ModBlocks.GOLDEN_PALM_LOG)
                 .unlockedBy("has_golden_palm_log", has(ModBlocks.GOLDEN_PALM_LOG)).save(recipeOutput, "ascension:shapeless/palm_planks");

@@ -8,9 +8,9 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
-import net.thejadeproject.ascension.mob_ranks.MobRankData;
-import net.thejadeproject.ascension.mob_ranks.MobRankList;
-import net.thejadeproject.ascension.mob_ranks.MobRankResolver;
+import net.thejadeproject.ascension.mob_cultivation.MobCultivationData;
+import net.thejadeproject.ascension.mob_cultivation.MobCultivationList;
+import net.thejadeproject.ascension.mob_cultivation.MobCultivationResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,9 +175,9 @@ public class KillQualityWeights {
         public Builder ifRealmAtLeast(String minRealmId, int minStage, double gain) {
             return ifMatches(e -> {
                 if (!e.hasData(ModAttachments.MOB_RANK)) return false;
-                MobRankData data = e.getData(ModAttachments.MOB_RANK);
+                MobCultivationData data = e.getData(ModAttachments.MOB_RANK);
                 if (data == null || !data.isInitialized()) return false;
-                return MobRankList.isAtLeast(data.getRealmId(), data.getStage(),
+                return MobCultivationList.isAtLeast(data.getRealmId(), data.getStage(),
                         minRealmId, minStage);
             }, gain);
         }
@@ -188,7 +188,7 @@ public class KillQualityWeights {
          */
         public Builder ifCombatPowerAtLeast(int minPower, double gain) {
             return ifMatches(
-                    e -> MobRankResolver.resolveCombatPower(e) >= minPower, gain);
+                    e -> MobCultivationResolver.resolveCombatPower(e) >= minPower, gain);
         }
 
         /**
@@ -198,9 +198,9 @@ public class KillQualityWeights {
          */
         public Builder scaledByCombatPower(int referencePower, double baseGain, double maxGain) {
             return ifMatchesDynamic(
-                    e -> MobRankResolver.resolveCombatPower(e) > 0,
+                    e -> MobCultivationResolver.resolveCombatPower(e) > 0,
                     e -> {
-                        int power = MobRankResolver.resolveCombatPower(e);
+                        int power = MobCultivationResolver.resolveCombatPower(e);
                         return Math.min(maxGain, Math.max(0,
                                 ((double) power / referencePower) * baseGain));
                     }

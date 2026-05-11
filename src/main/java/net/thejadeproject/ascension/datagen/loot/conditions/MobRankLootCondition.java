@@ -9,8 +9,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
-import net.thejadeproject.ascension.mob_ranks.MobRankData;
-import net.thejadeproject.ascension.mob_ranks.MobRankList;
+import net.thejadeproject.ascension.mob_cultivation.MobCultivationData;
+import net.thejadeproject.ascension.mob_cultivation.MobCultivationList;
 
 public record MobRankLootCondition(
         Mode mode,
@@ -49,7 +49,7 @@ public record MobRankLootCondition(
             return false;
         }
 
-        MobRankData data = living.getData(ModAttachments.MOB_RANK);
+        MobCultivationData data = living.getData(ModAttachments.MOB_RANK);
         if (data == null || !data.isInitialized()) {
             return false;
         }
@@ -58,9 +58,9 @@ public record MobRankLootCondition(
         int mobStage = data.getStage();
 
         return switch (mode) {
-            case AT_LEAST -> MobRankList.isAtLeast(mobRealm, mobStage, realm, stage);
-            case EXACT -> MobRankList.isExact(mobRealm, mobStage, realm, stage);
-            case BETWEEN -> MobRankList.isBetweenInclusive(mobRealm, mobStage, realm, stage, otherRealm, otherStage);
+            case AT_LEAST -> MobCultivationList.isAtLeast(mobRealm, mobStage, realm, stage);
+            case EXACT -> MobCultivationList.isExact(mobRealm, mobStage, realm, stage);
+            case BETWEEN -> MobCultivationList.isBetweenInclusive(mobRealm, mobStage, realm, stage, otherRealm, otherStage);
         };
     }
 

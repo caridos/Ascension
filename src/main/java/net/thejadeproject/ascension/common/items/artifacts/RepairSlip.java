@@ -56,27 +56,29 @@ public class RepairSlip extends Item {
     private void repairItems(Player player) {
         IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
         if (entityData == null) return;
-        if (!entityData.getQiContainer().tryConsumeQi(5)) return;
 
         int repairAmount = Config.COMMON.REPAIR_AMOUNT != null ?
                 Config.COMMON.REPAIR_AMOUNT.get() : DEFAULT_REPAIR_AMOUNT;
 
         for (ItemStack stack : player.getInventory().items) {
-            if (repairItem(stack, repairAmount)) return;
+            if (repairItem(entityData, stack, repairAmount)) return;
         }
         for (ItemStack stack : player.getInventory().armor) {
-            if (repairItem(stack, repairAmount)) return;
+            if (repairItem(entityData, stack, repairAmount)) return;
         }
         for (ItemStack stack : player.getInventory().offhand) {
-            if (repairItem(stack, repairAmount)) return;
+            if (repairItem(entityData, stack, repairAmount)) return;
         }
     }
 
-    private boolean repairItem(ItemStack stack, int repairAmount) {
+    private boolean repairItem(IEntityData entityData, ItemStack stack, int repairAmount) {
         if (!stack.isEmpty() && stack.isDamaged() && !stack.is(ModTags.Items.REPAIR_BLACKLIST)) {
+            if (!entityData.getQiContainer().tryConsumeQi(5)) return true;
+
             stack.setDamageValue(Math.max(stack.getDamageValue() - repairAmount, 0));
             return true;
         }
         return false;
     }
+
 }

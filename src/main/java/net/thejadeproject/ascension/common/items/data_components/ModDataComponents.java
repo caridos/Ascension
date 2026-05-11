@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.common.items.data_components.herb_pouch.HerbPouchComponent;
 import net.thejadeproject.ascension.events.SealedEntityData;
 import net.thejadeproject.ascension.common.items.data_components.spatial_ring.SpatialRingComponent;
 import net.thejadeproject.ascension.refactor_packages.util.ByteBufUtil;
@@ -39,10 +40,14 @@ public class ModDataComponents {
 
 
 
-
-
-
-
+    public static final Supplier<DataComponentType<HerbPouchComponent>> HERB_POUCH_DATA =
+            DATA_COMPONENTS.register(
+                    "herb_pouch_data",
+                    () -> DataComponentType.<HerbPouchComponent>builder()
+                            .persistent(HerbPouchComponent.CODEC)
+                            .networkSynchronized(HerbPouchComponent.STREAM_CODEC)
+                            .build()
+            );
 
 
 

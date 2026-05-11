@@ -154,9 +154,9 @@ public interface IEntityData {
         holder.addAttribute(Attributes.MOVEMENT_SPEED,Component.literal("Movement Speed"));
         holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.STRENGTH.get(),0.00005); //0.005% of strength
         holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.AGILITY.get(),0.002); //0.05% of agility
-        holder.addAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY,Component.literal("Swim Speed"));
-        holder.getAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY).addStatScaling(ModStats.STRENGTH.get(),0.0001); //0.01% of strength
-        holder.getAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY).addStatScaling(ModStats.AGILITY.get(),0.5); //50% of agility
+//        holder.addAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY,Component.literal("Swim Speed"));
+//        holder.getAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY).addStatScaling(ModStats.STRENGTH.get(),0.0001); //0.01% of strength
+//        holder.getAttribute(Attributes.WATER_MOVEMENT_EFFICIENCY).addStatScaling(ModStats.AGILITY.get(),0.5); //50% of agility
 
         holder.addAttribute(ModAttributes.MAX_QI,Component.literal("Max Qi"));
         holder.getAttribute(ModAttributes.MAX_QI).addStatScaling(ModStats.INTELLIGENCE.get(),10);

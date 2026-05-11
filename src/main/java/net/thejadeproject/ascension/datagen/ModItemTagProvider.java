@@ -31,6 +31,13 @@ public class ModItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
 
+        tag(ModTags.Items.HERBS)
+                .add(ModItems.WHITE_JADE_ORCHID.get())
+                .add(ModItems.HUNDRED_YEAR_FIRE_GINSENG.get())
+                .add(ModItems.HUNDRED_YEAR_SNOW_GINSENG.get())
+                .add(ModItems.HUNDRED_YEAR_GINSENG.get())
+                .add(ModItems.JADE_DEW_GRASS.get());
+
 
         tag(ModTags.Items.MEDICINAL)
                 .add(ModItems.GOLDEN_SUN_LEAF.get())

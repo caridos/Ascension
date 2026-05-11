@@ -21,7 +21,6 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -48,8 +47,6 @@ import net.thejadeproject.ascension.common.command.commands.ReadChapterCommand;
 
 import net.thejadeproject.ascension.common.items.artifacts.talismans.SoulAnchorTalisman;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
-import net.thejadeproject.ascension.common.items.techniques.TechniquePageItem;
-import net.thejadeproject.ascension.common.items.techniques.TechniqueTransferItem;
 import net.thejadeproject.ascension.entity.custom.NeedleProjectile;
 import net.thejadeproject.ascension.events.TeleportationEventHandler;
 
@@ -61,7 +58,7 @@ import net.thejadeproject.ascension.entity.ModEntities;
 import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.datagen.loot.ModLootModifiers;
 import net.thejadeproject.ascension.datagen.loot.conditions.ModLootConditions;
-import net.thejadeproject.ascension.mob_ranks.util.EntityAttributeManager;
+import net.thejadeproject.ascension.mob_cultivation.util.EntityAttributeManager;
 import net.thejadeproject.ascension.network.ModPayloads;
 import net.thejadeproject.ascension.particle.ModParticles;
 

@@ -32,6 +32,7 @@ import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.common.items.artifacts.FlameGourd;
 import net.thejadeproject.ascension.entity.custom.NeedleProjectile;
 import net.thejadeproject.ascension.menus.ModMenuTypes;
+import net.thejadeproject.ascension.menus.custom.herb_pouch.HerbPouchScreen;
 import net.thejadeproject.ascension.menus.custom.pill_cauldron.PillCauldronLowHumanScreen;
 import net.thejadeproject.ascension.menus.custom.spirit_ring.SpatialRingInventoryScreen;
 import net.thejadeproject.ascension.menus.custom.spirit_ring.SpatialRingModifierScreen;
@@ -68,6 +69,7 @@ public class AscensionCraftClient {
             event.register(ModMenuTypes.PILL_CAULDRON_LOW_HUMAN_MENU.get(), PillCauldronLowHumanScreen::new);
             event.register(ModMenuTypes.SPATIAL_RING_INVENTORY_MENU.get(), SpatialRingInventoryScreen::new);
             event.register(ModMenuTypes.SPATIAL_RING_MODIFIER_MENU.get(), SpatialRingModifierScreen::new);
+            event.register(ModMenuTypes.HERB_POUCH_MENU.get(), HerbPouchScreen::new);
 
         }
 

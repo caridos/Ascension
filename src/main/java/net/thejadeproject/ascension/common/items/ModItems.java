@@ -381,6 +381,9 @@ public class ModItems {
     public static final DeferredItem<Item> PEACH = ITEMS.register("peach",
             () -> new Item(new Item.Properties().food(ModFoodProperties.PEACH)));
 
+    public static final DeferredItem<Item> HERB_POUCH = ITEMS.register("herb_pouch",
+            () -> new HerbPouchItem(new Item.Properties().stacksTo(1)));
+
 
     //MobEggs
     public static final DeferredItem<Item> RAT_SPAWN_EGG = ITEMS.register("rat_spawn_egg",

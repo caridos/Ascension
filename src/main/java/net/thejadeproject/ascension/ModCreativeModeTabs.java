@@ -380,6 +380,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WHITE_JADE_ORCHID);
 
 
+                        output.accept(ModItems.HERB_POUCH);
+
+
                     }).build());
 
     public static final Supplier<CreativeModeTab> ASCENSION_PILLS_TAB = CREATIVE_MODE_TAB.register("ascension_pills_tab",

@@ -969,6 +969,8 @@ public class lang extends LanguageProvider {
         add("block.ascension.jade_dew_grass_crop", "Jade Dew Grass");
 
 
+        add("item.ascension.herb_pouch", "Herb Pouch");
+
 
 
         //Decorational Blocks
