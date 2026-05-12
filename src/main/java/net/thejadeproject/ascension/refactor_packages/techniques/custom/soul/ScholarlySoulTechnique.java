@@ -15,12 +15,15 @@ import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.GenericTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.stat_change_handlers.BasicStatChangeHandler;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.technique_data.ScholarlySoulTechniqueData;
+import net.thejadeproject.ascension.refactor_packages.techniques.helpers.TechniqueSkillHelper;
 
 import java.util.Set;
 
 public class ScholarlySoulTechnique extends GenericTechnique {
 
     private static final double BASE_RATE = 2.0D;
+    private static final int SOUL_NEEDLE_UNLOCK_REALM = 2;
+    private static final int SOUL_SUPPRESSION_UNLOCK_REALM = 3;
 
     public ScholarlySoulTechnique(BasicStatChangeHandler statChangeHandler) {
         super(
@@ -60,7 +63,13 @@ public class ScholarlySoulTechnique extends GenericTechnique {
         );
 
         heldEntity.getPathBonusHandler().addPathBonus(ModPaths.SOUL.getId(), 1.0D);
+
         refreshUniversalTechniqueSkills(heldEntity);
+
+        refreshRealmUnlockSkills(
+                heldEntity,
+                pathData == null ? 0 : pathData.getMajorRealm()
+        );
     }
 
     @Override
@@ -77,7 +86,34 @@ public class ScholarlySoulTechnique extends GenericTechnique {
         );
 
         heldEntity.getPathBonusHandler().removePathBonus(ModPaths.SOUL.getId(), 1.0D);
-        refreshUniversalTechniqueSkills(heldEntity);
+        refreshRealmUnlockSkills(heldEntity, -1);
+        clearUniversalTechniqueSkills(heldEntity);
+    }
+
+    @Override
+    public void onRealmChange(
+            IEntityData entityData,
+            int oldMajorRealm,
+            int oldMinorRealm,
+            int newMajorRealm,
+            int newMinorRealm
+    ) {
+        super.onRealmChange(entityData, oldMajorRealm, oldMinorRealm, newMajorRealm, newMinorRealm);
+        refreshRealmUnlockSkills(entityData, newMajorRealm);
+    }
+
+    private void refreshRealmUnlockSkills(IEntityData entityData, int majorRealm) {
+        TechniqueSkillHelper.refreshSkill(
+                entityData,
+                ModSkills.SOUL_NEEDLE.getId(),
+                majorRealm >= SOUL_NEEDLE_UNLOCK_REALM
+        );
+
+        TechniqueSkillHelper.refreshSkill(
+                entityData,
+                ModSkills.SOUL_SUPPRESSION.getId(),
+                majorRealm >= SOUL_SUPPRESSION_UNLOCK_REALM
+        );
     }
 
     public boolean canCultivateMajorRealm(ITechniqueData techniqueData, int majorRealm) {
