@@ -8,6 +8,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.thejadeproject.ascension.common.items.artifacts.SpatialRing;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 import net.thejadeproject.ascension.menus.ModMenuTypes;
 
@@ -32,7 +33,12 @@ public class SpatialRingInventoryMenu extends AbstractContainerMenu {
         this.handler = stack.get(ModDataComponents.SPIRIT_RING_DATA).createItemHandler(stack);
         this.ringStart = HOTBAR_END;
         for(int i = 0; i<handler.getSlots();i++){
-            this.addSlot(new SlotItemHandler(handler,i,0,0));
+            this.addSlot(new SlotItemHandler(handler,i,0,0){
+                @Override
+                public boolean mayPlace(ItemStack stack) {
+                    return !(stack.getItem() instanceof SpatialRing) && super.mayPlace(stack);
+                }
+            });
         }
         this.ringEnd = ringStart + handler.getSlots();
     }
@@ -68,20 +74,17 @@ public class SpatialRingInventoryMenu extends AbstractContainerMenu {
         boolean fromHotbar = index >= HOTBAR_START && index < HOTBAR_END;
 
         if (fromRing) {
-            // Ring → player inventory, then hotbar
             if (!moveItemStackTo(stack, PLAYER_INV_START, HOTBAR_END, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (fromInv) {
-            // Player inventory → ring, then hotbar
-            if (!moveItemStackTo(stack, ringStart, ringEnd, false)) {
+            if (stack.getItem() instanceof SpatialRing || !moveItemStackTo(stack, ringStart, ringEnd, false)) {
                 if (!moveItemStackTo(stack, HOTBAR_START, HOTBAR_END, false)) {
                     return ItemStack.EMPTY;
                 }
             }
         } else if (fromHotbar) {
-            // Hotbar → ring, then player inventory
-            if (!moveItemStackTo(stack, ringStart, ringEnd, false)) {
+            if (stack.getItem() instanceof SpatialRing || !moveItemStackTo(stack, ringStart, ringEnd, false)) {
                 if (!moveItemStackTo(stack, PLAYER_INV_START, PLAYER_INV_END, false)) {
                     return ItemStack.EMPTY;
                 }

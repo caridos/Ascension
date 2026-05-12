@@ -527,14 +527,13 @@ public class lang extends LanguageProvider {
         add("ascension.skill.gibbous_moon_cultivation_skill", "Gibbous Moon Cultivation");
         add("ascension.skill.gibbous_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon the swelling power of the gibbous moon. Must be practised under open sky. Greatly empowered when gazing directly at the moon. Harmful beneath direct sunlight.");
         add("ascension.skill.gibbous_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Gibbous Moon Scripture indoors.");
-        add("ascension.skill.purifying_mantra", "Purifying Mantra");
-        add("ascension.skill.purifying_mantra.description", "Recite a purifying mantra to cleanse harmful effects and needle-born debuffs. Temporary afflictions are purified at moderate Qi cost, while permanent impurities require far greater Qi to burn away.");
-        add("ascension.skill.purifying_mantra.no_impurity", "There are no impurities to purify.");
-        add("ascension.skill.purifying_mantra.not_enough_qi", "You do not have enough Qi to complete the purification.");
-        add("ascension.skill.purifying_mantra.success", "The impurity is burned away by purified qi.");
-
         add("ascension.skill.bloodfeast_banquet", "§4Bloodfeast Banquet");
         add("ascension.skill.bloodfeast_banquet.description", "§4Draw upon the life-force of nearby creatures, feasting on their blood to fuel your cultivation. The greater your realm, the wider your table.");
+        add("ascension.skill.soul_needle", "Soul Needle");
+        add("ascension.skill.soul_needle.description", "Pierces a target's soul with focused spiritual force.");
+        add("ascension.skill.soul_suppression", "Soul Suppression");
+        add("ascension.skill.soul_suppression.description", "Releases spiritual pressure, damaging and weakening nearby enemies.");
+
 
         // Body cultivation — T1
         add("ascension.skill.body_cultivation_fire", "§6Fire Body Tempering");

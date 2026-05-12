@@ -25,7 +25,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.stat_change_handlers.BasicStatChangeHandler;
-import net.thejadeproject.ascension.refactor_packages.techniques.helpers.UniversalTechniqueSkillHelper;
+import net.thejadeproject.ascension.refactor_packages.techniques.helpers.TechniqueSkillHelper;
 import net.thejadeproject.ascension.refactor_packages.techniques.stability.IStabilityHandler;
 import net.thejadeproject.ascension.refactor_packages.techniques.stability.LnStabilityHandler;
 
@@ -107,7 +107,7 @@ public class GenericTechnique implements ITechnique {
         //System.out.println("realm: ("+oldMajorRealm+","+oldMinorRealm+") -> ("+newMajorRealm+","+newMinorRealm+")");
         statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm);
 
-        UniversalTechniqueSkillHelper.refresh(entityData, newMajorRealm);
+        TechniqueSkillHelper.refreshUniversal(entityData, newMajorRealm);
 
         entityData.getActiveFormData().getStatSheet().log();
         entityData.getAscensionAttributeHolder().log();
@@ -126,14 +126,14 @@ public class GenericTechnique implements ITechnique {
     protected void refreshUniversalTechniqueSkills(IEntityData entityData) {
         PathData pathData = entityData.getPathData(getPath());
 
-        UniversalTechniqueSkillHelper.refresh(
+        TechniqueSkillHelper.refreshUniversal(
                 entityData,
                 pathData == null ? 0 : pathData.getMajorRealm()
         );
     }
 
     protected void clearUniversalTechniqueSkills(IEntityData entityData) {
-        UniversalTechniqueSkillHelper.refresh(entityData, -1);
+        TechniqueSkillHelper.refreshUniversal(entityData, -1);
     }
 
     @Override

@@ -5,7 +5,7 @@ import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 
-public final class UniversalTechniqueSkillHelper {
+public final class TechniqueSkillHelper {
 
     private static final int QI_RELEASE_UNLOCK_REALM = 1;
     private static final int REGENERATION_UNLOCK_REALM = 2;
@@ -13,10 +13,10 @@ public final class UniversalTechniqueSkillHelper {
     private static final int QI_SUSTAINED_UNLOCK_REALM = 3;
     private static final int TRUE_FLIGHT_UNLOCK_REALM = 4;
 
-    private UniversalTechniqueSkillHelper() {
+    private TechniqueSkillHelper() {
     }
 
-    public static void refresh(IEntityData entityData, int majorRealm) {
+    public static void refreshUniversal(IEntityData entityData, int majorRealm) {
         refreshSkill(
                 entityData,
                 ModSkills.QI_RELEASE.getId(),
@@ -49,7 +49,7 @@ public final class UniversalTechniqueSkillHelper {
     }
 
 
-    private static void refreshSkill(IEntityData entityData, ResourceLocation skillId, boolean shouldHave) {
+    public static void refreshSkill(IEntityData entityData, ResourceLocation skillId, boolean shouldHave) {
         if (shouldHave) {
             if (!entityData.hasSkill(skillId)) {
                 entityData.giveSkill(skillId, ModForms.MORTAL_VESSEL.getId());

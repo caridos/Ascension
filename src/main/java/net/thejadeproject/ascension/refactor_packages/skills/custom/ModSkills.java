@@ -11,7 +11,9 @@ import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegist
 import net.thejadeproject.ascension.refactor_packages.skills.ISkill;
 import net.thejadeproject.ascension.refactor_packages.skills.ITickingSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.body.WhiteLightningFist;
-import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.fire.FireSpray;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.elemental.FireSpray;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.soul.SoulNeedle;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.soul.SoulSuppression;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.utility.QiFlightSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.active.utility.VoidstepSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.GenericCultivationSkill;
@@ -228,6 +230,10 @@ public class ModSkills {
     // Passives
 
     // Actives
+    public static final DeferredHolder<ISkill, ? extends SoulNeedle> SOUL_NEEDLE =
+            SKILLS.register("soul_needle", SoulNeedle::new);
+    public static final DeferredHolder<ISkill, ? extends SoulSuppression> SOUL_SUPPRESSION =
+            SKILLS.register("soul_suppression", SoulSuppression::new);
 
     // ──── WEAPON SKILLS ────────────────────────────────────────────
     // Cultivation

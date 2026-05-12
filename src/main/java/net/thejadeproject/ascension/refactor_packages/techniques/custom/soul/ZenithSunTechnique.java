@@ -14,12 +14,15 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.GenericTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.stat_change_handlers.BasicStatChangeHandler;
+import net.thejadeproject.ascension.refactor_packages.techniques.helpers.TechniqueSkillHelper;
 
 import java.util.Set;
 
 public class ZenithSunTechnique extends GenericTechnique {
 
     public static final double BASE_RATE = 1.5D;
+    private static final int SOUL_NEEDLE_UNLOCK_REALM = 2;
+    private static final int SOUL_SUPPRESSION_UNLOCK_REALM = 3;
 
     public ZenithSunTechnique(BasicStatChangeHandler statChangeHandler) {
         super(
@@ -33,12 +36,12 @@ public class ZenithSunTechnique extends GenericTechnique {
 
     @Override
     public Component getShortDescription() {
-        return Component.literal("ascension.technique.zenith_sun_scripture.description.short");
+        return Component.translatable("ascension.technique.zenith_sun_scripture.description.short");
     }
 
     @Override
     public Component getDescription() {
-        return Component.literal(
+        return Component.translatable(
                 "ascension.technique.zenith_sun_scripture.description"
         );
     }
@@ -46,7 +49,15 @@ public class ZenithSunTechnique extends GenericTechnique {
     @Override
     public void onTechniqueAdded(IEntityData heldEntity) {
         heldEntity.giveSkill(ModSkills.ZENITH_SUN_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
+
+        PathData pathData = heldEntity.getPathData(getPath());
+
         refreshUniversalTechniqueSkills(heldEntity);
+
+        refreshRealmUnlockSkills(
+                heldEntity,
+                pathData == null ? 0 : pathData.getMajorRealm()
+        );
     }
 
     @Override
@@ -56,7 +67,34 @@ public class ZenithSunTechnique extends GenericTechnique {
             pathData.handleRealmChange(pathData.getMajorRealm(), 0, heldEntity);
         }
         heldEntity.removeSkill(ModSkills.ZENITH_SUN_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
-        refreshUniversalTechniqueSkills(heldEntity);
+        refreshRealmUnlockSkills(heldEntity, -1);
+        clearUniversalTechniqueSkills(heldEntity);
+    }
+
+    @Override
+    public void onRealmChange(
+            IEntityData entityData,
+            int oldMajorRealm,
+            int oldMinorRealm,
+            int newMajorRealm,
+            int newMinorRealm
+    ) {
+        super.onRealmChange(entityData, oldMajorRealm, oldMinorRealm, newMajorRealm, newMinorRealm);
+        refreshRealmUnlockSkills(entityData, newMajorRealm);
+    }
+
+    private void refreshRealmUnlockSkills(IEntityData entityData, int majorRealm) {
+        TechniqueSkillHelper.refreshSkill(
+                entityData,
+                ModSkills.SOUL_NEEDLE.getId(),
+                majorRealm >= SOUL_NEEDLE_UNLOCK_REALM
+        );
+
+        TechniqueSkillHelper.refreshSkill(
+                entityData,
+                ModSkills.SOUL_SUPPRESSION.getId(),
+                majorRealm >= SOUL_SUPPRESSION_UNLOCK_REALM
+        );
     }
 
     @Override

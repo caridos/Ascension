@@ -1,4 +1,4 @@
-package net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.fire;
+package net.thejadeproject.ascension.refactor_packages.skills.custom.active.attack.elemental;
 
 import net.lucent.easygui.gui.RenderableElement;
 import net.lucent.easygui.gui.UIFrame;
