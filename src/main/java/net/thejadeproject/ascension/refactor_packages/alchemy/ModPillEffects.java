@@ -10,6 +10,7 @@ import net.thejadeproject.ascension.common.effects.ModEffects;
 import net.thejadeproject.ascension.refactor_packages.alchemy.effects.*;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 
 public class ModPillEffects {
     public static final DeferredRegister<IPillEffect> PILL_EFFECTS =DeferredRegister.create(AscensionRegistries.PillEffects.PILL_EFFECT_REGISTRY, AscensionCraft.MOD_ID);
@@ -44,12 +45,18 @@ public class ModPillEffects {
                     .addEffect(new MobEffectInstance(ModEffects.PARASITE,1,0))
     );
 
-    public static final DeferredHolder<IPillEffect, ? extends MobEffectPillEffect> PARASITE_PILL_EFFECT = PILL_EFFECTS.register("parasite_pill_effect",()->
-            new MobEffectPillEffect(
-                    Component.translatable("ascension.pill_effects.parasite_pill_effect.name")
-                    ,Component.translatable("ascension.pill_effects.parasite_pill_effect.description"))
-                    .addEffect(new MobEffectInstance(ModEffects.PARASITE,400,1))
-    );
+    // This should work without issue, it basically copys the way modneedleeffects does it but with pill effects as a debuffskillpilleffect class.
+    public static final DeferredHolder<IPillEffect, ? extends DebuffSkillPillEffect> PARASITE_PILL_EFFECT =
+            PILL_EFFECTS.register("parasite_pill_effect", () ->
+                    new DebuffSkillPillEffect(
+                            "pill_parasite",
+                            ModSkills.QI_DEVOURING_POISON.getId(),
+                            20 * 20,
+                            Component.translatable("ascension.pill_effects.parasite_pill_effect.name"),
+                            Component.translatable("ascension.pill_effects.parasite_pill_effect.description")
+                    )
+            );
+
     public static final DeferredHolder<IPillEffect, ? extends MobEffectPillEffect> QI_ENHANCED_REGEN_EFFECT = PILL_EFFECTS.register("qi_enhanced_regen_effect",()->
             new MobEffectPillEffect(
                     Component.translatable("ascension.pill_effects.qi_enhanced_regen_effect.name")
