@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.essence.EarthEssenceTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.essence.ElementalEssenceTechnique;
@@ -50,7 +51,7 @@ public class EarthEssenceCultivationSkill extends ElementalEssenceCultivationSki
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(
                         AscensionCraft.MOD_ID,

@@ -4,9 +4,12 @@ import net.lucent.easygui.gui.RenderableElement;
 import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.lucent.easygui.gui.textures.TextureDataSubsection;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.general.Container;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.general.EasyImage;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.IInformationContainer;
@@ -90,9 +93,12 @@ public class SkillDisplayContainer extends RenderableElement {
         selectedSkillIcon.setTextureData(null);
         selectedSkillContainer.removeChildren();
         if(selectedSkill != null){
+            IEntityData entityData = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA);
+
             ISkill skill = AscensionRegistries.Skills.SKILL_REGISTRY.get(selectedSkill);
-            selectedSkillIcon.setTextureData(skill.getIcon());
-            RenderableElement element = skill.getInformationContainer(getUiFrame());
+            selectedSkillIcon.setTextureData(skill.getIcon(entityData));
+            RenderableElement element = skill.getInformationContainer(getUiFrame(),entityData);
+            if(element == null) return;
             selectedSkillContainer.addChild(element);
             if(element instanceof IInformationContainer informationContainer)informationContainer.refresh();
         }

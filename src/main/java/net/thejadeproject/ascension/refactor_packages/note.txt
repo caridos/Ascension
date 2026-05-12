@@ -6,7 +6,7 @@ most of the util package will get moved to our libs mod
 
 
 
-FOundations need to be added -> Suppress (toggle off cultivation) to train foundation
+Foundations need to be added -> Suppress (toggle off cultivation) to train foundation
 Technique Mastery -> Master techniques
 Skill Mastery -> Depending on special circumstances give other types of types of stuffs (augments).
 Bloodline Altar Ritual Bullshit. (Future mixing Bloodlines.) 4 new cauldrons + ritual block. Fluid Handling

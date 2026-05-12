@@ -37,10 +37,10 @@ public interface ISkill {
     IPersistentSkillData fromNetwork(RegistryFriendlyByteBuf buf);
 
 
-    ITextureData getIcon();
-    Component getTitle();
-    Component getDescription();
-    RenderableElement getInformationContainer(UIFrame frame);
+    ITextureData getIcon(IEntityData entityData);
+    Component getTitle(IEntityData entityData);
+    Component getDescription(IEntityData entityData);
+    RenderableElement getInformationContainer(UIFrame frame,IEntityData entityData);
 
     //Harmful -> neutral -> buff
     /*

@@ -58,7 +58,7 @@ public class VoidstepSkill implements ICastableSkill {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "textures/spells/icon/voidstep.png"),
                 16, 16
@@ -66,18 +66,18 @@ public class VoidstepSkill implements ICastableSkill {
     }
 
     @Override
-    public Component getTitle() {
+    public Component getTitle(IEntityData entityData) {
         return Component.translatable("ascension.skill.voidstep");
     }
 
     @Override
-    public Component getDescription() {
+    public Component getDescription(IEntityData entityData) {
         return Component.translatable("ascension.skill.voidstep.description");
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public RenderableElement getInformationContainer(UIFrame frame) {
+    public RenderableElement getInformationContainer(UIFrame frame,IEntityData entityData) {
         return null;
     }
 

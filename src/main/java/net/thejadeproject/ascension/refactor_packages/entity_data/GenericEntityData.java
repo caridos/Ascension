@@ -15,6 +15,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.thejadeproject.ascension.AscensionCraft;
@@ -1051,6 +1053,7 @@ public class GenericEntityData implements IEntityData {
             if(formData.getHeldSkills() != null && formData.getHeldSkills().hasSkill(skill)) return true;
         }
         return false;
+
     }
 
     @Override

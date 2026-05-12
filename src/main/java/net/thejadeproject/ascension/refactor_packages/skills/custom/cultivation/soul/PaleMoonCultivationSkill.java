@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.skill_casting.casting.CastResult;
 import net.thejadeproject.ascension.refactor_packages.skills.castable.ICastData;
@@ -92,7 +93,7 @@ public class PaleMoonCultivationSkill extends GenericCultivationSkill {
     // --- Icon / display ---
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(
                         AscensionCraft.MOD_ID,
@@ -103,12 +104,12 @@ public class PaleMoonCultivationSkill extends GenericCultivationSkill {
     }
 
     @Override
-    public Component getTitle() {
+    public Component getTitle(IEntityData entityData) {
         return Component.translatable("ascension.skill.pale_moon_cultivation_skill");
     }
 
     @Override
-    public Component getDescription() {
+    public Component getDescription(IEntityData entityData) {
         return Component.translatable("ascension.skill.pale_moon_cultivation_skill.description");
     }
 }

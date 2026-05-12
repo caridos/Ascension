@@ -117,7 +117,7 @@ public class SoulNeedle implements ICastableSkill {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "textures/spells/icon/placeholder.png"),
                 16,
@@ -125,12 +125,12 @@ public class SoulNeedle implements ICastableSkill {
         );
     }
 
-    @Override public Component getTitle() { return Component.translatable("ascension.skill.soul_needle"); }
-    @Override public Component getDescription() { return Component.translatable("ascension.skill.soul_needle.description"); }
+    @Override public Component getTitle(IEntityData entityData) { return Component.translatable("ascension.skill.soul_needle"); }
+    @Override public Component getDescription(IEntityData entityData) { return Component.translatable("ascension.skill.soul_needle.description"); }
 
     @OnlyIn(Dist.CLIENT)
-    @Override public RenderableElement getInformationContainer(UIFrame frame) {
-        return new DescriptionDisplayContainer(frame, getTitle(), getDescription());
+    @Override public RenderableElement getInformationContainer(UIFrame frame,IEntityData entityData) {
+        return new DescriptionDisplayContainer(frame, getTitle(entityData), getDescription(entityData));
     }
 
     @Override public void onEquip(IEntityData entityData) {}

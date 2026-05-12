@@ -111,7 +111,7 @@ public class QiFlightSkill implements ICastableSkill {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(
                         AscensionCraft.MOD_ID,
@@ -123,19 +123,19 @@ public class QiFlightSkill implements ICastableSkill {
     }
 
     @Override
-    public Component getTitle() {
+    public Component getTitle(IEntityData entityData) {
         return Component.translatable("ascension.skill.air_step");
     }
 
     @Override
-    public Component getDescription() {
+    public Component getDescription(IEntityData entityData) {
         return Component.translatable("ascension.skill.air_step.description");
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public RenderableElement getInformationContainer(UIFrame frame) {
-        return new DescriptionDisplayContainer(frame,getTitle(),getDescription());
+    public RenderableElement getInformationContainer(UIFrame frame,IEntityData entityData) {
+        return new DescriptionDisplayContainer(frame,getTitle(entityData),getDescription(entityData));
     }
 
     @Override public void onEquip(IEntityData entityData) {}

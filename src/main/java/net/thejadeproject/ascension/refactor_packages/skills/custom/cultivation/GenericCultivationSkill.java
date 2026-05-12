@@ -95,7 +95,7 @@ public class GenericCultivationSkill implements ICastableSkill {
     }
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"textures/spells/icon/placeholder.png"),
                 16,16
@@ -108,7 +108,7 @@ public class GenericCultivationSkill implements ICastableSkill {
     }
 
     @Override
-    public Component getTitle() {
+    public Component getTitle(IEntityData entityData) {
         return Component.translatable(
                 "ascension.skill.cultivation_skill",
                 getPathTitle()
@@ -116,7 +116,7 @@ public class GenericCultivationSkill implements ICastableSkill {
     }
 
     @Override
-    public Component getDescription() {
+    public Component getDescription(IEntityData entityData) {
         return Component.translatable(
                 "ascension.skill.cultivation_skill.description",
                 getPathTitle()
@@ -279,10 +279,10 @@ public class GenericCultivationSkill implements ICastableSkill {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public RenderableElement getInformationContainer(UIFrame frame) {
+    public RenderableElement getInformationContainer(UIFrame frame,IEntityData entityData) {
         return new DescriptionDisplayContainer(frame,
-                getTitle(),
-                getDescription());
+                getTitle(entityData),
+                getDescription(entityData));
     }
     @OnlyIn(Dist.CLIENT)
     @Override

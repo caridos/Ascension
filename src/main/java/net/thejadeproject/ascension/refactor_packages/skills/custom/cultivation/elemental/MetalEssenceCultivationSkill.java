@@ -9,6 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.Tags;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.essence.ElementalEssenceTechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.essence.MetalEssenceTechnique;
@@ -46,7 +47,7 @@ public class MetalEssenceCultivationSkill extends ElementalEssenceCultivationSki
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ITextureData getIcon() {
+    public ITextureData getIcon(IEntityData entityData) {
         return new TextureData(
                 ResourceLocation.fromNamespaceAndPath(
                         AscensionCraft.MOD_ID,
