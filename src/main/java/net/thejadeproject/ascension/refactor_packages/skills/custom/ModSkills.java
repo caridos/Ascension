@@ -237,8 +237,11 @@ public class ModSkills {
 
     // ──── WEAPON SKILLS ────────────────────────────────────────────
     // Cultivation
-    public static final DeferredHolder<ISkill,? extends SwordCultivationSkill> SWORD_CULTIVATION_SKILL =
-            SKILLS.register("sword_cultivation_skill", SwordCultivationSkill::new);
+    public static final DeferredHolder<ISkill, SwordCultivationSkill> SWORD_CULTIVATION_SKILL =
+            SKILLS.register("sword_cultivation_skill", () -> new SwordCultivationSkill(
+                    "ascension.skill.sword_cultivation_skill", "ascension.skill.sword_cultivation_skill.description",
+                    ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "sword_cultivation_skill")
+            ));
 
     // Passives TODO: Give different weapons different damage multi
     public static final DeferredHolder<ISkill, ? extends SwordMasterySkill> SWORD_MASTERY_SKILL =
