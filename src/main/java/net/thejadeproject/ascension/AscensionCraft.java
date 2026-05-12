@@ -211,7 +211,6 @@ public class AscensionCraft {
 
 
     private void registerKeyBindings(RegisterKeyMappingsEvent event) {
-        event.register(KeyBindHandler.OPEN_SPATIAL_RING_KEY);
         event.register(KeyBindHandler.TOGGLE_ARTIFACT_MODE_KEY);
 
         event.register(InputHandler.INTROSPECTION);
