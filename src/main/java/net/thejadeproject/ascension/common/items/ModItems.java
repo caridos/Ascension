@@ -284,13 +284,6 @@ public class ModItems {
                     , 200, false));
 
 
-    // ── Qi Replenishing Pills ─────────────────────────────────────────
-    public static final DeferredItem<PillItem> QI_REPLENISHING_PILL = ITEMS.register("qi_replenishing_pill",
-            () -> new PillItem(new Item.Properties()
-                    .food(ModFoodProperties.CULT_PILL)
-                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.QI_REPLENISHING_EFFECT.getId().toString()))
-                    , 100, false));
-
 
 
 
@@ -308,6 +301,12 @@ public class ModItems {
                     .food(ModFoodProperties.MEDICINAL_PILL)
                     .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.QI_ENHANCED_REGEN_EFFECT.getId().toString()))
                     , 0, false));
+
+    public static final DeferredItem<PillItem> QI_REPLENISHING_PILL = ITEMS.register("qi_replenishing_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.CULT_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.QI_REPLENISHING_EFFECT.getId().toString()))
+                    , 100, false));
 
     // ── Antidote Pills ────────────────────────────────────────────
     public static final DeferredItem<PillItem> ANTIDOTE_PILL_QDP = ITEMS.register("antidote_qdp_pill",

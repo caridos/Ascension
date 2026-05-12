@@ -135,7 +135,7 @@ public class ModPlacedFeatures {
                 configuredFeatures.getOrThrow(ModConfiguredFeatures.WILD_JADE_DEW_GRASS_KEY),
                 List.of(
                         CountPlacement.of(2),
-                        RarityFilter.onAverageOnceEvery(12),
+                        RarityFilter.onAverageOnceEvery(16),
                         InSquarePlacement.spread(),
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(60), VerticalAnchor.absolute(120)),
                         BiomeFilter.biome()));
