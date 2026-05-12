@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.thejadeproject.ascension.common.items.artifacts.SpatialRing;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 import net.thejadeproject.ascension.menus.ModMenuTypes;
 
@@ -38,12 +39,22 @@ public class SpatialRingModifierMenu extends AbstractContainerMenu {
         this.upgradeHandler = stack.get(ModDataComponents.SPIRIT_RING_DATA).createUpgradeHandler(stack);
         this.modifierStart = HOTBAR_END;
         for(int i = 0; i<modifierHandler.getSlots();i++){
-            this.addSlot(new SlotItemHandler(modifierHandler,i,0,0));
+            this.addSlot(new SlotItemHandler(modifierHandler,i,0,0){
+                @Override
+                public boolean mayPlace(ItemStack stack) {
+                    return !(stack.getItem() instanceof SpatialRing) && super.mayPlace(stack);
+                }
+            });
         }
         this.modifierEnd = modifierStart + modifierHandler.getSlots();
         this.upgradeStart = modifierEnd;
         for(int i = 0; i<upgradeHandler.getSlots();i++){
-            this.addSlot(new SlotItemHandler(upgradeHandler,i,0,0));
+            this.addSlot(new SlotItemHandler(upgradeHandler,i,0,0){
+                @Override
+                public boolean mayPlace(ItemStack stack) {
+                    return !(stack.getItem() instanceof SpatialRing) && super.mayPlace(stack);
+                }
+            });
         }
         this.upgradeEnd = upgradeStart + upgradeHandler.getSlots();
     }
@@ -76,23 +87,20 @@ public class SpatialRingModifierMenu extends AbstractContainerMenu {
         boolean fromHotbar   = index >= HOTBAR_START  && index < HOTBAR_END;
 
         if (fromModifier || fromUpgrade) {
-            // Ring slots → player inventory, then hotbar
             if (!moveItemStackTo(stack, PLAYER_INV_START, HOTBAR_END, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (fromInv) {
-            // Player inventory → modifier slots, then upgrade slots, then hotbar
-            if (!moveItemStackTo(stack, modifierStart, modifierEnd, false)) {
-                if (!moveItemStackTo(stack, upgradeStart, upgradeEnd, false)) {
+            if (stack.getItem() instanceof SpatialRing || !moveItemStackTo(stack, modifierStart, modifierEnd, false)) {
+                if (stack.getItem() instanceof SpatialRing || !moveItemStackTo(stack, upgradeStart, upgradeEnd, false)) {
                     if (!moveItemStackTo(stack, HOTBAR_START, HOTBAR_END, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
             }
         } else if (fromHotbar) {
-            // Hotbar → modifier slots, then upgrade slots, then player inventory
-            if (!moveItemStackTo(stack, modifierStart, modifierEnd, false)) {
-                if (!moveItemStackTo(stack, upgradeStart, upgradeEnd, false)) {
+            if (stack.getItem() instanceof SpatialRing || !moveItemStackTo(stack, modifierStart, modifierEnd, false)) {
+                if (stack.getItem() instanceof SpatialRing || !moveItemStackTo(stack, upgradeStart, upgradeEnd, false)) {
                     if (!moveItemStackTo(stack, PLAYER_INV_START, PLAYER_INV_END, false)) {
                         return ItemStack.EMPTY;
                     }
