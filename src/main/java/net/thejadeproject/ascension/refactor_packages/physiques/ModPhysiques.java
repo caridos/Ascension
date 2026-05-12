@@ -205,8 +205,7 @@ public class ModPhysiques {
                         @Override
                         public void onPhysiqueAdded(IEntityData heldEntity, ResourceLocation oldPhysique, IPhysiqueData oldPhysiqueData) {
                             super.onPhysiqueAdded(heldEntity, oldPhysique, oldPhysiqueData);
-                            broadcastRareAcquired(heldEntity, "ascension.message.physique.world_dominator.acquired");
-                            }
+                            broadcastRareAcquired(heldEntity, "ascension.message.physique.world_dominator.acquired");}
             }
             .addPath(ModPaths.BODY.getId()).addPathBonus(ModPaths.BODY.getId(), 5.0)
                             .setDescription(Component.translatable("ascension.physiques.world_dominator.desc"))
