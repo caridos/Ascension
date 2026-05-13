@@ -114,7 +114,7 @@ public final class MobCultivationResolver {
     }
 
     public static MobCultivationCategory resolveCategory(LivingEntity entity) {
-        return MobCategoryResolver.resolve(entity);
+        return MobCategoryResolver.resolveCategory(entity);
     }
 
     // relative realm gap
