@@ -47,7 +47,7 @@ public class ElementalPhysiqueHandler {
         if (!(incoming instanceof ElementalBodyPhysique newElemental)) return;
 
         if (!canMerge(oldData, newElemental.getElement())) return;
-
+        AscensionCraft.LOGGER.info("physique is a merge one cancel");
         event.setCanceled(true);
 
         IEntityData entityData = event.entityData;

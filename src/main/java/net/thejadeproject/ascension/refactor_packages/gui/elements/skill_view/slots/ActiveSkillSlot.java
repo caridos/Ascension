@@ -60,7 +60,7 @@ public class ActiveSkillSlot extends RenderableElement {
         icon = null;
         if(enabled && handler.getHotBar().getSkillKey(slot) != null){
             skill = handler.getHotBar().getSkillKey(slot);
-            icon = handler.getHotBar().getSkill(slot).getIcon();
+            icon = handler.getHotBar().getSkill(slot).getIcon(Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA));
         }
     }
 
@@ -85,7 +85,7 @@ public class ActiveSkillSlot extends RenderableElement {
         this.skill = skill;
         this.icon = null;
         if(skill != null){
-            icon = AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon();
+            icon = AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon(Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA));
         }
     }
     public void setSkill(ResourceLocation skill){
@@ -101,7 +101,7 @@ public class ActiveSkillSlot extends RenderableElement {
                 PacketDistributor.sendToServer(new UpdateSkillSlot(slot,skill.toString()));
                 ((ActiveSkillBar)getParent().getParent()).removeSkill(skill);
                 this.skill = skill;
-                icon = castableSkill.getIcon();
+                icon = castableSkill.getIcon(Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA));
 
 
             }

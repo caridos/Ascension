@@ -9,10 +9,13 @@ import net.lucent.easygui.gui.events.type.EasyEvent;
 import net.lucent.easygui.gui.events.type.EasyMouseEvent;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.lucent.easygui.gui.textures.TextureDataSubsection;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.IPath;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.skills.ISkill;
@@ -46,10 +49,7 @@ public class SkillSelectionButton extends EasyButton {
         label.setScaleToFit(true);
         label.setTextPositioningX(EasyLabel.TextPositionRule.CENTER);
         label.setTextPositioningY(EasyLabel.TextPositionRule.CENTER);
-        if(skill != null){
-            ISkill skillInstance = AscensionRegistries.Skills.SKILL_REGISTRY.get(skill);
-            label.setText(skillInstance.getTitle());
-        }else label.setText(Component.empty());
+        setSkill(skill);
         addChild(label);
         addEventListener(EasyEvents.GLOBAL_MOUSE_MOVE_EVENT,this::globalMouseMoveEvent);
     }
@@ -91,8 +91,9 @@ public class SkillSelectionButton extends EasyButton {
         this.skill = skill;
         if(skill == null)label.setText(Component.empty());
         else{
+            IEntityData entityData = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA);
             ISkill skillInstance = AscensionRegistries.Skills.SKILL_REGISTRY.get(skill);
-            label.setText(skillInstance.getTitle());
+            label.setText(skillInstance.getTitle(entityData));
         }
     }
     public ResourceLocation getSkill(){return skill;}

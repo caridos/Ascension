@@ -46,7 +46,8 @@ public class SkillSegment extends RenderableElement {
         this.endRadius = endRadius;
         ResourceLocation skill = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA).getSkillCastHandler().getHotBar().getSkillKey(slot);
         if(skill != null){
-            skillIcon = AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon();
+
+            skillIcon = AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon(Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA));
         }
     }
 

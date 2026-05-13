@@ -6,8 +6,10 @@ import net.lucent.easygui.gui.events.EasyEvents;
 import net.lucent.easygui.gui.events.EventPhase;
 import net.lucent.easygui.gui.events.type.EasyEvent;
 import net.lucent.easygui.gui.textures.ITextureData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.skill_view.SkillMenuContainer;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 
@@ -32,7 +34,7 @@ public class ActiveSkillIcon extends RenderableElement {
     }
     public void setSkill(ResourceLocation skill){
         this.skillId = skill;
-        skillIcon = skill != null ? AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon() : null;
+        skillIcon = skill != null ? AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon(Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA)) : null;
     }
     public ResourceLocation getSkill(){
         return skillId;

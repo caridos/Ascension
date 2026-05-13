@@ -8,10 +8,13 @@ import net.lucent.easygui.gui.events.EventPhase;
 import net.lucent.easygui.gui.events.type.EasyEvent;
 import net.lucent.easygui.gui.textures.ITextureData;
 import net.lucent.easygui.gui.textures.TextureDataSubsection;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 
 public class PassiveSkillIcon extends RenderableElement {
@@ -59,8 +62,9 @@ public class PassiveSkillIcon extends RenderableElement {
 
     public void setSkill(ResourceLocation skill){
         this.skillId = skill;
-        skillIcon = skill != null ? AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon() : null;
-        Component text = skill != null ? AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getTitle() : Component.empty();
+        IEntityData entityData = Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA);
+        skillIcon = skill != null ? AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon(entityData) : null;
+        Component text = skill != null ? AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getTitle(entityData) : Component.empty();
         if(text == null) text = Component.empty();
         label.setText(text);
     }

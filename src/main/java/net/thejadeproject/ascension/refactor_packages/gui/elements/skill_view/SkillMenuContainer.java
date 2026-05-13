@@ -5,9 +5,11 @@ import net.lucent.easygui.gui.UIFrame;
 import net.lucent.easygui.gui.events.EasyEvents;
 import net.lucent.easygui.gui.layout.positioning.rules.PositioningRules;
 import net.lucent.easygui.gui.textures.ITextureData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec2;
+import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.skill_view.slots.ActiveSkillSlot;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 
@@ -57,7 +59,7 @@ public class SkillMenuContainer extends RenderableElement {
 
     public void setHeldSkill(ResourceLocation skill){
         this.heldSkill = skill;
-        this.heldSkillIcon = skill == null? null : AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon();
+        this.heldSkillIcon = skill == null? null : AscensionRegistries.Skills.SKILL_REGISTRY.get(skill).getIcon(Minecraft.getInstance().player.getData(ModAttachments.ENTITY_DATA));
     }
     public ResourceLocation getHeldSkill(){
         return heldSkill;

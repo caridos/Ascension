@@ -138,7 +138,7 @@ dependencies {
 
     implementation "maven.modrinth:jade:${project.jade_version}"
 
-    implementation 'com.github.OliverHesse:EasyGui:82139e3b17'
+    implementation 'com.github.OliverHesse:EasyGui:-SNAPSHOT'
 
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
