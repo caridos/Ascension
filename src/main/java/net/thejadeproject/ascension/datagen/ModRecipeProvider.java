@@ -73,19 +73,110 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }
 
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.BLINDED_SENSES_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.BLINDED_SENSES_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/blinded_senses_powder");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CORROSIVE_POISON_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.CORROSIVE_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/corrosive_poison_powder");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.CRACKED_MERIDIANS_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.CRACKED_MERIDIANS_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/cracked_meridians_powder");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.FROST_SILKWORM_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.FROST_SILKWORM_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/frost_silkworm_powder");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.PARALYZED_BODY_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.PARALYZED_BODY_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/paralyzed_body_powder");
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.QI_DEVOURING_POWDER.get(), 2)
                 .requires(ModItems.MORTAR_PESTLE)
                 .requires(ModItems.QI_DEVOURING_PARASITE_PILL)
-                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE)).save(recipeOutput, "ascension:shapeless/qi_devouring_powder");
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/qi_devouring_powder");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.SCORCHING_YANG_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.SCORCHING_YANG_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/scorching_yang_powder");
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.VENOMOUS_MERIDIAN_POWDER.get(), 2)
+                .requires(ModItems.MORTAR_PESTLE)
+                .requires(ModItems.VENOMOUS_MERIDIAN_POISON_PILL)
+                .unlockedBy("has_mortar_and_pestle", has(ModItems.MORTAR_PESTLE))
+                .save(recipeOutput, "ascension:shapeless/venomous_meridian_powder");
 
-        ItemStack result = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
-        result.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_qi_devouring_poison");
+        ItemStack crackedMeridiansResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        crackedMeridiansResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_cracked_meridians");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, crackedMeridiansResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.CRACKED_MERIDIANS_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/cracked_meridians_silver_needle"));
 
-        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, result, "PPP", "PSP", "PPP")
+        ItemStack blindedSensesResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        blindedSensesResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_blinded_senses");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, blindedSensesResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.BLINDED_SENSES_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/blinded_senses_silver_needle"));
+
+        ItemStack paralyzedBodyResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        paralyzedBodyResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_paralyzed_body");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, paralyzedBodyResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.PARALYZED_BODY_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/paralyzed_body_silver_needle"));
+
+        ItemStack venomousMeridiansResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        venomousMeridiansResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_venomous_meridians");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, venomousMeridiansResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.VENOMOUS_MERIDIAN_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/venomous_meridians_silver_needle"));
+
+        ItemStack scorchingYangResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        scorchingYangResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_scorching_yang_poison");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, scorchingYangResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.SCORCHING_YANG_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/scorching_yang_silver_needle"));
+
+        ItemStack qiDevouringResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        qiDevouringResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_qi_devouring_poison");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, qiDevouringResult, "PPP", "PSP", "PPP")
                 .define('S', ModItems.SILVER_NEEDLE.get())
                 .define('P', ModItems.QI_DEVOURING_POWDER.get())
                 .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/qi_devouring_silver_needle"));
+
+        ItemStack corrosiveResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        corrosiveResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_corrosive_poison");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, corrosiveResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.CORROSIVE_POISON_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/corrosive_poison_silver_needle"));
+
+        ItemStack frostSilkwormResult = new ItemStack(ModItems.SILVER_NEEDLE.get(), 8);
+        frostSilkwormResult.set(ModDataComponents.NEEDLE_EFFECT.get(), "ascension:needle_frost_silkworm_poison");
+        ComponentShapedRecipeBuilder.shaped(RecipeCategory.MISC, frostSilkwormResult, "PPP", "PSP", "PPP")
+                .define('S', ModItems.SILVER_NEEDLE.get())
+                .define('P', ModItems.FROST_SILKWORM_POWDER.get())
+                .unlockedBy("has_silver_needle", has(ModItems.SILVER_NEEDLE))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "shaped/frost_silkworm_silver_needle"));
 
 
 

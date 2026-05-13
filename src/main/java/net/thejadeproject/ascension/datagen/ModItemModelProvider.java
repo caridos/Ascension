@@ -213,11 +213,25 @@ public class ModItemModelProvider extends ItemModelProvider {
         pills(ModItems.CRIMSON_LOTUS_BONE_PILL.get());
 
 
+        pills(ModItems.CRACKED_MERIDIANS_POISON_PILL.get());
+        pills(ModItems.BLINDED_SENSES_POISON_PILL.get());
+        pills(ModItems.PARALYZED_BODY_POISON_PILL.get());
+        pills(ModItems.VENOMOUS_MERIDIAN_POISON_PILL.get());
+        pills(ModItems.SCORCHING_YANG_POISON_PILL.get());
         pills(ModItems.QI_DEVOURING_PARASITE_PILL.get());
+        pills(ModItems.CORROSIVE_POISON_PILL.get());
+        pills(ModItems.FROST_SILKWORM_POISON_PILL.get());
 
 
         //Powders
+        powder(ModItems.BLINDED_SENSES_POWDER.get());
+        powder(ModItems.CORROSIVE_POISON_POWDER.get());
+        powder(ModItems.CRACKED_MERIDIANS_POWDER.get());
+        powder(ModItems.FROST_SILKWORM_POWDER.get());
+        powder(ModItems.PARALYZED_BODY_POWDER.get());
         powder(ModItems.QI_DEVOURING_POWDER.get());
+        powder(ModItems.SCORCHING_YANG_POWDER.get());
+        powder(ModItems.VENOMOUS_MERIDIAN_POWDER.get());
 
 
 

@@ -288,13 +288,66 @@ public class ModItems {
 
 
     // ── Poison Pills ──────────────────────────────────────────────
+    public static final DeferredItem<PillItem> CRACKED_MERIDIANS_POISON_PILL = ITEMS.register("cracked_meridians_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.CRACKED_MERIDIANS_PILL_EFFECT.getId().toString()))
+                    , 0, true));
+    public static final DeferredItem<PillItem> BLINDED_SENSES_POISON_PILL = ITEMS.register("blinded_senses_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.BLINDED_SENSES_PILL_EFFECT.getId().toString()))
+                    , 0, true));
+    public static final DeferredItem<PillItem> PARALYZED_BODY_POISON_PILL = ITEMS.register("paralyzed_body_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.PARALYZED_BODY_PILL_EFFECT.getId().toString()))
+                    , 0, true));
+    public static final DeferredItem<PillItem> VENOMOUS_MERIDIAN_POISON_PILL = ITEMS.register("venomous_meridian_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.VENOMOUS_MERIDIANS_PILL_EFFECT.getId().toString()))
+                    , 0, true));
+    public static final DeferredItem<PillItem> SCORCHING_YANG_POISON_PILL = ITEMS.register("scorching_yang_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.SCORCHING_YANG_POISON_PILL_EFFECT.getId().toString()))
+                    , 0, true));
     public static final DeferredItem<PillItem> QI_DEVOURING_PARASITE_PILL = ITEMS.register("qi_devouring_parasite_pill",
             () -> new PillItem(new Item.Properties()
                     .food(ModFoodProperties.POISON_PILL)
                     .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.PARASITE_PILL_EFFECT.getId().toString()))
                     , 0, true));
+    public static final DeferredItem<PillItem> CORROSIVE_POISON_PILL = ITEMS.register("corrosive_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.CORROSIVE_POISON_PILL_EFFECT.getId().toString()))
+                    , 0, true));
+    public static final DeferredItem<PillItem> FROST_SILKWORM_POISON_PILL = ITEMS.register("frost_silkworm_poison_pill",
+            () -> new PillItem(new Item.Properties()
+                    .food(ModFoodProperties.POISON_PILL)
+                    .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.FROST_SILKWORM_POISON_PILL_EFFECT.getId().toString()))
+                    , 0, true));
+
+
+    // ── Powder Poison ──────────────────────────────────────────────
+    public static final DeferredItem<Item> BLINDED_SENSES_POWDER = ITEMS.register("blinded_senses_powder",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> CORROSIVE_POISON_POWDER = ITEMS.register("corrosive_poison_powder",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> CRACKED_MERIDIANS_POWDER = ITEMS.register("cracked_meridians_powder",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> FROST_SILKWORM_POWDER = ITEMS.register("frost_silkworm_powder",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PARALYZED_BODY_POWDER = ITEMS.register("paralyzed_body_powder",
+            () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> QI_DEVOURING_POWDER = ITEMS.register("qi_devouring_powder",
             () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> SCORCHING_YANG_POWDER = ITEMS.register("scorching_yang_powder",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> VENOMOUS_MERIDIAN_POWDER = ITEMS.register("venomous_meridian_powder",
+            () -> new Item(new Item.Properties()));
+
 
 
     // ── Positive Pills ──────────────────────────────────────────────

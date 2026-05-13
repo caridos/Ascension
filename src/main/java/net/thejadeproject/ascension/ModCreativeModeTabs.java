@@ -413,8 +413,14 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.QI_ENHANCED_REGEN_PILL);
 
                         //Poison
+                        output.accept(ModItems.CRACKED_MERIDIANS_POISON_PILL);
+                        output.accept(ModItems.BLINDED_SENSES_POISON_PILL);
+                        output.accept(ModItems.PARALYZED_BODY_POISON_PILL);
+                        output.accept(ModItems.VENOMOUS_MERIDIAN_POISON_PILL);
+                        output.accept(ModItems.SCORCHING_YANG_POISON_PILL);
                         output.accept(ModItems.QI_DEVOURING_PARASITE_PILL);
-                        output.accept(ModItems.QI_DEVOURING_POWDER);
+                        output.accept(ModItems.CORROSIVE_POISON_PILL);
+                        output.accept(ModItems.FROST_SILKWORM_POISON_PILL);
 
 
                         //Misc
@@ -423,7 +429,15 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.CRIMSON_LOTUS_BONE_PILL);
 
 
-                        //Important Pills
+                        //Powders
+                        output.accept(ModItems.BLINDED_SENSES_POWDER);
+                        output.accept(ModItems.CORROSIVE_POISON_POWDER);
+                        output.accept(ModItems.CRACKED_MERIDIANS_POWDER);
+                        output.accept(ModItems.FROST_SILKWORM_POWDER);
+                        output.accept(ModItems.PARALYZED_BODY_POWDER);
+                        output.accept(ModItems.QI_DEVOURING_POWDER);
+                        output.accept(ModItems.SCORCHING_YANG_POWDER);
+                        output.accept(ModItems.VENOMOUS_MERIDIAN_POWDER);
 
 
                     }).build());

@@ -20,51 +20,6 @@ public class ModNeedleEffects {
     private static final Map<ResourceLocation, INeedleEffect> REGISTRY = new HashMap<>();
 
 
-    public static final INeedleEffect POISON = register(new INeedleEffect() {
-        private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "needle_poison");
-
-        @Override
-        public ResourceLocation getId() {return id;}
-
-        @Override
-        public void onHit(LivingEntity target, LivingEntity shooter, Projectile projectile) {
-            target.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 0));
-        }
-    });
-    public static final INeedleEffect BLINDNESS = register(new INeedleEffect() {
-        private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "needle_blindness");
-
-        @Override
-        public ResourceLocation getId() {return id;}
-
-        @Override
-        public void onHit(LivingEntity target, LivingEntity shooter, Projectile projectile) {
-            target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
-        }
-    });
-    public static final INeedleEffect SLOWNESS = register(new INeedleEffect() {
-        private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "needle_slowness");
-
-        @Override
-        public ResourceLocation getId() {return id;}
-
-        @Override
-        public void onHit(LivingEntity target, LivingEntity shooter, Projectile projectile) {
-            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));
-        }
-    });
-    public static final INeedleEffect WEAKNESS = register(new INeedleEffect() {
-        private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "needle_weakness");
-
-        @Override
-        public ResourceLocation getId() {return id;}
-
-        @Override
-        public void onHit(LivingEntity target, LivingEntity shooter, Projectile projectile) {
-            target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
-        }
-    });
-
     // Only Checks ServerPlayer because I don't think mobs can have skills? maybe
     public static final INeedleEffect CRACKED_MERIDIANS = temporaryPassive(
             "needle_cracked_meridians",

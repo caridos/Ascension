@@ -639,9 +639,6 @@ public class lang extends LanguageProvider {
         add("ascension.pill_effects.antidote_pill_effect.name","Antidote");
         add("ascension.pill_effects.antidote_pill_effect.description","Cures Parasites");
 
-        add("ascension.pill_effects.parasite_pill_effect.name","Parasite");
-        add("ascension.pill_effects.parasite_pill_effect.description","Infects targets with a qi devouring parasite");
-
         add("ascension.pill_effects.qi_enhanced_regen_effect.name","Qi Enhanced Regeneration");
         add("ascension.pill_effects.qi_enhanced_regen_effect.description","Regeneration enhanced with Qi");
 
@@ -652,6 +649,29 @@ public class lang extends LanguageProvider {
         add("ascension.pill_effects.crimson_lotus_bone_effect.description", "Fuels the Divine Essence Bone ritual when consumed after heavenly lightning has marked the body.");
 
 
+        add("ascension.pill_effects.cracked_meridian_pill_effect.name", "Cracked Meridians");
+        add("ascension.pill_effects.cracked_meridian_pill_effect.description", "Your meridians have been damaged by a foreign pill.");
+
+        add("ascension.pill_effects.blinded_senses_pill_effect.name", "Blinded Senses");
+        add("ascension.pill_effects.blinded_senses_pill_effect.description", "Your senses have been dulled by a foreign pill.");
+
+        add("ascension.pill_effects.paralyzed_body_pill_effect.name", "Paralyzed Body");
+        add("ascension.pill_effects.paralyzed_body_pill_effect.description", "Your body has been paralyzed by a foreign pill.");
+
+        add("ascension.pill_effects.venomous_meridians_pill_effect.name", "Venomous Meridians");
+        add("ascension.pill_effects.venomous_meridians_pill_effect.description", "Venom flows through your meridians from a foreign pill.");
+
+        add("ascension.pill_effects.scorching_yang_poison_pill_effect.name", "Scorching Yang Poison");
+        add("ascension.pill_effects.scorching_yang_poison_pill_effect.description", "Scorching yang energy floods your body from a foreign pill.");
+
+        add("ascension.pill_effects.parasite_pill_effect.name","Parasite");
+        add("ascension.pill_effects.parasite_pill_effect.description","Infects targets with a qi devouring parasite");
+
+        add("ascension.pill_effects.corrosive_poison_pill_effect.name", "Corrosive Poison");
+        add("ascension.pill_effects.corrosive_poison_pill_effect.description", "A corrosive poison eats away at your armor from a foreign pill.");
+
+        add("ascension.pill_effects.frost_silkworm_poison_pill_effect.name", "Frost Silkworm Venom");
+        add("ascension.pill_effects.frost_silkworm_poison_pill_effect.description", "Frost silkworm venom chills your meridians from a foreign pill.");
 
 
 
@@ -739,11 +759,6 @@ public class lang extends LanguageProvider {
         add("tooltip.ascension.needle_plain", "A sleek hidden weapon. Can be tipped with a coating.");
         add("tooltip.ascension.needle_tipped", "Coated: %s");
         //Needle Poison Coat
-        add("needle_effect.ascension.needle_poison", "Poison");
-        add("needle_effect.ascension.needle_blindness", "Blindness");
-        add("needle_effect.ascension.needle_slowness", "Slowness");
-        add("needle_effect.ascension.needle_weakness", "Weakness");
-
 
         add("needle_effect.ascension.needle_qi_devouring_poison", "Qi Devouring Parasite");
         add("needle_effect.ascension.needle_cracked_meridians", "Cracked Meridians");
@@ -790,8 +805,14 @@ public class lang extends LanguageProvider {
 
 
         //Powders
+        add("item.ascension.blinded_senses_powder", "Blinded Senses Powder");
+        add("item.ascension.corrosive_poison_powder", "Corrosive Poison Powder");
+        add("item.ascension.cracked_meridians_powder", "Cracked Meridians Powder");
+        add("item.ascension.frost_silkworm_powder", "Frost Silkworm Powder");
+        add("item.ascension.paralyzed_body_powder", "Paralyzed Body Powder");
         add("item.ascension.qi_devouring_powder", "Qi Devouring Powder");
-
+        add("item.ascension.scorching_yang_powder", "Scorching Yang Powder");
+        add("item.ascension.venomous_meridian_powder", "Venomous Meridian Powder");
 
 
 
@@ -992,6 +1013,13 @@ public class lang extends LanguageProvider {
 
         //Poison Pills
         add("item.ascension.qi_devouring_parasite_pill", "Qi Devouring Parasite Pill");
+        add("item.ascension.cracked_meridians_poison_pill", "Cracked Meridians Poison Pill");
+        add("item.ascension.blinded_senses_poison_pill", "Blinded Senses Poison Pill");
+        add("item.ascension.paralyzed_body_poison_pill", "Paralyzed Body Poison Pill");
+        add("item.ascension.venomous_meridian_poison_pill", "Venomous Meridian Poison Pill");
+        add("item.ascension.scorching_yang_poison_pill", "Scorching Yang Poison Pill");
+        add("item.ascension.corrosive_poison_pill", "Corrosive Poison Pill");
+        add("item.ascension.frost_silkworm_poison_pill", "Frost Silkworm Poison Pill");
 
 
 

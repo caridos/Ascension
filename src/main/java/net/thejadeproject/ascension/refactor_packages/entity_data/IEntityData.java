@@ -152,6 +152,7 @@ public interface IEntityData {
 
         //due to how speed scales in mc these need to be low
         //this will also be further suppressed while in combat
+
         holder.addAttribute(Attributes.MOVEMENT_SPEED,Component.literal("Movement Speed"));
         holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.STRENGTH.get(),0.00005); //0.005% of strength
         holder.getAttribute(Attributes.MOVEMENT_SPEED).addStatScaling(ModStats.AGILITY.get(),0.002); //0.05% of agility
