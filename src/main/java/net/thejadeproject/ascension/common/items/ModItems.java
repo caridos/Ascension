@@ -350,7 +350,6 @@ public class ModItems {
 
 
     // ── Herbs ─────────────────────────────────────────────────────────────────
-    // Simple non-block herbs — use HerbItem so Quality/Age tooltips show automatically
     public static final DeferredItem<Item> GOLDEN_SUN_LEAF = ITEMS.register("golden_sun_leaf",
             () -> new HerbItem(new Item.Properties().food(ModFoodProperties.GOLDEN_SUN_LEAF)));
     public static final DeferredItem<Item> JADE_BAMBOO_OF_SERENITY = ITEMS.register("jade_bamboo_of_serenity",
@@ -359,21 +358,21 @@ public class ModItems {
     public static final DeferredItem<Item> JADE_DEW_GRASS = ITEMS.register("jade_dew_grass",
             () -> new HerbItem(new Item.Properties().food(ModFoodProperties.JADE_DEW_GRASS)));
     public static final DeferredItem<Item> JADE_DEW_GRASS_SEEDS = ITEMS.register("jade_dew_grass_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.JADE_DEW_GRASS_CROP.get(), new Item.Properties()));
+            () -> new ItemNameBlockItem(ModBlocks.JADE_DEW_GRASS_CROP.get(), new Item.Properties())); // safe: inside lambda, resolves at registration time
 
     public static final DeferredItem<Item> IRONWOOD_SPROUT = ITEMS.register("ironwood_sprout",
             () -> new HerbItem(new Item.Properties().food(ModFoodProperties.IRONWOOD_SPROUT)));
 
     public static final DeferredItem<Item> WHITE_JADE_ORCHID = ITEMS.register("white_jade_orchid",
-            () -> new HerbBlockItem(ModBlocks.WHITE_JADE_ORCHID_CROP.get(),
+            () -> new HerbBlockItem(() -> ModBlocks.WHITE_JADE_ORCHID_CROP.get(),
                     new Item.Properties().food(ModFoodProperties.WHITE_JADE_ORCHID)));
 
     public static final DeferredItem<Item> HUNDRED_YEAR_GINSENG = ITEMS.register("hundred_year_ginseng",
-            () -> new HerbBlockItem(ModBlocks.HUNDRED_YEAR_GINSENG_CROP.get(),
+            () -> new HerbBlockItem(() -> ModBlocks.HUNDRED_YEAR_GINSENG_CROP.get(),
                     new Item.Properties().food(ModFoodProperties.HUNDRED_YEAR_GINSENG)));
 
     public static final DeferredItem<Item> HUNDRED_YEAR_SNOW_GINSENG = ITEMS.register("hundred_year_snow_ginseng",
-            () -> new HerbBlockItem(ModBlocks.HUNDRED_YEAR_SNOW_GINSENG_CROP.get(),
+            () -> new HerbBlockItem(() -> ModBlocks.HUNDRED_YEAR_SNOW_GINSENG_CROP.get(),
                     new Item.Properties().food(ModFoodProperties.HUNDRED_YEAR_SNOW_GINSENG),
                     (stack, level, entity) -> {
                         if (entity instanceof net.minecraft.world.entity.player.Player player) {
@@ -383,9 +382,8 @@ public class ModItems {
                         }
                     }));
 
-
     public static final DeferredItem<Item> HUNDRED_YEAR_FIRE_GINSENG = ITEMS.register("hundred_year_fire_ginseng",
-            () -> new HerbBlockItem(ModBlocks.HUNDRED_YEAR_FIRE_GINSENG_CROP.get(),
+            () -> new HerbBlockItem(() -> ModBlocks.HUNDRED_YEAR_FIRE_GINSENG_CROP.get(),
                     new Item.Properties().food(ModFoodProperties.HUNDRED_YEAR_FIRE_GINSENG),
                     (stack, level, entity) -> {
                         if (entity instanceof net.minecraft.world.entity.player.Player player) {
