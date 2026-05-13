@@ -420,6 +420,7 @@ public class ModCreativeModeTabs {
                         //Misc
                         output.accept(ModItems.NEUTRALITY_PILL);
                         output.accept(ModItems.MARROW_CLEANSE_PILL);
+                        output.accept(ModItems.CRIMSON_LOTUS_BONE_PILL);
 
 
                         //Important Pills

@@ -356,6 +356,13 @@ public class lang extends LanguageProvider {
         add("ascension.message.physique_evolution.pacifist_mortal_reset", "You have failed to maintain a peaceful streak.");
         add("ascension.message.physique_evolution.blessed_route_lost", "The Blessed path has been stained by blood, and You no longer have a future with Virtue.");
         add("ascension.message.physique_evolution.blessed_wrathful_path", "The Blessed path has been stained by undead blood, your rage and wrath fueling your Virtue.");
+        add("ascension.message.physique_evolution.blood_fiend_progress", "Blood stains your mortal frame... %s/%s sacrifices gathered.");
+        add("ascension.message.physique_evolution.blood_wraith_progress", "Your Blood Fiend physique hungers for a deeper crimson... %s/%s sacrifices gathered.");
+        add("ascension.message.physique_evolution.blood_wraith_soul_too_weak", "Your soul is too shallow to birth a Blood Wraith. Soul Path Major Realm %s required.");
+        add("ascension.message.physique_evolution.essence_bone_purifying", "Your Essence Bone is being purified beneath heaven... %s/%s minutes.");
+        add("ascension.message.physique_evolution.essence_bone_needs_pill_fuel", "The Divine Bone ritual starves. Consume refinement pills to fuel the crimson flame.");
+        add("ascension.message.physique_evolution.essence_bone_divine_marked", "Heavenly lightning brands your Essence Bone. Enter the Crimson Lotus Flame and begin the Divine ritual.");
+        add("ascension.message.physique_evolution.essence_bone_pill_fuel", "Refinement fuel gathered: %s/%s minutes.");
 
 
 
@@ -629,6 +636,10 @@ public class lang extends LanguageProvider {
         add("ascension.pill_effects.qi_replenishing_effect.name","Qi Replenishing");
         add("ascension.pill_effects.qi_replenishing_effect.description","Replenishing Qi");
 
+        add("ascension.pill_effects.crimson_lotus_bone_effect.name", "Crimson Lotus Bone Refinement");
+        add("ascension.pill_effects.crimson_lotus_bone_effect.description", "Fuels the Divine Essence Bone ritual when consumed after heavenly lightning has marked the body.");
+
+
 
 
 
@@ -792,9 +803,9 @@ public class lang extends LanguageProvider {
 
         add("item.ascension.inner_reinforcement_pill", "Inner Reinforcement Pill");
         add("item.ascension.marrow_cleanse_pill", "Marrow Cleanse Pill");
+        add("item.ascension.crimson_lotus_bone_pill", "Crimson Lotus Bone Pill");
         add("item.ascension.essence_gathering_pill", "Essence Gathering Pill");
         add("item.ascension.soul_focus_pill", "Soul Focus Pill");
-
 
 
 
@@ -844,6 +855,7 @@ public class lang extends LanguageProvider {
         add("ascension.tooltip.waste", "Waste");
         add("ascension.tooltip.medicinal", "Medicinal");
         add("ascension.tooltip.cultivation", "Cultivation");
+        add("ascension.tooltip.evolutionary", "Evolutionary");
         add("ascension.tooltip.poisonous", "Poisonous");
         add("ascension.tooltip.qdppill", "Qi Devouring Parasite Antidote");
 

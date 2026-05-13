@@ -324,6 +324,12 @@ public class ModItems {
                     .food(ModFoodProperties.MARROW_PILL)
                     .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.MARROW_CLEANSE_PILL_EFFECT.getId().toString()))
                     , 0, false));
+    public static final DeferredItem<PillItem> CRIMSON_LOTUS_BONE_PILL =
+            ITEMS.register("crimson_lotus_bone_pill",
+                    () -> new PillItem(new Item.Properties()
+                            .food(ModFoodProperties.RITUAL_PILL)
+                            .component(ModDataComponents.PILL_EFFECTS, List.of(ModPillEffects.CRIMSON_LOTUS_BONE_EFFECT.getId().toString()))
+                            , 0, false));
 
 
     //Phys Stuff

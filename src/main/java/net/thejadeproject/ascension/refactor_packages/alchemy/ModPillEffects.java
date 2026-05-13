@@ -1,7 +1,10 @@
 package net.thejadeproject.ascension.refactor_packages.alchemy;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -70,6 +73,24 @@ public class ModPillEffects {
                             Component.literal("Marrow Cleanse"),
                             Component.literal("Has a small chance to cleanse the marrow of a crippled physique.")
                     )
+            );
+
+    public static final DeferredHolder<IPillEffect, ? extends BasicPillEffect> CRIMSON_LOTUS_BONE_EFFECT =
+            PILL_EFFECTS.register("crimson_lotus_bone_effect", () ->
+                    new BasicPillEffect(
+                            Component.translatable("ascension.pill_effects.crimson_lotus_bone_effect.name"),
+                            Component.translatable("ascension.pill_effects.crimson_lotus_bone_effect.description")
+                    ) {
+                        @Override
+                        public boolean tryConsume(LivingEntity livingEntity, ItemStack itemStack, double purityScale, double realmMultiplier) {
+                            return livingEntity instanceof ServerPlayer;
+                        }
+
+                        @Override
+                        public boolean shouldGoOnCooldown() {
+                            return true;
+                        }
+                    }
             );
 
     public static void register(IEventBus modEventBus){

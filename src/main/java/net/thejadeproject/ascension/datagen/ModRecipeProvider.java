@@ -1092,6 +1092,24 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_hundred_year_snow_ginseng", has(ModItems.HUNDRED_YEAR_SNOW_GINSENG.get()))
                 .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "cauldron/fasting_pill_t3"));
 
+        // Crimson Lotus Bone Pill
+        PillCauldronRecipeBuilder.lowHuman(
+                        ModItems.CRIMSON_LOTUS_BONE_PILL.get(),
+                        ModItems.PILL_RESIDUE.get()
+                )
+                .ingredient(ModItems.HUNDRED_YEAR_FIRE_GINSENG.get(), 2)
+                .ingredient(ModItems.WHITE_JADE_ORCHID.get(), 2)
+                .ingredient(Items.BONE_BLOCK, 4)
+                .chance(0.35D)
+                .temperature(700, 1600, 1100)
+                .timeSeconds(20)
+                .realm(4, "lower")
+                .purity(60, 100)
+                .bonusChance(0.03D)
+                .unlockedBy("has_hundred_year_fire_ginseng", has(ModItems.HUNDRED_YEAR_FIRE_GINSENG.get()))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "cauldron/crimson_lotus_bone_pill"));
+
+
 
     }
 

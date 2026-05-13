@@ -210,6 +210,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
 
         pills(ModItems.MARROW_CLEANSE_PILL.get());
+        pills(ModItems.CRIMSON_LOTUS_BONE_PILL.get());
 
 
         pills(ModItems.QI_DEVOURING_PARASITE_PILL.get());
