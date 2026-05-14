@@ -260,12 +260,12 @@ public class BloodfeastSoulRefiningTechnique extends GenericTechnique {
             for (int i = 1; i < majorRealmsChanged; i++) {
                 int mid = oldMajorRealm + i;
                 int midMax = getMaxMinorRealm(mid);
-                for (int j = 0; j <= midMax; j++) {
+                for (int j = 1; j <= midMax; j++) {
                     applyMinorBonus(entityData, mid, j, minorBonus);
                 }
             }
             // Segment 3: minors up to target in new major realm
-            for (int i = 0; i <= newMinorRealm; i++) {
+            for (int i = 1; i <= newMinorRealm; i++) {
                 applyMinorBonus(entityData, newMajorRealm, i, minorBonus);
             }
         } else {

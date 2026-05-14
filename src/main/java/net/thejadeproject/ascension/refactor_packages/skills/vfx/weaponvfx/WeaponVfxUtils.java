@@ -63,7 +63,18 @@ public class WeaponVfxUtils {
     public static void spawnSwingVfxAhead(Level level,
                                           LivingEntity owner, float rotZ, Vector3f radius, double damage, double knockback,
                                           int duration, String vfxType, ResourceLocation techniqueId, String fallbackColor) {
-        Vec3 pos = owner.getEyePosition().add(owner.getLookAngle().scale(1.2));
+        Vec3 forward = owner.getLookAngle().normalize();
+
+        Vec3 down = forward
+                .cross(new Vec3(0, 1, 0))
+                .normalize()
+                .cross(forward)
+                .normalize();
+
+        Vec3 pos = owner.getEyePosition()
+                .add(forward.scale(1.2))
+                .add(down.scale(-0.3));
+
         spawnSwingVfx(level, owner, pos,
                 0, 0, rotZ,
                 radius, damage, knockback, duration,

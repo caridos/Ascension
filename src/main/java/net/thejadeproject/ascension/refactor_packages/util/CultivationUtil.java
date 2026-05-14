@@ -1,7 +1,9 @@
 package net.thejadeproject.ascension.refactor_packages.util;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.refactor_packages.breakthroughs.IBreakthroughInstance;
@@ -58,6 +60,7 @@ public class CultivationUtil {
         }else {
             pathData.setCurrentRealmProgress(pathData.getCurrentRealmProgress()+event.getRate());
         }
+        if(entity instanceof ServerPlayer player && player.connection != null) pathData.sync(player);
         return true;
     }
 }

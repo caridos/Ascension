@@ -1,9 +1,11 @@
 package net.thejadeproject.ascension.refactor_packages.skills.custom.passive.weapon;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.skills.vfx.weaponvfx.VfxColorRegistry;
 import net.thejadeproject.ascension.refactor_packages.skills.vfx.weaponvfx.WeaponSwingVfxEntity;
@@ -43,4 +45,5 @@ public class SwordMasterySkill extends GenericWeaponMasterySkill {
 
     @Override protected String getTitleKey() { return "ascension.skill.sword_mastery_skill";             }
     @Override protected String getDescriptionKey() { return "ascension.skill.sword_mastery_skill.description"; }
+
 }

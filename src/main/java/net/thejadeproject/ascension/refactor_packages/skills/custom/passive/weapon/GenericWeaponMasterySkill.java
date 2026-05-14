@@ -5,11 +5,19 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.thejadeproject.ascension.data_attachments.ModAttachments;
+import net.thejadeproject.ascension.data_attachments.attachments.PlayerInputStates;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
+import net.thejadeproject.ascension.refactor_packages.events.entity.EntitySwingEvent;
 import net.thejadeproject.ascension.refactor_packages.paths.PathData;
 import net.thejadeproject.ascension.refactor_packages.qi.EntityQiContainer;
+import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.skills.ITickingSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.SimplePassiveSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.vfx.weaponvfx.WeaponVfxUtils;
@@ -30,6 +38,9 @@ import org.joml.Vector3f;
  */
 public abstract class GenericWeaponMasterySkill extends SimplePassiveSkill implements ITickingSkill {
 
+    public GenericWeaponMasterySkill(){
+        NeoForge.EVENT_BUS.addListener(this::onSwing);
+    }
     // ── Abstract surface ─────────────────────────────────────────────────────
 
     protected abstract ResourceLocation getPathId();
@@ -85,13 +96,16 @@ public abstract class GenericWeaponMasterySkill extends SimplePassiveSkill imple
         return 1.0D + Mth.clamp(bonus, 0.0D, getMaxBonus());
     }
 
-    // ── ITickingSkill ─────────────────────────────────────────────────────────
+    public void onSwing(EntitySwingEvent event){
+        if(event.getEntity().level().isClientSide) return;
 
-    @Override
-    public void onPlayerTick(ServerPlayer player, IEntityData entityData) {
-        if (player.tickCount % getSwingIntervalTicks() != 0) return;
-        if (!matchesWeapon(player.getMainHandItem())) return;
+        if(!event.getEntity().hasData(ModAttachments.ENTITY_DATA)) return;
+        IEntityData entityData = event.getEntity().getData(ModAttachments.ENTITY_DATA);
+        ResourceLocation skillId = AscensionRegistries.Skills.SKILL_REGISTRY.getKey(this);
 
+        if(!entityData.hasSkill(skillId)) return;
+
+        if (!matchesWeapon(event.getEntity().getItemInHand(event.getHand()))) return;
         EntityQiContainer qi = entityData.getQiContainer();
         if (qi == null) return;
 
@@ -104,8 +118,8 @@ public abstract class GenericWeaponMasterySkill extends SimplePassiveSkill imple
         ResourceLocation techniqueId = entityData.getTechnique(getPathId());
 
         WeaponVfxUtils.spawnSwingVfxAhead(
-                player.level(),
-                player,
+                event.getEntity().level(),
+                event.getEntity(),
                 getRotationZ(),
                 getEffectRadius(),
                 getBaseDamage() * multiplier,
@@ -116,4 +130,12 @@ public abstract class GenericWeaponMasterySkill extends SimplePassiveSkill imple
                 getFallbackColor()
         );
     }
+
+    // ── ITickingSkill ─────────────────────────────────────────────────────────
+
+    @Override
+    public void onPlayerTick(ServerPlayer player, IEntityData entityData) {
+
+    }
+
 }
