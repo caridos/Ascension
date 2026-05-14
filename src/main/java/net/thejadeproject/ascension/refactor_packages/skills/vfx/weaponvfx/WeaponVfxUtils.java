@@ -65,15 +65,11 @@ public class WeaponVfxUtils {
                                           int duration, String vfxType, ResourceLocation techniqueId, String fallbackColor) {
         Vec3 forward = owner.getLookAngle().normalize();
 
-        Vec3 down = forward
-                .cross(new Vec3(0, 1, 0))
-                .normalize()
-                .cross(forward)
-                .normalize();
 
+        Vec3 up = owner.getUpVector(1.0F);
         Vec3 pos = owner.getEyePosition()
                 .add(forward.scale(1.2))
-                .add(down.scale(-0.3));
+                .add(up.scale(-0.3));
 
         spawnSwingVfx(level, owner, pos,
                 0, 0, rotZ,
