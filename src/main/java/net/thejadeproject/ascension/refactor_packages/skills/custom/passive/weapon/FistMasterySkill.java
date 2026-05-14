@@ -44,4 +44,7 @@ public class FistMasterySkill extends GenericWeaponMasterySkill{
     protected String getDescriptionKey() {
         return "ascension.skill.fist_mastery.description_skill";
     }
+
+    @Override
+    protected String getIconPath() { return "textures/spells/fist_aura.png"; }
 }
