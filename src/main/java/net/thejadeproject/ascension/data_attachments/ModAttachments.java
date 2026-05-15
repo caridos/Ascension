@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.thejadeproject.ascension.AscensionCraft;
+import net.thejadeproject.ascension.data_attachments.attachments.PhysiqueAcquisitionCounters;
 import net.thejadeproject.ascension.data_attachments.attachments.PlayerInputStates;
 import net.thejadeproject.ascension.mob_cultivation.MobCultivationData;
 import net.thejadeproject.ascension.refactor_packages.entity_data.EntityDataProvider;
@@ -43,6 +44,19 @@ public class ModAttachments {
                     .serialize(MobCultivationData.CODEC)
                     .build()
     );
+
+
+
+
+    //Physique Acquasition
+    public static final Supplier<AttachmentType<PhysiqueAcquisitionCounters>> PHYSIQUE_COUNTERS =
+            ATTACHMENT_TYPES.register("physique_counters", () ->
+                    AttachmentType.builder(() -> new PhysiqueAcquisitionCounters())
+                            .serialize(PhysiqueAcquisitionCounters.CODEC)
+                            .copyOnDeath()
+                            .build()
+            );
+
 
 
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<PlayerInputStates>> INPUT_STATES = ATTACHMENT_TYPES.register("input_states",

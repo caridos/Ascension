@@ -51,9 +51,7 @@ public class ModPhysiques {
                     .addEvolution(ModPhysiques.BLESSED.getId())
                     .addEvolution(ModPhysiques.BLOOD_FIEND.getId())
                     .addPath(ModPaths.BODY.getId())
-                    .addPath(ModPaths.ESSENCE.getId())
                     .addPathBonus(ModPaths.BODY.getId(),0.5)
-                    .addPathBonus(ModPaths.ESSENCE.getId(),0.5)
                     .setDescription(Component.translatable("ascension.physiques.mortal.description"))
                     .setShortDescription(Component.translatable("ascension.physiques.mortal.description.short"))
     );
