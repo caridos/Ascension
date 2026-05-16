@@ -78,15 +78,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
 
 
-        tag(ModTags.Items.BLADE)
-                .add(ModItems.WOODEN_BLADE.get())
-                .add(ModItems.STONE_BLADE.get())
-                .add(ModItems.IRON_BLADE.get())
-                .add(ModItems.GOLD_BLADE.get())
-                .add(ModItems.DIAMOND_BLADE.get())
-                .add(ModItems.NETHERITE_BLADE.get());
-
-
         tag(ModTags.Items.WOOLABLE)
                 .add(Items.WHITE_WOOL)
                 .add(Items.LIGHT_GRAY_WOOL)
@@ -105,6 +96,25 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(Items.MAGENTA_WOOL)
                 .add(Items.PINK_WOOL);
 
+
+        tag(ModTags.Items.FLAMES)
+                .add(ModItems.FLAME.get())
+                .add(ModItems.SOUL_FLAME.get())
+                .add(ModItems.CRIMSON_LOTUS_FLAME.get());
+
+        tag(ItemTags.SWORDS)
+                .addTag(ModTags.Items.BLADE)
+                .addTag(ModTags.Items.SPEAR)
+                .add(ModItems.CULTIVATORS_SWORD_IRON.get());
+
+        tag(ModTags.Items.BLADE)
+                .add(ModItems.WOODEN_BLADE.get())
+                .add(ModItems.STONE_BLADE.get())
+                .add(ModItems.IRON_BLADE.get())
+                .add(ModItems.GOLD_BLADE.get())
+                .add(ModItems.DIAMOND_BLADE.get())
+                .add(ModItems.NETHERITE_BLADE.get());
+
         tag(ModTags.Items.SPEAR)
                 .add(ModItems.WOODEN_SPEAR.get())
                 .add(ModItems.STONE_SPEAR.get())
@@ -114,29 +124,10 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.NETHERITE_SPEAR.get());
 
 
-        tag(ModTags.Items.FLAMES)
-                .add(ModItems.FLAME.get())
-                .add(ModItems.SOUL_FLAME.get())
-                .add(ModItems.CRIMSON_LOTUS_FLAME.get());
 
-        tag(ModTags.Items.SPEAR_ENCHANTABLE)
-                .addTag(ModTags.Items.SPEAR);
-        tag(Tags.Items.ENCHANTABLES)
-                .addTag(ModTags.Items.BLADE)
-                .addTag(ModTags.Items.SPEAR_ENCHANTABLE);
-        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
-                .addTag(ModTags.Items.BLADE)
-                .addTag(ModTags.Items.SPEAR_ENCHANTABLE);
         tag(ItemTags.BREAKS_DECORATED_POTS)
                 .addTag(ModTags.Items.BLADE)
                 .addTag(ModTags.Items.SPEAR);
-        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
-                .addTag(ModTags.Items.BLADE)
-                .addTag(ModTags.Items.SPEAR);
-        tag(Tags.Items.TOOLS)
-                .addTag(ModTags.Items.BLADE)
-                .addTag(ModTags.Items.SPEAR);
-
 
 
         tag(ModTags.Items.INGOTS_BLACK_IRON)

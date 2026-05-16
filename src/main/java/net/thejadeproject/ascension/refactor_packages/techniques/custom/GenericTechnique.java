@@ -18,7 +18,7 @@ import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.PathDataDisplayElement;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncAttributeHolder;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
-import net.thejadeproject.ascension.refactor_packages.paths.PathData;
+import net.thejadeproject.ascension.refactor_packages.paths.data.IPathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.skill_data.GenericCultivationSkillData;
@@ -26,8 +26,11 @@ import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.stat_change_handlers.BasicStatChangeHandler;
 import net.thejadeproject.ascension.refactor_packages.techniques.helpers.TechniqueSkillHelper;
-import net.thejadeproject.ascension.refactor_packages.techniques.stability.IStabilityHandler;
-import net.thejadeproject.ascension.refactor_packages.techniques.stability.LnStabilityHandler;
+import net.thejadeproject.ascension.refactor_packages.handlers.realm_change.RealmChangeHandler;
+import net.thejadeproject.ascension.refactor_packages.handlers.realm_change.RealmChangeType;
+import net.thejadeproject.ascension.refactor_packages.handlers.realm_change.RealmChangeUtil;
+import net.thejadeproject.ascension.refactor_packages.paths.data.foundation.stability.IStabilityHandler;
+import net.thejadeproject.ascension.refactor_packages.paths.data.foundation.stability.LnStabilityHandler;
 
 import java.util.Set;
 
@@ -40,6 +43,7 @@ public class GenericTechnique implements ITechnique {
     private Set<ResourceLocation> secondaryPaths;
     private final IStabilityHandler stabilityHandler = new LnStabilityHandler();
     private  BasicStatChangeHandler statChangeHandler = new BasicStatChangeHandler();
+    private RealmChangeHandler realmChangeHandler = RealmChangeHandler.fresh().build();
     public GenericTechnique(ResourceLocation path,Component title,double baseRate,Set<ResourceLocation> secondaryPaths){
         this.path = path;
         this.title = title;
@@ -49,6 +53,10 @@ public class GenericTechnique implements ITechnique {
 
     public GenericTechnique setStatChangeHandler(BasicStatChangeHandler statChangeHandler){
         this.statChangeHandler = statChangeHandler;
+        return this;
+    }
+    public GenericTechnique setRealmChangeHandler(RealmChangeHandler handler){
+        this.realmChangeHandler = handler;
         return this;
     }
 
@@ -79,6 +87,9 @@ public class GenericTechnique implements ITechnique {
         if(getPath().equals(ModPaths.ESSENCE.getId())){
             heldEntity.giveSkill(ModSkills.BASIC_CULTIVATION_SKILL.getId(),new GenericCultivationSkillData(baseRate, secondaryPaths), ModForms.MORTAL_VESSEL.getId());
         }
+        if(heldEntity.getPathData(getPath()).getMajorRealm() == 0 && heldEntity.getPathData(getPath()).getMinorRealm() == 0) {
+            realmChangeHandler.dispatch(heldEntity,heldEntity.getTechniqueData(getPath()),0,0, RealmChangeType.GAINED);
+        }
 
         refreshUniversalTechniqueSkills(heldEntity);
     }
@@ -89,7 +100,9 @@ public class GenericTechnique implements ITechnique {
         if(getPath().equals(ModPaths.ESSENCE.getId())){
             heldEntity.removeSkill(ModSkills.BASIC_CULTIVATION_SKILL.getId(), ModForms.MORTAL_VESSEL.getId());
         }
-
+        if(heldEntity.getPathData(getPath()).getMajorRealm() == 0 && heldEntity.getPathData(getPath()).getMinorRealm() == 0) {
+            realmChangeHandler.dispatch(heldEntity,heldEntity.getTechniqueData(getPath()),0,0, RealmChangeType.LOST);
+        }
         refreshUniversalTechniqueSkills(heldEntity);
     }
 
@@ -100,6 +113,8 @@ public class GenericTechnique implements ITechnique {
         statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm);
 
         TechniqueSkillHelper.refreshUniversal(entityData, newMajorRealm);
+
+        RealmChangeUtil.realmChanged(entityData,this,entityData.getTechniqueData(this.getPath()),oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm,realmChangeHandler);
 
         entityData.getActiveFormData().getStatSheet().log();
         entityData.getAscensionAttributeHolder().log();
@@ -116,7 +131,7 @@ public class GenericTechnique implements ITechnique {
     }
 
     protected void refreshUniversalTechniqueSkills(IEntityData entityData) {
-        PathData pathData = entityData.getPathData(getPath());
+        IPathData pathData = entityData.getPathData(getPath());
 
         TechniqueSkillHelper.refreshUniversal(
                 entityData,
@@ -129,12 +144,12 @@ public class GenericTechnique implements ITechnique {
     }
 
     @Override
-    public void onFormRemoved(IEntityData heldEntity, IEntityFormData removedForm, PathData pathData) {
+    public void onFormRemoved(IEntityData heldEntity, IEntityFormData removedForm, IPathData pathData) {
 
     }
 
     @Override
-    public void onFormAdded(IEntityData heldEntity, IEntityFormData addedForm, PathData pathData) {
+    public void onFormAdded(IEntityData heldEntity, IEntityFormData addedForm, IPathData pathData) {
 
     }
 
@@ -145,7 +160,7 @@ public class GenericTechnique implements ITechnique {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public RenderableElement getInformationContainer(UIFrame frame,PathData pathData) {
+    public RenderableElement getInformationContainer(UIFrame frame,IPathData pathData) {
         return new PathDataDisplayElement(frame,
                 getMajorRealmName(pathData.getMajorRealm()),
                 getMinorRealmName(pathData.getMajorRealm(),pathData.getMinorRealm()),

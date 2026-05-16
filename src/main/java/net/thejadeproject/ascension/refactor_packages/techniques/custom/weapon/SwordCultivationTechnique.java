@@ -4,7 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
-import net.thejadeproject.ascension.refactor_packages.paths.PathData;
+import net.thejadeproject.ascension.refactor_packages.paths.data.IPathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.ModSkills;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechniqueData;
@@ -38,10 +38,13 @@ public class SwordCultivationTechnique extends GenericTechnique {
                 ModSkills.SWORD_MASTERY_SKILL.getId(),
                 ModForms.MORTAL_VESSEL.getId()
         );
-
+        heldEntity.giveSkill(
+                ModSkills.SWORD_PROJECTIONS.getId(),
+                ModForms.MORTAL_VESSEL.getId()
+        );
         refreshUniversalTechniqueSkills(heldEntity);
 
-        PathData pathData = heldEntity.getPathData(getPath());
+        IPathData pathData = heldEntity.getPathData(getPath());
         refreshRealmUnlockSkills(
                 heldEntity,
                 pathData == null ? 0 : pathData.getMajorRealm()
@@ -50,7 +53,7 @@ public class SwordCultivationTechnique extends GenericTechnique {
 
     @Override
     public void onTechniqueRemoved(IEntityData heldEntity, ITechniqueData techniqueData) {
-        PathData pathData = heldEntity.getPathData(getPath());
+        IPathData pathData = heldEntity.getPathData(getPath());
 
         if (pathData != null) {
             pathData.handleRealmChange(pathData.getMajorRealm(), 0, heldEntity);
@@ -66,6 +69,10 @@ public class SwordCultivationTechnique extends GenericTechnique {
                 ModForms.MORTAL_VESSEL.getId()
         );
 
+        heldEntity.removeSkill(
+                ModSkills.SWORD_PROJECTIONS.getId(),
+                ModForms.MORTAL_VESSEL.getId()
+        );
         refreshRealmUnlockSkills(heldEntity, -1);
         clearUniversalTechniqueSkills(heldEntity);
     }

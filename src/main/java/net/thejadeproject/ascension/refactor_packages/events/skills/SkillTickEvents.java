@@ -13,6 +13,9 @@ public class SkillTickEvents {
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
+
+
+
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         if (!player.isAlive() || player.isSpectator()) return;
         if (!player.hasData(ModAttachments.ENTITY_DATA)) return;
