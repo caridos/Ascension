@@ -110,7 +110,7 @@ public class GenericTechnique implements ITechnique {
     public void onRealmChange(IEntityData entityData, int oldMajorRealm, int oldMinorRealm, int newMajorRealm, int newMinorRealm) {
         //System.out.println("technique: "+AscensionRegistries.Techniques.TECHNIQUES_REGISTRY.getKey(this).toString());
         //System.out.println("realm: ("+oldMajorRealm+","+oldMinorRealm+") -> ("+newMajorRealm+","+newMinorRealm+")");
-        //statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm);
+        statChangeHandler.applyChanges(entityData,this,oldMajorRealm,oldMinorRealm,newMajorRealm,newMinorRealm);
 
         TechniqueSkillHelper.refreshUniversal(entityData, newMajorRealm);
 
