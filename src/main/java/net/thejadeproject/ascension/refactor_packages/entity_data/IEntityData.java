@@ -89,6 +89,8 @@ public interface IEntityData {
     boolean hasPath(ResourceLocation path);
     //only checks held forms, not tethered
     boolean isCultivating();
+    boolean isSuppressed();
+    void setSuppressed(boolean state);
     //only checks held forms, not tethered
     boolean isCultivating(ResourceLocation path);
     ResourceLocation getTechnique(ResourceLocation path);

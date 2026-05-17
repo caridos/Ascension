@@ -186,6 +186,12 @@ public class lang extends LanguageProvider {
         add("ascension.path.poison.plague_sovereign", "Plague Sovereign");
         add("ascension.path.poison.primordial_venom", "Primordial venom");
 
+        //Foundation stages
+        add("ascension.foundation.realm_0","Weak");
+        add("ascension.foundation.realm_1","Normal");
+        add("ascension.foundation.realm_2","Strong");
+        add("ascension.foundation.realm_3","Peerless");
+        add("ascension.foundation.realm_4","Primordial");
 
 
         // Physiques

@@ -9,7 +9,10 @@ import net.thejadeproject.ascension.refactor_packages.breakthroughs.IBreakthroug
 import net.thejadeproject.ascension.refactor_packages.breakthroughs.NineHeavenlyTribulations;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.events.CultivateEvent;
+import net.thejadeproject.ascension.refactor_packages.paths.IPath;
+import net.thejadeproject.ascension.refactor_packages.paths.custom.FoundationPath;
 import net.thejadeproject.ascension.refactor_packages.paths.data.IPathData;
+import net.thejadeproject.ascension.refactor_packages.paths.data.foundation.FoundationPathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
 
@@ -17,6 +20,17 @@ import java.util.List;
 
 public class CultivationUtil {
 
+    public static void cultivateFoundation(Entity entity,ResourceLocation path){
+
+        IEntityData entityData = entity.getData(ModAttachments.ENTITY_DATA);
+        //System.out.println("Player is trying to cultivate");
+        IPath pathInstance = AscensionRegistries.getRegistryObject(path,AscensionRegistries.Paths.PATHS_REGISTRY);
+        IPathData pathData = entity.getData(ModAttachments.ENTITY_DATA).getPathData(path);
+        if(!(pathData instanceof FoundationPathData foundationPathData))return;
+        if(!(pathInstance instanceof FoundationPath foundationPath)) return;
+        foundationPathData.getCurrentFoundation().setFoundationProgress(foundationPathData.getCurrentFoundation().getFoundationProgress()+foundationPath.foundationBuildingSpeed(),entityData);
+        if(entity instanceof ServerPlayer player && player.connection != null) pathData.sync(player);
+    }
 
     public static boolean tryCultivate(Entity entity, ResourceLocation path,List<ResourceLocation> attributedPaths,double amount){
         IEntityData entityData = entity.getData(ModAttachments.ENTITY_DATA);
@@ -26,6 +40,10 @@ public class CultivationUtil {
         if(pathData == null) return false;
         if(pathData.isBreakingThrough()) return false;
 
+        if(entityData.isSuppressed()){
+            cultivateFoundation(entity,path);
+            return false;
+        }
         ITechnique technique = pathData.getCurrentTechnique();
 
         double base = amount*(entityData.getPathBonusHandler().getPathBonus(path));

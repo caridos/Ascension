@@ -233,6 +233,16 @@ public class RemoteEntityData implements IEntityData{
     }
 
     @Override
+    public boolean isSuppressed() {
+        return false;
+    }
+
+    @Override
+    public void setSuppressed(boolean state) {
+
+    }
+
+    @Override
     public boolean isCultivating(ResourceLocation path) {
 
         return EntityDataManager.getEntityData(getWatchedEntityData()).isCultivating(path);

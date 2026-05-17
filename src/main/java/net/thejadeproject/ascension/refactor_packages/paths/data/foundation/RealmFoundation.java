@@ -2,11 +2,15 @@ package net.thejadeproject.ascension.refactor_packages.paths.data.foundation;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.custom.FoundationPath;
 import net.thejadeproject.ascension.refactor_packages.paths.data.foundation.stability.IStabilityHandler;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RealmFoundation {
 
@@ -15,7 +19,14 @@ public class RealmFoundation {
 
     private double foundationProgress;
     private boolean primordial;
-
+    private static final ArrayList<Component> realmNames = new ArrayList<>(){{
+        add(Component.translatable("ascension.foundation.realm_0"));
+        add(Component.translatable("ascension.foundation.realm_1"));
+        add(Component.translatable("ascension.foundation.realm_2"));
+        add(Component.translatable("ascension.foundation.realm_3"));
+        add(Component.translatable("ascension.foundation.realm_3"));
+        add(Component.translatable("ascension.foundation.realm_4"));
+    }};
     public RealmFoundation(ResourceLocation path, int majorRealm) {
         this.path = path;
         this.majorRealm = majorRealm;
@@ -41,9 +52,11 @@ public class RealmFoundation {
         return (int) (handler.getStability(foundationProgress)*100);
     }
     public double getProgressInStage(){
-        //TODO calc the percentage. then find the percentage of that of the stage
+        int stage = getFoundationRealm();
+        if(stage == 4 && getFoundationPercentage() == 100) return 1;
+        double percentage = getHandler().getStability(foundationProgress);
 
-        return 0.0;
+        return (percentage-(stage*0.25))/0.25;
     }
 
     public int getFoundationRealm(){
@@ -57,7 +70,9 @@ public class RealmFoundation {
 
         this.foundationProgress = Math.clamp(newProgress,-getHandler().getMaxCultivationTicks(),getHandler().getMaxCultivationTicks());
         int newStage = getFoundationRealm();
+
         if(currentStage < newStage){
+
             for(int i = currentStage+1;i<=newStage;i++)getFoundationPath().onFoundationBreakthrough(entityData,majorRealm,i);
         }else if(currentStage > newStage){
             for(int i = currentStage-1;i>=newStage;i--) getFoundationPath().onFoundationDown(entityData,majorRealm,i);
@@ -67,6 +82,16 @@ public class RealmFoundation {
         return this.foundationProgress;
     }
     public int getMajorRealm(){return majorRealm;}
+
+    public static Component getRealmName(int realm){
+        if(realm < 0) return Component.literal("Broken");
+
+        return realmNames.get(realm);
+    }
+    public Component getCurrentRealmName(){
+        return getRealmName(getFoundationRealm());
+    }
+
     public boolean isPrimordial(){
         return getFoundationPercentage() == 100 && primordial;
     }

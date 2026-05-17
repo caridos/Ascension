@@ -16,6 +16,7 @@ import net.thejadeproject.ascension.refactor_packages.gui.elements.general.Conta
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.IInformationContainer;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.introspection.BackButton;
 import net.thejadeproject.ascension.refactor_packages.paths.IPath;
+import net.thejadeproject.ascension.refactor_packages.paths.custom.FoundationPath;
 import net.thejadeproject.ascension.refactor_packages.paths.data.IPathData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
@@ -39,6 +40,7 @@ public class PathDisplayContainer extends RenderableElement {
     Container pathContainer;
     EasyLabel selectedTechniqueLabel;
     PathProgressBar pathProgressBar;
+    FoundationProgressBar foundationProgressBar;
     public PathDisplayContainer(UIFrame frame) {
         super(frame);
         setWidth(bg.getWidth());
@@ -73,7 +75,7 @@ public class PathDisplayContainer extends RenderableElement {
 
         pathProgressBar = new PathProgressBar(frame,null);
 
-        pathProgressBar.getPositioning().setX(128);
+        pathProgressBar.getPositioning().setX(127);
         pathProgressBar.getPositioning().setY(31);
         addChild(pathProgressBar);
 
@@ -81,6 +83,13 @@ public class PathDisplayContainer extends RenderableElement {
         button.getPositioning().setX(5);
         button.getPositioning().setY(5);
         addChild(button);
+
+        foundationProgressBar = new FoundationProgressBar(frame,null);
+
+        foundationProgressBar.getPositioning().setX(219);
+        foundationProgressBar.getPositioning().setY(46);
+
+        addChild(foundationProgressBar);
         //TODO add description box
     }
     public void selectPath(ResourceLocation path){
@@ -88,6 +97,7 @@ public class PathDisplayContainer extends RenderableElement {
         pathContainer.removeChildren();
         selectedTechniqueLabel.setText(Component.literal("none"));
         pathProgressBar.setPath(path);
+        foundationProgressBar.setPath(path);
         if(pathData.getCurrentTechniqueId() == null){
             IPath pathInstance = AscensionRegistries.Paths.PATHS_REGISTRY.get(path);
 

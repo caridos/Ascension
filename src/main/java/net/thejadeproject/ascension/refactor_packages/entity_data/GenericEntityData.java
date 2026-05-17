@@ -29,6 +29,7 @@ import net.thejadeproject.ascension.refactor_packages.events.path_data.TryRemove
 import net.thejadeproject.ascension.refactor_packages.forms.IEntityForm;
 import net.thejadeproject.ascension.refactor_packages.forms.IEntityFormData;
 import net.thejadeproject.ascension.refactor_packages.forms.forms.ModForms;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.SyncCultivationSuppressed;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.SyncEntityForm;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncAttributeHolder;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.attributes.SyncCurrentHealth;
@@ -82,7 +83,7 @@ public class GenericEntityData implements IEntityData {
     private HashMap<ResourceLocation,HashSet<ResourceLocation>> pathDataForFormCache = new HashMap<>();
     private double currentHealth = 0;
     private boolean loading = false;
-
+    private boolean suppressed = false;
     @Override
     public boolean isLoading() { return loading; }
     //========================== SAVE DATA HANDLING ==========================
@@ -290,7 +291,7 @@ public class GenericEntityData implements IEntityData {
         else getQiContainer().fullFillQi();
 
         currentHealth = tag.getDouble("current_health");
-
+        setSuppressed(tag.getBoolean("cultivation_suppressed"));
         try {
             ListTag suppressors = tag.getList("suppressed_values",Tag.TAG_COMPOUND);
             for(int i = 0;i<suppressors.size();i++){
@@ -326,6 +327,7 @@ public class GenericEntityData implements IEntityData {
 
             PacketDistributor.sendToPlayer((ServerPlayer) player,new SyncEntityForm(heldFormData.get(form)));
         }
+        PacketDistributor.sendToPlayer((ServerPlayer) player,new SyncCultivationSuppressed(isSuppressed()));
     }
 
 
@@ -410,6 +412,7 @@ public class GenericEntityData implements IEntityData {
         }
         tag.put("suppressed_values",suppressorTag);
         tag.putDouble("qi",entityQiContainer.getCurrentQi());
+        tag.putBoolean("cultivation_suppressed",isSuppressed());
         //path data, make sure to also hold the path
     }
 
@@ -771,6 +774,16 @@ public class GenericEntityData implements IEntityData {
             if(getPathData(path).isCultivating()) return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isSuppressed() {
+        return suppressed;
+    }
+
+    @Override
+    public void setSuppressed(boolean state) {
+        suppressed = state;
     }
 
     @Override

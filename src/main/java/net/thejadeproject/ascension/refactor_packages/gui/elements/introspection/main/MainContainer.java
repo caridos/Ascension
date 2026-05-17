@@ -47,7 +47,8 @@ public class MainContainer extends RenderableElement {
         physiqueOpenButton.getPositioning().setX(112);
         physiqueOpenButton.getPositioning().setY(18);
         addChild(physiqueOpenButton);
-
+        ToggleSuppressed btn = new ToggleSuppressed(frame, 216,5);
+        addChild(btn);
 //        BloodlineOpenButton bloodlineOpenButton = new BloodlineOpenButton(frame);
 //        bloodlineOpenButton.getPositioning().setX(112);
 //        bloodlineOpenButton.getPositioning().setY(35);

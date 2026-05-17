@@ -48,9 +48,10 @@ public class FoundationPathData extends SimplePathData {
         currentFoundation = new RealmFoundation(getPath(),getMajorRealm());
         currentFoundation.decode(buf);
 
-        buf.writeInt(foundations.size());
-        for(RealmFoundation foundation : foundations){
-            foundation.encode(buf);
+        int size =  buf.readInt();
+        for(int i = 0; i < size ; i++){
+            foundations.add(new RealmFoundation(getPath(),i));
+            foundations.getLast().decode(buf);
         }
     }
 

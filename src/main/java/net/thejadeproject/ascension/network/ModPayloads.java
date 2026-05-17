@@ -5,6 +5,7 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.thejadeproject.ascension.AscensionCraft;
 
 import net.thejadeproject.ascension.network.serverBound.ToggleTabletDropModePayload;
+import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.SyncCultivationSuppressed;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.bloodline.SyncBloodline;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.qi.SyncQi;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.herb_pouch.SyncHerbPouchPayload;
@@ -17,6 +18,7 @@ import net.thejadeproject.ascension.refactor_packages.network.client_bound.entit
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.path_data.SyncPathData;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.physique.SyncPhysique;
 import net.thejadeproject.ascension.refactor_packages.network.client_bound.entity_data.techniques.ShowMergePromptPayload;
+import net.thejadeproject.ascension.refactor_packages.network.server_bound.ToggleSuppressedPacket;
 import net.thejadeproject.ascension.refactor_packages.network.server_bound.herb_pouch.ExtractHerbFromPouchPayload;
 import net.thejadeproject.ascension.refactor_packages.network.server_bound.herb_pouch.InsertCarriedHerbIntoPouchPayload;
 import net.thejadeproject.ascension.refactor_packages.network.server_bound.supressors.UpdateSuppressionValue;
@@ -46,6 +48,7 @@ public class ModPayloads {
                 SyncQi.STREAM_CODEC,
                 SyncQi::handlePayload
         );
+
         registrar.playToClient(
                 SyncEntityForm.TYPE,
                 SyncEntityForm.STREAM_CODEC,
@@ -121,6 +124,11 @@ public class ModPayloads {
                 SyncHerbPouchPayload.STREAM_CODEC,
                 SyncHerbPouchPayload::handlePayload
         );
+        registrar.playToClient(
+                SyncCultivationSuppressed.TYPE,
+                SyncCultivationSuppressed.STREAM_CODEC,
+                SyncCultivationSuppressed::handlePayload
+        );
 
         //===================================== SERVER ==================================
 
@@ -148,7 +156,11 @@ public class ModPayloads {
                 ClearSlot::handlePayload
         );
 
-
+        registrar.playToServer(
+                ToggleSuppressedPacket.TYPE,
+                ToggleSuppressedPacket.STREAM_CODEC,
+                ToggleSuppressedPacket::handlePayload
+        );
         registrar.playToServer(
                 ChangePlayerInputState.TYPE,
                 ChangePlayerInputState.STREAM_CODEC,

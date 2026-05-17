@@ -24,11 +24,11 @@ public class RealmChangeHandlers {
             // -bonus if we decrease our realm
             StatSheet sheet = data.entityData().getEntityFormData(ModForms.MORTAL_VESSEL.get()).getStatSheet();
             if(data.type() == RealmChangeType.GAINED) {
-                System.out.println("added "+bonus + " "+stat.getShortName());
+
                 sheet.addStat(stat, bonus);
             }
             else {
-                System.out.println("removed "+bonus + " "+stat.getShortName());
+
                 sheet.removeStat(stat, bonus);
             };
         };

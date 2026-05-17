@@ -35,6 +35,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.castable.ICastableS
 import net.thejadeproject.ascension.refactor_packages.skills.castable.IPreCastData;
 import net.thejadeproject.ascension.refactor_packages.techniques.ITechnique;
 import net.thejadeproject.ascension.refactor_packages.techniques.custom.essence.ElementalEssenceTechnique;
+import net.thejadeproject.ascension.refactor_packages.util.CultivationUtil;
 
 import java.util.List;
 
@@ -73,82 +74,11 @@ public abstract class ElementalEssenceCultivationSkill implements ICastableSkill
 //        }
 
         if (!caster.level().isClientSide()) {
-            IEntityData entityData = caster.getData(ModAttachments.ENTITY_DATA);
-            IPathData pathData = entityData.getPathData(ESSENCE_PATH);
 
-            if (pathData == null) return false;
-            if (pathData.isBreakingThrough()) return false;
-            if (pathData.getCurrentTechniqueId() == null) return false;
+            CultivationUtil.tryCultivate(caster,ESSENCE_PATH,List.of(getElementPath()),STANDARD_ESSENCE_RATE
+                    * getEnvironmentMultiplier(caster));
 
-            ITechnique rawTechnique = pathData.getCurrentTechnique();
 
-            if (!getTechniqueClass().isInstance(rawTechnique)) {
-                return false;
-            }
-
-            ElementalEssenceTechnique technique = getTechniqueClass().cast(rawTechnique);
-
-            double essenceBonus = Math.max(
-                    1.0D,
-                    entityData.getPathBonusHandler().getPathBonus(ESSENCE_PATH)
-            );
-
-            double elementBonus = Math.max(
-                    1.0D,
-                    entityData.getPathBonusHandler().getPathBonus(getElementPath())
-            );
-
-            double base = STANDARD_ESSENCE_RATE
-                    * getEnvironmentMultiplier(caster)
-                    * essenceBonus
-                    * elementBonus;
-
-            CultivateEvent event = new CultivateEvent(
-                    caster,
-                    base,
-                    ESSENCE_PATH,
-                    List.of(getElementPath())
-            );
-
-            NeoForge.EVENT_BUS.post(event);
-
-            double maxQi = technique.getMaxQiForRealm(
-                    pathData.getMajorRealm(),
-                    pathData.getMinorRealm()
-            );
-
-            if (pathData.getCurrentRealmProgress() + event.getRate() >= maxQi) {
-                pathData.setCurrentRealmProgress(maxQi);
-
-                if (
-                        pathData.getMinorRealm() < technique.getMaxMinorRealm(pathData.getMajorRealm())
-                                && technique.canBreakthroughMinorRealm(
-                                entityData,
-                                pathData.getMajorRealm(),
-                                pathData.getMinorRealm(),
-                                pathData.getCurrentRealmProgress()
-                        )
-                ) {
-                    pathData.handleRealmChange(
-                            pathData.getMajorRealm(),
-                            pathData.getMinorRealm() + 1,
-                            entityData
-                    );
-                } else if (
-                        pathData.getMajorRealm() < technique.getMaxMajorRealm()
-                                && technique.getStabilityHandler() != null
-                ) {
-                    pathData.handleRealmChange(pathData.getMajorRealm()+1,0,entityData);
-                }
-            } else {
-                pathData.setCurrentRealmProgress(
-                        pathData.getCurrentRealmProgress() + event.getRate()
-                );
-            }
-
-            if (caster instanceof Player player) {
-                pathData.sync(player);
-            }
         }
 
         return caster.getData(ModAttachments.INPUT_STATES).isHeld("skill_cast");
