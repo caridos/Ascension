@@ -149,7 +149,7 @@ public class ModItems {
 
     //Swords
     public static final DeferredItem<SwordItem> CULTIVATORS_SWORD_IRON = ITEMS.register("cultivators_sword_iron",
-            () -> new SwordItem(Tiers.IRON, new Item.Properties().durability(675).attributes(SwordItem.createAttributes((Tier) Tiers.IRON, 2, (float) -2))));
+            () -> new SwordItem(Tiers.IRON, new Item.Properties().durability(675).attributes(SwordItem.createAttributes((Tier) Tiers.IRON, 2.4f, (float) -2))));
 
 
 
