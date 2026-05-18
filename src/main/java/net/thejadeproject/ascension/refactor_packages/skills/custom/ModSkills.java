@@ -26,6 +26,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.essence.BloodfeastBanquetSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.poison.PoisonRefiningMeditationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.soul.*;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.weapon.FistCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.weapon.SwordCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.body.WhiteLightningCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.elemental.*;
@@ -261,6 +262,12 @@ public class ModSkills {
                     ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "sword_cultivation_skill")
             ));
 
+    public static final DeferredHolder<ISkill, FistCultivationSkill> FIST_CULTIVATION_SKILL =
+            SKILLS.register("fist_cultivation_skill", () -> new FistCultivationSkill(
+                    "ascension.skill.fist_cultivation_skill", "ascension.skill.fist_cultivation_skill.description",
+                    ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "fist_cultivation_skill")
+            ));
+
     // Passives TODO: Give different weapons different damage multi
     public static final DeferredHolder<ISkill, ? extends SwordMasterySkill> SWORD_MASTERY_SKILL =
             SKILLS.register("sword_mastery_skill", SwordMasterySkill::new);
@@ -276,6 +283,8 @@ public class ModSkills {
             SKILLS.register("bow_mastery_skill", BowMasterySkill::new);
     public static final DeferredHolder<ISkill, ? extends BladeMasterySkill> BLADE_MASTERY_SKILL =
             SKILLS.register("blade_mastery_skill", BladeMasterySkill::new);
+    public static final DeferredHolder<ISkill, ? extends FistMasterySkill> FIST_MASTERY_SKILL =
+            SKILLS.register("fist_mastery_skill", FistMasterySkill::new);
 
     //SLASH SKILLS
     public static final DeferredHolder<ISkill, ? extends SwordProjectionSkill> SWORD_PROJECTIONS =

@@ -45,6 +45,7 @@ public class ModTags {
         public static final TagKey<Item> BLADE = createTag("blade");
         public static final TagKey<Item> SPEAR = createTag("spear");
         public static final TagKey<Item> SPEAR_ENCHANTABLE = createTag("spear_enchantable");
+        public static final TagKey<Item> FIST = createTag("fist");
 
 
         public static final TagKey<Item> FLAMES = createTag("flames");
