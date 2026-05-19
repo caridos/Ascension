@@ -524,6 +524,12 @@ public class lang extends LanguageProvider {
         add("ascension.technique.zenith_sun_scripture", "Zenith Sun Scripture");
         add("ascension.technique.zenith_sun_scripture.description.short", "A stronger solar soul scripture attuned to the sun at its zenith.");
         add("ascension.technique.zenith_sun_scripture.description", "Cultivates the Soul by drawing upon the blazing power of the sun at its peak. Must be practised under open sky. Greatly empowered when gazing directly at the sun. Harmful beneath moonlit night skies.");
+        add("ascension.technique.soul_forged_weapon_manual", "Soul Forged Weapon Manual");
+        add("ascension.technique.soul_forged_weapon_manual.description.short", "Binds a weapon into the cultivator's soul.");
+        add("ascension.technique.soul_forged_weapon_manual.description", "A hybrid soul and weapon technique that tempers a bound weapon through battle and soul cultivation.");
+        add("ascension.technique.fist_comprehension_technique", "Fist Comprehension Technique");
+        add("ascension.technique.fist_comprehension_technique.description.short", "Cultivates the Fist Path through unarmed combat.");
+        add("ascension.technique.fist_comprehension_technique.description", "A foundational unarmed scripture. By circulating Qi through the knuckles and joints, flesh and bone become as dense and lethal as forged steel.");
 
 
         // Multi Part Technique Items
@@ -598,6 +604,8 @@ public class lang extends LanguageProvider {
                         A thousand swings awaken intent.
                         Ten thousand swings… heaven yields to the sword.
                         """);
+        add("ascension.skill.fist_cultivation_skill", "Fist Comprehension");
+        add("ascension.skill.fist_cultivation_skill.description", "To fight without a weapon is to make a weapon of oneself. Every strike refines your martial intent, turning bare flesh into an unstoppable force.");
         add("ascension.skill.axe_mastery_skill", "Axe Mastery");
         add("ascension.skill.axe_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Axe.");
         add("ascension.skill.blade_mastery_skill", "Blade Mastery");
@@ -612,6 +620,8 @@ public class lang extends LanguageProvider {
         add("ascension.skill.sword_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Sword.");
         add("ascension.skill.trident_mastery_skill", "Trident Mastery");
         add("ascension.skill.trident_mastery_skill.description", "As your worldview and realm increase, so to does your command over the Trident.");
+        add("ascension.skill.fist_mastery_skill", "Fist Mastery");
+        add("ascension.skill.fist_mastery.description_skill", "As your worldview and realm increase, so to does your command over the Fist.");
         add("ascension.skill.pale_moon_cultivation_skill", "Pale Moon Cultivation");
         add("ascension.skill.pale_moon_cultivation_skill.description", "Cultivates the Soul by drawing upon pale lunar essence. Must be practised under open sky. Stronger when gazing directly at the moon. Harmful beneath direct sunlight.");
         add("ascension.skill.pale_moon_cultivation_skill.blocked_indoors", "You cannot cultivate the Pale Moon Scripture indoors.");
@@ -638,6 +648,18 @@ public class lang extends LanguageProvider {
         add("ascension.skill.gale_step.description", "Surges forward on wind qi, pushing nearby enemies aside and softening your fall.");
         add("ascension.skill.stone_root", "Stone Root");
         add("ascension.skill.stone_root.description", "While grounded and still, roots your body like stone and grants brief resistance.");
+        add("ascension.skill.soul_forge", "Soul Forge");
+        add("ascension.skill.soul_forge.description", "Bind a weapon into your soul, then summon or dismiss it.");
+        add("ascension.skill.soul_forge.no_weapon", "No suitable weapon to bind.");
+        add("ascension.skill.soul_forge.bound", "Bound %s to your soul.");
+        add("ascension.skill.soul_forge.weapon_unbound", "Your soul weapon fades as the Soul Forge art leaves you.");
+        add("ascension.skill.soul_forge.summoned", "Your soul weapon awakens.");
+        add("ascension.skill.soul_forge.unsummoned", "Your soul weapon returns to your soul.");
+        add("ascension.skill.soul_forge.returned_from_container", "Your soul weapon refuses to be stored away.");
+        add("ascension.skill.soul_forge.status.unbound", "No soul weapon is bound.");
+        add("ascension.skill.soul_forge.status.bound", "Soul Weapon: %s | Grade: %s | Tempering: %s / %s | Summoned: %s");
+        add("ascension.skill.simple_soul_cultivation_skill", "Basic Soul Cultivation");
+        add("ascension.skill.simple_soul_cultivation_skill.description", "A basic soul cultivation method. Quiet the body, steady the spirit, and draw soul essence into your foundation.");
 
         // Body cultivation — T1
         add("ascension.skill.body_cultivation_fire", "§6Fire Body Tempering");
@@ -830,6 +852,14 @@ public class lang extends LanguageProvider {
         add("item.ascension.cultivators_sword_iron", "Iron Cultivators Sword");
 
 
+        add("item.ascension.soulbound_weapon", "Soulbound Weapon");
+        add("item.ascension.soulbound_weapon.typed", "Soulbound %s");
+        add("item.ascension.soulbound_weapon.tooltip", "A weapon forged from the cultivator's soul.");
+        add("item.ascension.soulbound_weapon.type", "Form: %s");
+        add("item.ascension.soulbound_weapon.currentGrade", "Soul Grade: %s");
+        add("item.ascension.soulbound_weapon.grade_advanced", "Your soul weapon has advanced to Grade %s");
+        add("item.ascension.soulbound_weapon.tempering", "Tempering: %s / %s");
+        add("item.ascension.soulbound_weapon.damage", "Soul Weapon Power: %s");
 
 
         add("item.ascension.wooden_spear", "Wooden Spear");

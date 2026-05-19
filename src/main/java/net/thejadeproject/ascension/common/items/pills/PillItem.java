@@ -57,8 +57,14 @@ public class PillItem extends Item {
             return InteractionResultHolder.consume(stack);
         }
     }
-    @Override public UseAnim getUseAnimation(ItemStack stack) { return UseAnim.EAT; }
-    @Override public int getUseDuration(ItemStack stack, LivingEntity e) {
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.EAT;
+    }
+
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity e) {
         return 32;
     }
 
@@ -67,59 +73,59 @@ public class PillItem extends Item {
         ItemStack result = super.finishUsingItem(stack, level, livingEntity);
         if (level.isClientSide() || !(livingEntity instanceof Player player)) return result;
 
-        double purityScale      = PillEffectUtil.getPurityScale(stack);
-        double realmMultiplier  = PillEffectUtil.getRealmMultiplier(stack);
+        double purityScale = PillEffectUtil.getPurityScale(stack);
+        double realmMultiplier = PillEffectUtil.getRealmMultiplier(stack);
 
         List<IPillEffect> effects = PillEffectUtil.getPillEffects(stack);
-        boolean shouldConsume=true;
         boolean shouldGoOnCooldown = false;
-        for(IPillEffect effect : effects){
-            if(!effect.tryConsume(livingEntity,stack,purityScale,realmMultiplier)) shouldConsume = false;
-            if(effect.shouldGoOnCooldown()) shouldGoOnCooldown = true;
+
+        for (IPillEffect effect : effects) {
+            effect.tryConsume(livingEntity, stack, purityScale, realmMultiplier);
+            if (effect.shouldGoOnCooldown()) {
+                shouldGoOnCooldown = true;
+            }
         }
 
-        if (!player.getAbilities().instabuild) stack.shrink(1);
-        if(shouldConsume && !player.getAbilities().instabuild)  stack.shrink(1);
-        if(shouldGoOnCooldown) player.getCooldowns().addCooldown(this, cooldown);
+        if (shouldGoOnCooldown) {
+            player.getCooldowns().addCooldown(this, cooldown);
+        }
+
         return result;
     }
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext ctx,
                                 List<Component> list, TooltipFlag flag) {
         super.appendHoverText(stack, ctx, list, flag);
 
         Integer majorRealm = stack.get(ModDataComponents.PILL_MAJOR_REALM.get());
-        Integer purity     = stack.get(ModDataComponents.PILL_PURITY.get());
+        Integer grade      = stack.get(ModDataComponents.PILL_PURITY.get());
         List<IPillEffect> pillEffects = PillEffectUtil.getPillEffects(stack);
-        String  bonus      = stack.get(ModDataComponents.PILL_BONUS_EFFECT.get());
 
-        if (majorRealm == null && purity == null) {
+        if (majorRealm == null && grade == null) {
             list.add(Component.literal("Unrefined")
                     .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
-
         }
 
-        // ── Realm line ────────────────────────────────────────────
-        if (majorRealm != null && purity != null) {
+        // ── Realm line ────────────────────────────────────────────────
+        if (majorRealm != null && grade != null) {
             list.add(Component.literal("Pill Realm: ")
                     .withStyle(ChatFormatting.GOLD)
                     .append(Component.literal(
                                     majorRealm + " — " + PillRealmData.getMajorRealmName(majorRealm))
                             .withStyle(ChatFormatting.WHITE)));
-            String gradeName = PillRealmData.getPurityGrade(purity);
-            ChatFormatting gradeColor = PillRealmData.getPurityGradeColor(purity);
+
+            String gradeName  = PillRealmData.getPurityGradeName(grade);
+            ChatFormatting gradeColor = PillRealmData.getPurityGradeColor(grade);
             list.add(Component.literal("Purity: ")
                     .withStyle(ChatFormatting.YELLOW)
                     .append(Component.literal(gradeName).withStyle(gradeColor)));
         }
 
-
         list.add(Component.literal("✦ Effects: ")
                 .withStyle(ChatFormatting.AQUA));
-        for(IPillEffect effect : pillEffects){
+        for (IPillEffect effect : pillEffects) {
             list.add(effect.getName());
         }
-
     }
-
 }

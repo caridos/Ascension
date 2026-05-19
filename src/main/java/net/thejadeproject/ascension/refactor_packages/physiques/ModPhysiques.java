@@ -30,11 +30,11 @@ public class ModPhysiques {
         Physiques Tiers: Not Strict, just like a loose categorization subject to change.
         T5 = Bonuses of 5.0 = 0 Physiques
         T4 = Bonuses between 3.5 and 4.0 = 0 Physiques
-        T3 = Bonuses between 2.5 and 3.0 = 7 Physiques
+        T3 = Bonuses between 2.5 and 3.0 = 8 Physiques
         T2 = Bonuses between 1.25 and 2.0 = 31 Physiques
         T1 = Bonuses between 0.5 and 1.25 = 18 Physiques
         T0 = Bonuses of 0.0 essentially = 5 Physiques
-        61 Total Physiques (Excluding Flip's Combos)
+        62 Total Physiques
 
      */
 

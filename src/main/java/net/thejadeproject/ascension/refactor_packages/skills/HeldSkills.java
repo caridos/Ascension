@@ -80,8 +80,9 @@ public class HeldSkills {
     public boolean hasSkill(ResourceLocation skillKey){
         return skills.containsKey(skillKey);
     }
-    public Collection<HeldSkill> getSkills(){
-        return skills.values();
+
+    public Collection<HeldSkill> getSkills() {
+        return new ArrayList<>(skills.values());
     }
 
     private void clearBuffers(){
@@ -119,17 +120,15 @@ public class HeldSkills {
         }
         return heldSkills;
     }
-    public static void encodeFull(RegistryFriendlyByteBuf buf,HeldSkills heldSkills){
 
-        buf.writeInt(heldSkills.skills.size());
+    public static void encodeFull(RegistryFriendlyByteBuf buf, HeldSkills heldSkills) {
+        Collection<HeldSkill> snapshot = heldSkills.getSkills();
 
-        for(HeldSkill skill : heldSkills.skills.values()){
+        buf.writeInt(snapshot.size());
 
+        for (HeldSkill skill : snapshot) {
             skill.encode(buf);
-
         }
-
-
     }
 
 

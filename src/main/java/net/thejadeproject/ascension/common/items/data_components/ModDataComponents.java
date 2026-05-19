@@ -210,8 +210,8 @@ public class ModDataComponents {
                     .build()
     );
 
-    public static final Supplier<DataComponentType<Long>> HERB_AGE_TICKS = DATA_COMPONENTS.register(
-            "herb_age_ticks",
+    public static final Supplier<DataComponentType<Long>> HERB_AGE_TIER = DATA_COMPONENTS.register(
+            "herb_age_tier",
             () -> DataComponentType.<Long>builder()
                     .persistent(Codec.LONG)
                     .networkSynchronized(ByteBufCodecs.VAR_LONG)
