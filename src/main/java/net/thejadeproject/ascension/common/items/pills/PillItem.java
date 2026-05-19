@@ -80,8 +80,7 @@ public class PillItem extends Item {
         boolean shouldGoOnCooldown = false;
 
         for (IPillEffect effect : effects) {
-            if (!effect.tryConsume(livingEntity, stack, purityScale, realmMultiplier)) {
-            }
+            effect.tryConsume(livingEntity, stack, purityScale, realmMultiplier);
             if (effect.shouldGoOnCooldown()) {
                 shouldGoOnCooldown = true;
             }
@@ -100,23 +99,24 @@ public class PillItem extends Item {
         super.appendHoverText(stack, ctx, list, flag);
 
         Integer majorRealm = stack.get(ModDataComponents.PILL_MAJOR_REALM.get());
-        Integer purity = stack.get(ModDataComponents.PILL_PURITY.get());
+        Integer grade      = stack.get(ModDataComponents.PILL_PURITY.get());
         List<IPillEffect> pillEffects = PillEffectUtil.getPillEffects(stack);
 
-        if (majorRealm == null && purity == null) {
+        if (majorRealm == null && grade == null) {
             list.add(Component.literal("Unrefined")
                     .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
         }
 
-        // ── Realm line ────────────────────────────────────────────
-        if (majorRealm != null && purity != null) {
+        // ── Realm line ────────────────────────────────────────────────
+        if (majorRealm != null && grade != null) {
             list.add(Component.literal("Pill Realm: ")
                     .withStyle(ChatFormatting.GOLD)
                     .append(Component.literal(
                                     majorRealm + " — " + PillRealmData.getMajorRealmName(majorRealm))
                             .withStyle(ChatFormatting.WHITE)));
-            String gradeName = PillRealmData.getPurityGrade(purity);
-            ChatFormatting gradeColor = PillRealmData.getPurityGradeColor(purity);
+
+            String gradeName  = PillRealmData.getPurityGradeName(grade);
+            ChatFormatting gradeColor = PillRealmData.getPurityGradeColor(grade);
             list.add(Component.literal("Purity: ")
                     .withStyle(ChatFormatting.YELLOW)
                     .append(Component.literal(gradeName).withStyle(gradeColor)));
