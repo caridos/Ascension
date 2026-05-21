@@ -447,6 +447,16 @@ public class AscensionCraft {
                     makePageStack(AscensionCraft.MOD_ID + ":white_lightning_ten_stage_technique", 9),
                     1, 10, 0f
             ));
+            rareTrades.add((entity, randomSource) -> new MerchantOffer(
+                    new ItemCost(ModItems.SPIRITUAL_STONE.get(), 64),
+                    makePageStack(AscensionCraft.MOD_ID + ":soul_forged_weapon_manual", 2),
+                    1, 10, 0f
+            ));
+            rareTrades.add((entity, randomSource) -> new MerchantOffer(
+                    new ItemCost(ModItems.SPIRITUAL_STONE.get(), 64),
+                    makePageStack(AscensionCraft.MOD_ID + ":soul_forged_weapon_manual", 4),
+                    1, 10, 0f
+            ));
         }
 
         private static ItemStack makePageStack(String techniqueId, int pageIndex) {

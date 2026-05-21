@@ -35,6 +35,27 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 5
         ));
 
+        add("soul_forged_weapon_manual_ch1_from_bastion", new AddTechniquePageModifier(
+                new LootItemCondition[] {
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/bastion_treasure")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.05f).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_forged_weapon_manual"),
+                1
+        ));
+
+        add("soul_forged_weapon_manual_ch3_from_vindicator", new AddTechniquePageModifier(
+                new LootItemCondition[] {
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("entities/vindicator")).build(),
+                        LootItemKilledByPlayerCondition.killedByPlayer().build(),
+                        LootItemRandomChanceCondition.randomChance(0.03f).build(),
+                        MobRankLootCondition.between("formation_establishment", 1, "formation_establishment", 3).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_forged_weapon_manual"),
+                3
+        ));
+
+
         //Techniques
         add("basic_cultivation_technique_from_village", new AddTechniqueManualModifier(
                 new LootItemCondition[] {
@@ -431,6 +452,32 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                         LootItemRandomChanceCondition.randomChance(0.05f).build()
                 },
                 ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "zenith_sun_scripture")
+        ));
+
+        add("jade_spirit_scripture_from_allay", new AddTechniqueManualModifier(
+                new LootItemCondition[] {
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("entities/allay")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.04f).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "jade_spirit_scripture")
+        ));
+
+        add("open_sky_breathing_scripture_from_pillager_outpost", new AddTechniqueManualModifier(
+                new LootItemCondition[] {
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/pillager_outpost")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.05f).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "open_sky_breathing_scripture")
+        ));
+
+        add("open_sky_breathing_scripture_from_chicken", new AddTechniqueManualModifier(
+                new LootItemCondition[] {
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("entities/chicken")).build(),
+                        LootItemKilledByPlayerCondition.killedByPlayer().build(),
+                        LootItemRandomChanceCondition.randomChance(0.025f).build(),
+                        MobRankLootCondition.between("qi_gathering", 1, "qi_gathering", 3).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "open_sky_breathing_scripture")
         ));
 
         //Herbs

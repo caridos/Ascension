@@ -530,6 +530,12 @@ public class lang extends LanguageProvider {
         add("ascension.technique.fist_comprehension_technique", "Fist Comprehension Technique");
         add("ascension.technique.fist_comprehension_technique.description.short", "Cultivates the Fist Path through unarmed combat.");
         add("ascension.technique.fist_comprehension_technique.description", "A foundational unarmed scripture. By circulating Qi through the knuckles and joints, flesh and bone become as dense and lethal as forged steel.");
+        add("ascension.technique.open_sky_breathing_scripture", "Open Sky Breathing Scripture");
+        add("ascension.technique.open_sky_breathing_scripture.description.short", "An Essence technique that cultivates beneath the open sky.");
+        add("ascension.technique.open_sky_breathing_scripture.description", "A simple Essence scripture that draws qi from the vast heavens. It cultivates faster than basic methods, but only works when the cultivator can see the open sky.");
+        add("ascension.technique.jade_spirit_scripture", "Jade Spirit Scripture");
+        add("ascension.technique.jade_spirit_scripture.description.short", "An elementary Soul technique focused on clarity and steady refinement.");
+        add("ascension.technique.jade_spirit_scripture.description", "An elementary Soul scripture that tempers the spirit like polished jade, offering stable cultivation without any special conditions.");
 
 
         // Multi Part Technique Items
@@ -661,6 +667,8 @@ public class lang extends LanguageProvider {
         add("ascension.skill.soul_forge.no_soul_path", "You need the Soul path to use Soul Forge.");
         add("ascension.skill.simple_soul_cultivation_skill", "Basic Soul Cultivation");
         add("ascension.skill.simple_soul_cultivation_skill.description", "A basic soul cultivation method. Quiet the body, steady the spirit, and draw soul essence into your foundation.");
+        add("ascension.skill.open_sky_breathing_skill", "Open Sky Breathing");
+        add("ascension.skill.open_sky_breathing_skill.description", "Cultivate Essence by drawing qi from the vast sky. This skill only works when the cultivator can see the open sky.");
 
         // Body cultivation — T1
         add("ascension.skill.body_cultivation_fire", "§6Fire Body Tempering");
@@ -1037,6 +1045,11 @@ public class lang extends LanguageProvider {
         add("ascension.chapter.white_lightning_ten_stage_technique.8", "Stage 8: Thunderclap Vessel");
         add("ascension.chapter.white_lightning_ten_stage_technique.9", "Stage 9: Heaven's Wrath");
         add("ascension.chapter.white_lightning_ten_stage_technique.10", "Stage 10: The Fist King's Rebirth");
+
+        add("ascension.chapter.soul_forged_weapon_manual.1", "Binding the Soul Steel");
+        add("ascension.chapter.soul_forged_weapon_manual.2", "Tempering Through Slaughter");
+        add("ascension.chapter.soul_forged_weapon_manual.3", "The Hundred Forged Marks");
+        add("ascension.chapter.soul_forged_weapon_manual.4", "Manifestation of the Soul Armament");
 
 
         //Tooltips

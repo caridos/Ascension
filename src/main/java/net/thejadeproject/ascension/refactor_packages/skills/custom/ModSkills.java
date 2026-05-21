@@ -25,6 +25,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.active.utili
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.GenericCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.body.MarrowFurnaceCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.essence.BloodfeastBanquetSkill;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.essence.OpenSkyBreathingCultivationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.poison.PoisonRefiningMeditationSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.soul.*;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.cultivation.weapon.FistCultivationSkill;
@@ -95,6 +96,10 @@ public class ModSkills {
 
     public static final DeferredHolder<ISkill,? extends FiveElementCirculation> FIVE_ELEMENT_CIRCULATION =
             SKILLS.register("five_element_circulation", FiveElementCirculation::new);
+
+    public static final DeferredHolder<ISkill, ? extends OpenSkyBreathingCultivationSkill> OPEN_SKY_BREATHING_SKILL =
+            SKILLS.register("open_sky_breathing_skill", OpenSkyBreathingCultivationSkill::new);
+
     // Passives
 
     // Actives
