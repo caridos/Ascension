@@ -455,6 +455,15 @@ public class lang extends LanguageProvider {
         add("ascension.bloodline.awakened_beast_bloodline", "Awakened Beast Bloodline");
         add("ascension.bloodline.awakened_beast_bloodline.short", "A bloodline awakened beyond mortality.");
         add("ascension.bloodline.awakened_beast_bloodline.desc", "An evolved beast lineage overflowing with ancient ferocity.");
+        add("ascension.bloodline.dragon_bloodline", "Dragon Bloodline");
+        add("ascension.bloodline.dragon_bloodline.short", "A powerful ancient lineage.");
+        add("ascension.bloodline.dragon_bloodline.desc", "A rare bloodline carrying traces of draconian ancestry.");
+        add("ascension.bloodline.astral_bloodline", "Astral Bloodline");
+        add("ascension.bloodline.astral_bloodline.short", "A bloodline touched by the stars.");
+        add("ascension.bloodline.astral_bloodline.desc", "A mysterious lineage said to resonate with the heavens above.");
+        add("ascension.bloodline.raven_bloodline", "Raven Bloodline");
+        add("ascension.bloodline.raven_bloodline.short", "A dark and elusive lineage.");
+        add("ascension.bloodline.raven_bloodline.desc", "A silent bloodline associated with shadows, cunning, and night.");
 
 
         //Techniques

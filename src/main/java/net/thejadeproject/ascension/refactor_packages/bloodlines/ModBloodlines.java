@@ -23,6 +23,9 @@ public class ModBloodlines {
     private static final ResourceLocation PHOENIX_KEY = rl("phoenix_bloodline");
     private static final ResourceLocation BEAST_KEY = rl("beast_bloodline");
     private static final ResourceLocation AWAKENED_BEAST_KEY = rl("awakened_beast_bloodline");
+    private static final ResourceLocation DRAGON_KEY = rl("dragon_bloodline");
+    private static final ResourceLocation ASTRAL_KEY = rl("astral_bloodline");
+    private static final ResourceLocation RAVEN_KEY = rl("raven_bloodline");
 
     // ── Evolution target ResourceLocations ───────────────────────────────────
     // Defined as plain fields so they can be referenced before the DeferredHolder is constructed.
@@ -139,6 +142,36 @@ public class ModBloodlines {
                             .addFlatAttribute(Attributes.ARMOR,            6,    AWAKENED_BEAST_KEY)
                             .addFlatAttribute(Attributes.ARMOR_TOUGHNESS,  2,    AWAKENED_BEAST_KEY)
                             .addSuppressionTier(3)
+            );
+
+    // a few generic bloodlines cause the creative tab was looking a little sparce? Change them as you wish - sortofSmart
+
+    public static final DeferredHolder<IBloodline, GenericBloodline> DRAGON_BLOODLINE =
+            BLOODLINES.register("dragon_bloodline", () ->
+                    new GenericBloodline(Component.translatable("ascension.bloodline.dragon_bloodline"))
+                            .setShortDescription(Component.translatable("ascension.bloodline.dragon_bloodline.short"))
+                            .setDescription(Component.translatable("ascension.bloodline.dragon_bloodline.desc"))
+                            .addFlatAttribute(Attributes.MAX_HEALTH, 30, DRAGON_KEY)
+                            .addFlatAttribute(Attributes.ARMOR, 4, DRAGON_KEY)
+                            .addFlatAttribute(Attributes.ATTACK_DAMAGE,   3,    DRAGON_KEY)
+            );
+
+    public static final DeferredHolder<IBloodline, GenericBloodline> ASTRAL_BLOODLINE =
+            BLOODLINES.register("astral_bloodline", () ->
+                    new GenericBloodline(Component.translatable("ascension.bloodline.astral_bloodline"))
+                            .setShortDescription(Component.translatable("ascension.bloodline.astral_bloodline.short"))
+                            .setDescription(Component.translatable("ascension.bloodline.astral_bloodline.desc"))
+                            .addFlatAttribute(ModAttributes.MAX_QI, 150, ASTRAL_KEY)
+                            .addFlatAttribute(ModAttributes.QI_REGEN_RATE, 0.4, ASTRAL_KEY)
+            );
+
+    public static final DeferredHolder<IBloodline, GenericBloodline> RAVEN_BLOODLINE =
+            BLOODLINES.register("raven_bloodline", () ->
+                    new GenericBloodline(Component.translatable("ascension.bloodline.raven_bloodline"))
+                            .setShortDescription(Component.translatable("ascension.bloodline.raven_bloodline.short"))
+                            .setDescription(Component.translatable("ascension.bloodline.raven_bloodline.desc"))
+                            .addFlatAttribute(Attributes.MOVEMENT_SPEED, 0.035, RAVEN_KEY)
+                            .addFlatAttribute(Attributes.ATTACK_SPEED, 0.25, RAVEN_KEY)
             );
 
 
