@@ -11,6 +11,10 @@ public class lang extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        //Mob Cultivation
+        add("message.ascension.elite_mob_spawn", "A powerful %s [%s Stage %s] stirs nearby...");
+
+
 
         // Paths
         add("ascension.path.essence", "Essence");

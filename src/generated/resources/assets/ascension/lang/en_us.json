@@ -1217,6 +1217,7 @@
   "key.ascension.open_spatial_ring": "Open Spatial Ring",
   "key.ascension.skill_wheel": "Skill Wheel",
   "key.ascension.toggle_artifact_mode": "Toggle Mode",
+  "message.ascension.elite_mob_spawn": "A powerful %s [%s Stage %s] stirs nearby...",
   "message.ascension.milk_denied": "§cMilk buckets are not drinkable in this mod. Use antidote pills instead!",
   "needle_effect.ascension.needle_blinded_senses": "Blinded Senses",
   "needle_effect.ascension.needle_corrosive_poison": "Corrosive Poison",
