@@ -73,7 +73,7 @@ public class FoundationPath extends GenericPath{
                         ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID,"foundation_stats")
                 ));
 
-        if(entityData.getAttachedEntity() instanceof ServerPlayer player){
+        if(entityData.getAttachedEntity() instanceof ServerPlayer player && player.connection != null){
 
             PacketDistributor.sendToPlayer(player,
                     new SyncAttributeHolder(entityData.getAscensionAttributeHolder()));
