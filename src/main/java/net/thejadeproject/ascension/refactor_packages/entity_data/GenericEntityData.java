@@ -608,6 +608,11 @@ public class GenericEntityData implements IEntityData {
                     removePath(path);
                 }
             }
+
+            Map<ResourceLocation,Double> bonus = physiqueInstance.pathBonuses();
+            for(ResourceLocation path : bonus.keySet()){
+                pathBonusHandler.removePathBonus(path,bonus.get(path));
+            }
         }
 
 
@@ -625,6 +630,10 @@ public class GenericEntityData implements IEntityData {
             }
         }
 
+        Map<ResourceLocation,Double> bonus = heldFormData.get(physiqueForm).getPhysique().pathBonuses();
+        for(ResourceLocation path : bonus.keySet()){
+            pathBonusHandler.addPathBonus(path,bonus.get(path));
+        }
         PhysiqueChangeEvent.Post event = new PhysiqueChangeEvent.Post(preEvent,heldFormData.get(physiqueForm).getPhysiqueData());
         //System.out.println("changed physique to : "+heldFormData.get(physiqueForm).getPhysique().getDisplayTitle().getString());
         NeoForge.EVENT_BUS.post(event);
