@@ -7,6 +7,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 
 import java.util.HashMap;
@@ -115,6 +116,10 @@ public class ToolTipHandler {
         if (ANIMATED_TOOLTIPS.containsKey(item)) {
             AnimatedTooltip animated = ANIMATED_TOOLTIPS.get(item);
             event.getToolTip().add(animated.getComponent());
+        }
+
+        if (event.getItemStack().is(ModItems.SOULBOUND_WEAPON.get())) {
+            SoulWeaponTooltip.addTooltip(event);
         }
     }
 }

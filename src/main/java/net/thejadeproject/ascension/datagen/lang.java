@@ -11,6 +11,10 @@ public class lang extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        //Mob Cultivation
+        add("message.ascension.elite_mob_spawn", "A powerful %s [%s Stage %s] stirs nearby...");
+
+
 
         // Paths
         add("ascension.path.essence", "Essence");
@@ -422,11 +426,11 @@ public class lang extends LanguageProvider {
         add("ascension.physiques.soul_crowned_king.desc", "You are the Peak of the Soul, Your Throne built on rivers of fallen Kings. Souls tremble before Your might.");
         add("ascension.message.physique.soul_crowned_king.acquired", "%s has become the %s. Tremble beneath their Throne!");
 
-
-
         // Physique Essence Tooltips
         add("ascension.physique_essence.tooltip.fuse", "Right-click to merge into a compatible physique");
         add("ascension.physique_essence.tooltip.replace", "Shift-right-click to replace physique entirely");
+        add("item.ascension.bloodline_essence", "Bloodline Essence");
+        add("ascension.bloodline_essence.tooltip.replace", "Shift right-click to replace your bloodline.");
 
         // Physique Evolution Messages
         add("ascension.message.physique_evolution.pacifist_mortal_reset", "You have failed to maintain a peaceful streak.");
@@ -440,6 +444,54 @@ public class lang extends LanguageProvider {
         add("ascension.message.physique_evolution.essence_bone_divine_marked", "Heavenly lightning brands your Essence Bone. Enter the Crimson Lotus Flame and begin the Divine ritual.");
         add("ascension.message.physique_evolution.essence_bone_pill_fuel", "Refinement fuel gathered: %s/%s minutes.");
         add("ascension.message.physique_evolution.yinyang_pending", "Your eyes stir. A breakthrough will complete the balance.");
+
+
+        // Bloodlines
+        add("ascension.bloodline.human_bloodline", "Human Bloodline");
+        add("ascension.bloodline.human_bloodline.short", "A normal bloodline.");
+        add("ascension.bloodline.human_bloodline.desc", "A standard human bloodline.");
+        add("ascension.bloodline.phoenix_bloodline", "Phoenix Bloodline");
+        add("ascension.bloodline.phoenix_bloodline.short", "A lineage touched by immortal flame.");
+        add("ascension.bloodline.phoenix_bloodline.desc", "A rare bloodline carrying traces of an ancient phoenix.");
+        add("ascension.bloodline.beast_bloodline", "Beast Bloodline");
+        add("ascension.bloodline.beast_bloodline.short", "A fierce and primal lineage.");
+        add("ascension.bloodline.beast_bloodline.desc", "A savage bloodline that grows stronger through conflict and survival.");
+        add("ascension.bloodline.awakened_beast_bloodline", "Awakened Beast Bloodline");
+        add("ascension.bloodline.awakened_beast_bloodline.short", "A bloodline awakened beyond mortality.");
+        add("ascension.bloodline.awakened_beast_bloodline.desc", "An evolved beast lineage overflowing with ancient ferocity.");
+        add("ascension.bloodline.dragon_bloodline", "Dragon Bloodline");
+        add("ascension.bloodline.dragon_bloodline.short", "A powerful ancient lineage.");
+        add("ascension.bloodline.dragon_bloodline.desc", "A rare bloodline carrying traces of draconian ancestry.");
+        add("ascension.bloodline.astral_bloodline", "Astral Bloodline");
+        add("ascension.bloodline.astral_bloodline.short", "A bloodline touched by the stars.");
+        add("ascension.bloodline.astral_bloodline.desc", "A mysterious lineage said to resonate with the heavens above.");
+        add("ascension.bloodline.raven_bloodline", "Raven Bloodline");
+        add("ascension.bloodline.raven_bloodline.short", "A dark and elusive lineage.");
+        add("ascension.bloodline.raven_bloodline.desc", "A silent bloodline associated with shadows, cunning, and night.");
+        add("ascension.bloodline.nine_tailed_fox_bloodline", "Nine Tailed Fox Bloodline");
+        add("ascension.bloodline.nine_tailed_fox_bloodline.short", "A graceful and mystical lineage, surrounded by illusions and charm.");
+        add("ascension.bloodline.nine_tailed_fox_bloodline.desc", "A legendary bloodline said to descend from the mythical nine tailed foxes, beings known for their elegance, cunning, and overwhelming spiritual charm. They are masters of the Soul, bewitching all in their illusions and tricks.");
+        add("ascension.bloodline.tiger_bloodline", "Tiger Bloodline");
+        add("ascension.bloodline.tiger_bloodline.short", "A fierce and direct lineage.");
+        add("ascension.bloodline.tiger_bloodline.desc", "A bold bloodline carrying the presence of a mountain predator.");
+        add("ascension.bloodline.serpent_bloodline", "Serpent Bloodline");
+        add("ascension.bloodline.serpent_bloodline.short", "A quiet and patient lineage.");
+        add("ascension.bloodline.serpent_bloodline.desc", "A subtle bloodline known for silent movement and sudden strikes.");
+        add("ascension.bloodline.crane_bloodline", "Crane Bloodline");
+        add("ascension.bloodline.crane_bloodline.short", "A calm and elegant lineage.");
+        add("ascension.bloodline.crane_bloodline.desc", "A refined bloodline associated with balance, grace, and clear skies.");
+        add("ascension.bloodline.panda_bloodline", "Panda Bloodline");
+        add("ascension.bloodline.panda_bloodline.short", "A peaceful but enduring lineage.");
+        add("ascension.bloodline.panda_bloodline.desc", "A calm bloodline known for resilience, patience, and unexpected strength.");
+        add("ascension.bloodline.wrath_demon_bloodline", "Wrath Demon Bloodline");
+        add("ascension.bloodline.wrath_demon_bloodline.short", "A violent demonic kind.");
+        add("ascension.bloodline.wrath_demon_bloodline.desc", "A fierce evil consumed by endless rage and battle.");
+        add("ascension.bloodline.pride_demon_bloodline", "Pride Demon Bloodline");
+        add("ascension.bloodline.pride_demon_bloodline.short", "A lofty and domineering demonic kind.");
+        add("ascension.bloodline.pride_demon_bloodline.desc", "A powerful demonic bloodline that refuses to bow before others.");
+        add("ascension.bloodline.greed_demon_bloodline", "Greed Demon Bloodline");
+        add("ascension.bloodline.greed_demon_bloodline.short", "A hungry and ambitious demonic kind.");
+        add("ascension.bloodline.greed_demon_bloodline.desc", "A demonic bloodline driven by endless desire and accumulation.");
 
 
 
@@ -530,6 +582,12 @@ public class lang extends LanguageProvider {
         add("ascension.technique.fist_comprehension_technique", "Fist Comprehension Technique");
         add("ascension.technique.fist_comprehension_technique.description.short", "Cultivates the Fist Path through unarmed combat.");
         add("ascension.technique.fist_comprehension_technique.description", "A foundational unarmed scripture. By circulating Qi through the knuckles and joints, flesh and bone become as dense and lethal as forged steel.");
+        add("ascension.technique.open_sky_breathing_scripture", "Open Sky Breathing Scripture");
+        add("ascension.technique.open_sky_breathing_scripture.description.short", "An Essence technique that cultivates beneath the open sky.");
+        add("ascension.technique.open_sky_breathing_scripture.description", "A simple Essence scripture that draws qi from the vast heavens. It cultivates faster than basic methods, but only works when the cultivator can see the open sky.");
+        add("ascension.technique.jade_spirit_scripture", "Jade Spirit Scripture");
+        add("ascension.technique.jade_spirit_scripture.description.short", "An elementary Soul technique focused on clarity and steady refinement.");
+        add("ascension.technique.jade_spirit_scripture.description", "An elementary Soul scripture that tempers the spirit like polished jade, offering stable cultivation without any special conditions.");
 
 
         // Multi Part Technique Items
@@ -658,8 +716,11 @@ public class lang extends LanguageProvider {
         add("ascension.skill.soul_forge.returned_from_container", "Your soul weapon refuses to be stored away.");
         add("ascension.skill.soul_forge.status.unbound", "No soul weapon is bound.");
         add("ascension.skill.soul_forge.status.bound", "Soul Weapon: %s | Grade: %s | Tempering: %s / %s | Summoned: %s");
+        add("ascension.skill.soul_forge.no_soul_path", "You need the Soul path to use Soul Forge.");
         add("ascension.skill.simple_soul_cultivation_skill", "Basic Soul Cultivation");
         add("ascension.skill.simple_soul_cultivation_skill.description", "A basic soul cultivation method. Quiet the body, steady the spirit, and draw soul essence into your foundation.");
+        add("ascension.skill.open_sky_breathing_skill", "Open Sky Breathing");
+        add("ascension.skill.open_sky_breathing_skill.description", "Cultivate Essence by drawing qi from the vast sky. This skill only works when the cultivator can see the open sky.");
 
         // Body cultivation — T1
         add("ascension.skill.body_cultivation_fire", "§6Fire Body Tempering");
@@ -1036,6 +1097,11 @@ public class lang extends LanguageProvider {
         add("ascension.chapter.white_lightning_ten_stage_technique.8", "Stage 8: Thunderclap Vessel");
         add("ascension.chapter.white_lightning_ten_stage_technique.9", "Stage 9: Heaven's Wrath");
         add("ascension.chapter.white_lightning_ten_stage_technique.10", "Stage 10: The Fist King's Rebirth");
+
+        add("ascension.chapter.soul_forged_weapon_manual.1", "Stage 1: Binding the Soul Steel");
+        add("ascension.chapter.soul_forged_weapon_manual.2", "Stage 2: Tempering Through Slaughter");
+        add("ascension.chapter.soul_forged_weapon_manual.3", "Stage 3: The Hundred Forged Marks");
+        add("ascension.chapter.soul_forged_weapon_manual.4", "Stage 4: Manifestation of the Soul Armament");
 
 
         //Tooltips

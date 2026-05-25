@@ -2,19 +2,11 @@ package net.thejadeproject.ascension.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MinecartItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.common.blocks.ModBlocks;
 import net.thejadeproject.ascension.common.items.ModItems;
@@ -139,16 +131,27 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
         tag(ModTags.Items.INGOTS_FROST_SILVER)
                 .add(ModItems.FROST_SILVER_INGOT.get());
-        tag(ModTags.Items.FROST_SILVER_RAW)
-                .add(ModItems.RAW_FROST_SILVER.get());
+
+        tag(ModTags.Items.FROST_SILVER_RAW).
+                add(ModItems.RAW_FROST_SILVER.get());
+
         tag(ModTags.Items.NUGGETS_FROST_SILVER)
                 .add(ModItems.FROST_SILVER_NUGGET.get());
 
-        tag(ModTags.Items.CURIOS_RING)
-                .add(ModItems.SPATIAL_RING.get());
+
+
+        tag(ModTags.Items.SOULFORGE_SWORDS).addTag(ItemTags.SWORDS);
+        tag(ModTags.Items.SOULFORGE_BLADES).addTag(ModTags.Items.BLADE);
+        tag(ModTags.Items.SOULFORGE_SPEARS).addTag(ModTags.Items.SPEAR);
+        tag(ModTags.Items.SOULFORGE_AXES).addTag(ItemTags.AXES);
+        tag(ModTags.Items.SOULFORGE_BOWS).addTag(ItemTags.BOW_ENCHANTABLE);
+        tag(ModTags.Items.SOULFORGE_TRIDENTS).add(Items.TRIDENT);
+        tag(ModTags.Items.SOULFORGE_MACES).add(Items.MACE);
+        tag(ModTags.Items.SOULFORGE_SHIELDS).add(Items.SHIELD);
 
 
 
+        tag(ModTags.Items.CURIOS_RING).add(ModItems.SPATIAL_RING.get());
 
     }
 }

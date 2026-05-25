@@ -128,6 +128,47 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         handheldItem(ModItems.FAN.get());
 
+        withExistingParent("soulbound_weapon", "item/handheld")
+                .texture("layer0", "ascension:item/soulbound_weapon")
+                .override()
+                .predicate(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_type"), 0.1F)
+                .model(new ModelFile.UncheckedModelFile("ascension:item/soulbound_weapon_sword"))
+                .end()
+                .override()
+                .predicate(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_type"), 0.2F)
+                .model(new ModelFile.UncheckedModelFile("ascension:item/soulbound_weapon_axe"))
+                .end()
+                .override()
+                .predicate(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_type"), 0.3F)
+                .model(new ModelFile.UncheckedModelFile("ascension:item/soulbound_weapon_blade"))
+                .end()
+                .override()
+                .predicate(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_type"), 0.4F)
+                .model(new ModelFile.UncheckedModelFile("ascension:item/soulbound_weapon_spear"))
+                .end()
+                .override()
+                .predicate(ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_type"), 0.7F)
+                .model(new ModelFile.UncheckedModelFile("ascension:item/soulbound_weapon_mace"))
+                .end();
+
+        withExistingParent("soulbound_weapon_sword", "item/handheld")
+                .texture("layer0", "ascension:item/soulbound_weapon_sword");
+
+        withExistingParent("soulbound_weapon_spear", "item/handheld")
+                .texture("layer0", "ascension:item/soulbound_weapon_spear");
+
+        withExistingParent("soulbound_weapon_axe", "item/handheld")
+                .texture("layer0", "ascension:item/soulbound_weapon_axe");
+
+
+        withExistingParent("soulbound_weapon_blade", "item/handheld")
+                .texture("layer0", "ascension:item/soulbound_weapon_blade");
+
+
+        withExistingParent("soulbound_weapon_mace", "item/handheld")
+                .texture("layer0", "ascension:item/soulbound_weapon_mace");
+
+
 
         //Items
         basicItem(ModItems.JADE.get());
