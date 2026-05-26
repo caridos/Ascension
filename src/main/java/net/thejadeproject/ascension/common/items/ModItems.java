@@ -270,6 +270,9 @@ public class ModItems {
     public static final DeferredItem<Item> SOUL_ANCHOR_TALISMAN = ITEMS.register("soul_anchor_talisman",
             () -> new SoulAnchorTalisman(new Item.Properties()));
 
+    public static final DeferredItem<Item> SOULBOUND_PACT_TALISMAN = ITEMS.register("soulbound_pact_talisman",
+            () -> new SoulboundPactTalisman(new Item.Properties()));
+
 
 
     public static final DeferredItem<Item> SPATIAL_RUPTURE_TALISMAN_T1 = ITEMS.register("spatial_rupture_talisman_t1",

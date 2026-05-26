@@ -84,6 +84,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         talisman(ModItems.SOUL_ANCHOR_TALISMAN.get());
 
+        talisman(ModItems.SOULBOUND_PACT_TALISMAN.get());
+
 
 
         talisman(ModItems.SPATIAL_RUPTURE_TALISMAN_T1.get());

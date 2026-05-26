@@ -1146,6 +1146,44 @@ public class lang extends LanguageProvider {
         add("item.ascension.void_marking_talisman.cooldown", "Void Marking Talisman §7(%dm %ds§7)");
         add("item.ascension.world_axis_talisman.cooldown", "World Axis Talisman §7(%dm %ds§7)");
 
+        // Soul Bound Pact
+        add("item.ascension.soulbound_pact_talisman", "Soulbound Pact Talisman");
+        add("item.ascension.soulbound_pact_talisman.permanent", "Soulbound Pact Talisman");
+        add("item.ascension.soulbound_pact_talisman.cooldown", "Soulbound Pact Talisman (%dm %ds)");
+
+        add("ascension.soulboundpact.tooltip.empty", "No souls linked.");
+        add("ascension.soulboundpact.tooltip.linked_header", "Linked Souls:");
+        add("ascension.soulboundpact.tooltip.qi_cost", "Qi Cost: %s");
+        add("ascension.soulboundpact.tooltip.hint_link", "Shift + Right-Click near a player to link.");
+        add("ascension.soulboundpact.tooltip.hint_scroll", "Shift + Ctrl + Scroll to select target.");
+
+        add("ascension.soulboundpact.linked", "Linked with %s.");
+        add("ascension.soulboundpact.already_linked", "%s is already linked.");
+        add("ascension.soulboundpact.link_full", "Cannot link more than %s players.");
+        add("ascension.soulboundpact.no_player_nearby", "No player within %s blocks.");
+
+        add("ascension.soulboundpact.on_cooldown", "Talisman recharging. (%ss remaining)");
+        add("ascension.soulboundpact.not_enough_qi", "Not enough Qi. Cost: %s.");
+
+        add("ascension.soulboundpact.no_linked_players", "No linked players.");
+
+        add("ascension.soulboundpact.request_sent", "Request sent to %s. Waiting %ss...");
+        add("ascension.soulboundpact.request_received", "%s wishes to teleport to you. (%ss to accept)");
+        add("ascension.soulboundpact.request_accept_hint", "Right-click your Soulbound Pact Talisman to accept.");
+        add("ascension.soulboundpact.accepted", "Accepted. %s will arrive shortly.");
+        add("ascension.soulboundpact.request_accepted", "%s accepted. Initiating teleport...");
+        add("ascension.soulboundpact.request_pending", "A request is already pending.");
+        add("ascension.soulboundpact.request_timed_out", "Teleport request timed out. Qi was consumed.");
+        add("ascension.soulboundpact.request_expired", "Request has expired.");
+        add("ascension.soulboundpact.requester_left", "The requester disconnected.");
+        add("ascension.soulboundpact.requester_no_item", "Requester no longer holds the talisman.");
+
+        add("ascension.soulboundpact.target_offline", "%s is not online.");
+        add("ascension.soulboundpact.target_offline_during_tp", "Target disconnected before teleport.");
+
+        add("ascension.soulboundpact.teleported", "Teleported to %s.");
+        add("ascension.soulboundpact.arrival_notice", "%s has arrived at your location.");
+
 
         // Soul Anchor Test
         add("item.ascension.soul_anchor_talisman", "Soul Anchor Talisman");
@@ -1548,6 +1586,7 @@ public class lang extends LanguageProvider {
         //Artifacts
         add("item.ascension.spatial_ring", "Spatial Ring");
         add("item.ascension.spirit_sealing_ring", "Spirit Sealing Ring");
+
 
         add("item.ascension.fire_gourd", "Gourd O Fire");
         add("item.ascension.spatial_rupture_talisman_t1", "Lesser Spatial Rupture Talisman");

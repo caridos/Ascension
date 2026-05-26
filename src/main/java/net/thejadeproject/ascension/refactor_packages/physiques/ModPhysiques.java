@@ -642,6 +642,8 @@ public class ModPhysiques {
                 new GenericPhysique(Component.translatable("ascension.physiques.titan_born"))
                         .addPath(ModPaths.BODY.getId())
                         .addPathBonus(ModPaths.BODY.getId(), 3.0)
+                        .addPath(ModPaths.FIST.getId())
+                        .addPathBonus(ModPaths.FIST.getId(), 2.0)
                         .setDescription(Component.translatable("ascension.physiques.titan_born.desc"))
                         .setShortDescription(Component.translatable("ascension.physiques.titan_born.desc.short"))
         );
