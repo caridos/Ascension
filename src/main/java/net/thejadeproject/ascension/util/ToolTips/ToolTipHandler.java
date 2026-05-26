@@ -117,9 +117,5 @@ public class ToolTipHandler {
             AnimatedTooltip animated = ANIMATED_TOOLTIPS.get(item);
             event.getToolTip().add(animated.getComponent());
         }
-
-        if (event.getItemStack().is(ModItems.SOULBOUND_WEAPON.get())) {
-            SoulWeaponTooltip.addTooltip(event);
-        }
     }
 }

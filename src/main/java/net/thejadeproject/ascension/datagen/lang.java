@@ -914,13 +914,17 @@ public class lang extends LanguageProvider {
 
 
         add("item.ascension.soulbound_weapon", "Soulbound Weapon");
+        add("item.ascension.soulbound_sword", "Soulbound Sword");
+        add("item.ascension.soulbound_blade", "Soulbound Blade");
+        add("item.ascension.soulbound_spear", "Soulbound Spear");
+        add("item.ascension.soulbound_axe", "Soulbound Axe");
+        add("item.ascension.soulbound_mace", "Soulbound Mace");
         add("item.ascension.soulbound_weapon.typed", "Soulbound %s");
         add("item.ascension.soulbound_weapon.tooltip", "A weapon forged from the cultivator's soul.");
         add("item.ascension.soulbound_weapon.type", "Form: %s");
         add("item.ascension.soulbound_weapon.currentGrade", "Soul Grade: %s");
         add("item.ascension.soulbound_weapon.grade_advanced", "Your soul weapon has advanced to Grade %s");
         add("item.ascension.soulbound_weapon.tempering", "Tempering: %s / %s");
-        add("item.ascension.soulbound_weapon.damage", "Soul Weapon Power: %s");
 
 
         add("item.ascension.wooden_spear", "Wooden Spear");

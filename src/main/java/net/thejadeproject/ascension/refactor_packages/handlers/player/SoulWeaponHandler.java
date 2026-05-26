@@ -11,11 +11,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerContainerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.thejadeproject.ascension.AscensionCraft;
-import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 import net.thejadeproject.ascension.common.items.tools.soul_weapon.SoulWeaponHelper;
 import net.thejadeproject.ascension.data_attachments.ModAttachments;
 import net.thejadeproject.ascension.data_attachments.attachments.SoulWeaponData;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
 import net.thejadeproject.ascension.refactor_packages.paths.data.IPathData;
@@ -33,10 +31,13 @@ public final class SoulWeaponHandler {
         if (!SoulWeaponHelper.isSoulWeapon(stack)) return;
         if (!SoulWeaponHelper.isOwner(stack, player)) return;
 
+        SoulWeaponData data = player.getData(ModAttachments.SOUL_WEAPON);
+
+        SoulWeaponHelper.saveSummonedSoulWeapon(stack, player, data);
+
         event.setCanceled(true);
         event.getEntity().discard();
 
-        SoulWeaponData data = player.getData(ModAttachments.SOUL_WEAPON);
         data.summoned = false;
     }
 
@@ -44,9 +45,19 @@ public final class SoulWeaponHandler {
     public static void onSoulWeaponOwnerDeath(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
-        SoulWeaponHelper.removeOwnedSoulWeapons(player);
-
         SoulWeaponData data = player.getData(ModAttachments.SOUL_WEAPON);
+
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+
+            if (!SoulWeaponHelper.isSoulWeapon(stack)) continue;
+            if (!SoulWeaponHelper.isOwner(stack, player)) continue;
+
+            SoulWeaponHelper.saveSummonedSoulWeapon(stack, player, data);
+            break;
+        }
+
+        SoulWeaponHelper.removeOwnedSoulWeapons(player);
         data.summoned = false;
     }
 
@@ -75,7 +86,9 @@ public final class SoulWeaponHandler {
             gradedUp = true;
         }
 
+        SoulWeaponHelper.updateSoulWeaponAttributes(weapon, data);
         SoulWeaponHelper.writeSoulWeaponComponent(weapon, player, data);
+        data.storedWeapon = weapon.copyWithCount(1);
 
         if (gradedUp) {
             player.displayClientMessage(
@@ -113,6 +126,9 @@ public final class SoulWeaponHandler {
                 continue;
             }
 
+            stack = SoulWeaponHelper.migrateLegacySoulWeapon(stack, player, data);
+            player.getInventory().setItem(i, stack);
+
             ownedSoulWeapons++;
 
             if (!data.bound || !data.summoned || ownedSoulWeapons > 1) {
@@ -120,11 +136,15 @@ public final class SoulWeaponHandler {
                 continue;
             }
 
+            SoulWeaponHelper.updateSoulWeaponAttributes(stack, data);
             SoulWeaponHelper.writeSoulWeaponComponent(stack, player, data);
+            data.storedWeapon = stack.copyWithCount(1);
 
         }
 
-        if (ownedSoulWeapons == 0 && data.summoned) {
+        if (ownedSoulWeapons == 0
+                && !menuContainsOwnedSoulWeapon(player)
+                && data.summoned) {
             data.summoned = false;
         }
     }
@@ -134,10 +154,12 @@ public final class SoulWeaponHandler {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
         SoulWeaponData data = player.getData(ModAttachments.SOUL_WEAPON);
+        boolean removedFromContainer = false;
 
-        for (int slotIndex = 0; slotIndex < event.getContainer().slots.size(); slotIndex++) {
-            var slot = event.getContainer().slots.get(slotIndex);
+        boolean saveExternalStack =
+                event.getContainer() instanceof net.minecraft.world.inventory.EnchantmentMenu;
 
+        for (var slot : event.getContainer().slots) {
             if (slot.container instanceof Inventory) continue;
 
             ItemStack stack = slot.getItem();
@@ -145,7 +167,15 @@ public final class SoulWeaponHandler {
             if (!SoulWeaponHelper.isSoulWeapon(stack)) continue;
             if (!SoulWeaponHelper.isOwner(stack, player)) continue;
 
+            if (saveExternalStack) {
+                SoulWeaponHelper.saveSummonedSoulWeapon(stack, player, data);
+            }
+
             slot.set(ItemStack.EMPTY);
+            removedFromContainer = true;
+        }
+
+        if (removedFromContainer) {
             data.summoned = false;
 
             player.displayClientMessage(
@@ -155,35 +185,19 @@ public final class SoulWeaponHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void onSoulWeaponDamage(LivingDamageEvent.Pre event) {
-        if (!(event.getSource().getEntity() instanceof ServerPlayer player)) return;
+    private static boolean menuContainsOwnedSoulWeapon(ServerPlayer player) {
+        for (var slot : player.containerMenu.slots) {
+            if (slot.container instanceof Inventory) continue;
 
-        ItemStack weapon = player.getMainHandItem();
+            ItemStack stack = slot.getItem();
 
-        if (!SoulWeaponHelper.isSoulWeapon(weapon)) return;
-        if (!SoulWeaponHelper.isOwner(weapon, player)) return;
-        if (!player.hasData(ModAttachments.ENTITY_DATA)) return;
+            if (!SoulWeaponHelper.isSoulWeapon(stack)) continue;
+            if (!SoulWeaponHelper.isOwner(stack, player)) continue;
 
+            return true;
+        }
 
-        IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
-        IPathData soulPath = entityData.getPathData(ModPaths.SOUL.getId());
-
-        int soulMajor = soulPath != null ? soulPath.getMajorRealm() : 0;
-        int soulMinor = soulPath != null ? soulPath.getMinorRealm() : 0;
-
-        var soulWeapon = weapon.get(ModDataComponents.SOUL_WEAPON.get());
-        if (soulWeapon == null) return;
-
-        float bonusDamage = SoulWeaponHelper.calculateSoulWeaponBonus(
-                soulMajor,
-                soulMinor,
-                soulWeapon.grade(),
-                soulWeapon.forgedMarks(),
-                soulWeapon.type()
-        );
-
-        event.setNewDamage(event.getNewDamage() + bonusDamage);
+        return false;
     }
 
 }

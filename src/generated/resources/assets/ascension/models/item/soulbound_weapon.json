@@ -1,37 +1,5 @@
 {
   "parent": "minecraft:item/handheld",
-  "overrides": [
-    {
-      "model": "ascension:item/soulbound_weapon_sword",
-      "predicate": {
-        "ascension:soul_weapon_type": 0.1
-      }
-    },
-    {
-      "model": "ascension:item/soulbound_weapon_axe",
-      "predicate": {
-        "ascension:soul_weapon_type": 0.2
-      }
-    },
-    {
-      "model": "ascension:item/soulbound_weapon_blade",
-      "predicate": {
-        "ascension:soul_weapon_type": 0.3
-      }
-    },
-    {
-      "model": "ascension:item/soulbound_weapon_spear",
-      "predicate": {
-        "ascension:soul_weapon_type": 0.4
-      }
-    },
-    {
-      "model": "ascension:item/soulbound_weapon_mace",
-      "predicate": {
-        "ascension:soul_weapon_type": 0.7
-      }
-    }
-  ],
   "textures": {
     "layer0": "ascension:item/soulbound_weapon"
   }

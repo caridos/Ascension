@@ -21,6 +21,7 @@ import net.thejadeproject.ascension.data_attachments.attachments.SoulWeaponData;
 import net.thejadeproject.ascension.refactor_packages.entity_data.IEntityData;
 import net.thejadeproject.ascension.refactor_packages.gui.elements.info_elements.DescriptionDisplayContainer;
 import net.thejadeproject.ascension.refactor_packages.paths.ModPaths;
+import net.thejadeproject.ascension.refactor_packages.paths.data.IPathData;
 import net.thejadeproject.ascension.refactor_packages.physiques.IPhysiqueData;
 import net.thejadeproject.ascension.refactor_packages.registries.AscensionRegistries;
 import net.thejadeproject.ascension.refactor_packages.skill_casting.casting.CastEndData;
@@ -85,17 +86,31 @@ public class SoulForgeSkill implements ICastableSkill {
             return;
         }
 
-        held.shrink(1);
+        ItemStack soulWeapon = type.createSoulboundStack();
+
+        SoulWeaponHelper.copyForgedComponents(held, soulWeapon);
 
         data.bound = true;
         data.weaponType = type.id();
         data.currentGrade = 0;
         data.currentTempering = 0;
         data.summoned = false;
+        data.lifetimeMarks = 0;
 
         IEntityData entityData = player.getData(ModAttachments.ENTITY_DATA);
 
+        IPathData soulPath = entityData.getPathData(ModPaths.SOUL.getId());
+        data.lastSoulMajor = soulPath == null ? 0 : soulPath.getMajorRealm();
+        data.lastSoulMinor = soulPath == null ? 0 : soulPath.getMinorRealm();
+
         ensureWeaponPath(entityData, type.path());
+
+        SoulWeaponHelper.updateSoulWeaponAttributes(soulWeapon, data);
+        SoulWeaponHelper.writeSoulWeaponComponent(soulWeapon, player, data);
+
+        data.storedWeapon = soulWeapon.copyWithCount(1);
+
+        held.shrink(1);
 
         player.displayClientMessage(
                 Component.translatable("ascension.skill.soul_forge.bound", type.id()),
@@ -123,18 +138,33 @@ public class SoulForgeSkill implements ICastableSkill {
     }
 
     private void summonSoulWeapon(ServerPlayer player, SoulWeaponData data) {
-        unsummonSoulWeaponSilently(player);
+        SoulWeaponHelper.removeOwnedSoulWeapons(player);
 
         SoulWeaponType type = SoulWeaponType.fromId(data.weaponType);
+
         if (type == null) {
-            player.displayClientMessage(Component.translatable("ascension.skill.soul_forge.no_weapon"), true);
+            player.displayClientMessage(
+                    Component.translatable("ascension.skill.soul_forge.no_weapon"),
+                    true
+            );
             data.summoned = false;
             return;
         }
 
-        ItemStack soulWeapon = new ItemStack(ModItems.SOULBOUND_WEAPON.get());
+        ItemStack soulWeapon;
 
+        if (data.storedWeapon.isEmpty()) {
+            soulWeapon = type.createSoulboundStack();
+        } else if (data.storedWeapon.is(ModItems.SOULBOUND_WEAPON.get())) {
+            soulWeapon = type.createSoulboundStack();
+            SoulWeaponHelper.copyForgedComponents(data.storedWeapon, soulWeapon);
+        } else {
+            soulWeapon = data.storedWeapon.copyWithCount(1);
+        }
+
+        SoulWeaponHelper.updateSoulWeaponAttributes(soulWeapon, data);
         SoulWeaponHelper.writeSoulWeaponComponent(soulWeapon, player, data);
+        data.storedWeapon = soulWeapon.copyWithCount(1);
 
         if (!player.getInventory().add(soulWeapon)) {
             player.displayClientMessage(Component.literal("Your inventory is full."), true);
@@ -142,12 +172,26 @@ public class SoulForgeSkill implements ICastableSkill {
             return;
         }
 
+        data.storedWeapon = soulWeapon.copyWithCount(1);
         data.summoned = true;
 
-        player.displayClientMessage(Component.translatable("ascension.skill.soul_forge.summoned"), true);
+        player.displayClientMessage(
+                Component.translatable("ascension.skill.soul_forge.summoned"),
+                true
+        );
     }
 
     private void unsummonSoulWeapon(ServerPlayer player, SoulWeaponData data) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+
+            if (!SoulWeaponHelper.isSoulWeapon(stack)) continue;
+            if (!SoulWeaponHelper.isOwner(stack, player)) continue;
+
+            SoulWeaponHelper.saveSummonedSoulWeapon(stack, player, data);
+            break;
+        }
+
         SoulWeaponHelper.removeOwnedSoulWeapons(player);
 
         data.summoned = false;

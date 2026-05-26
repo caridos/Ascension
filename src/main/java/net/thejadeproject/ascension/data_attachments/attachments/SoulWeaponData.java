@@ -2,6 +2,7 @@ package net.thejadeproject.ascension.data_attachments.attachments;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.ItemStack;
 
 public class SoulWeaponData {
     public static final Codec<SoulWeaponData> CODEC = RecordCodecBuilder.create(inst -> inst.group(
@@ -12,7 +13,9 @@ public class SoulWeaponData {
             Codec.BOOL.optionalFieldOf("summoned", false).forGetter(d -> d.summoned),
             Codec.INT.optionalFieldOf("lifetime_marks", 0).forGetter(d -> d.lifetimeMarks),
             Codec.INT.optionalFieldOf("last_soul_major", 0).forGetter(d -> d.lastSoulMajor),
-            Codec.INT.optionalFieldOf("last_soul_minor", 0).forGetter(d -> d.lastSoulMinor)
+            Codec.INT.optionalFieldOf("last_soul_minor", 0).forGetter(d -> d.lastSoulMinor),
+            ItemStack.OPTIONAL_CODEC.optionalFieldOf("stored_weapon", ItemStack.EMPTY)
+                    .forGetter(d -> d.storedWeapon)
     ).apply(inst, SoulWeaponData::new));
 
     public boolean bound;
@@ -23,6 +26,7 @@ public class SoulWeaponData {
     public int lifetimeMarks;
     public int lastSoulMajor;
     public int lastSoulMinor;
+    public ItemStack storedWeapon;
 
     public SoulWeaponData(
             boolean bound,
@@ -32,7 +36,8 @@ public class SoulWeaponData {
             boolean summoned,
             int lifetimeMarks,
             int lastSoulMajor,
-            int lastSoulMinor
+            int lastSoulMinor,
+            ItemStack storedWeapon
     ) {
         this.bound = bound;
         this.weaponType = weaponType;
@@ -42,10 +47,11 @@ public class SoulWeaponData {
         this.lifetimeMarks = lifetimeMarks;
         this.lastSoulMajor = lastSoulMajor;
         this.lastSoulMinor = lastSoulMinor;
+        this.storedWeapon = storedWeapon;
     }
 
     public SoulWeaponData() {
-        this(false, "", 0, 0, false, 0, 0, 0);
+        this(false, "", 0, 0, false, 0, 0, 0, ItemStack.EMPTY);
     }
 
     public void clear() {
@@ -57,7 +63,6 @@ public class SoulWeaponData {
         lifetimeMarks = 0;
         lastSoulMajor = 0;
         lastSoulMinor = 0;
+        storedWeapon = ItemStack.EMPTY;
     }
-
-
 }

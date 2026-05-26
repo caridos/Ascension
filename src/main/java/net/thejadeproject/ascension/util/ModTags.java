@@ -39,6 +39,7 @@ public class ModTags {
         public static final TagKey<Item> SPEAR = createTag("spear");
         public static final TagKey<Item> SPEAR_ENCHANTABLE = createTag("spear_enchantable");
         public static final TagKey<Item> FIST = createTag("fist");
+        public static final TagKey<Item> MACE = createTag("mace");
 
 
         public static final TagKey<Item> FLAMES = createTag("flames");
@@ -67,10 +68,7 @@ public class ModTags {
         public static final TagKey<Item> SOULFORGE_BLADES = createTag("soulforge/blades");
         public static final TagKey<Item> SOULFORGE_SPEARS = createTag("soulforge/spears");
         public static final TagKey<Item> SOULFORGE_AXES = createTag("soulforge/axes");
-        public static final TagKey<Item> SOULFORGE_BOWS = createTag("soulforge/bows");
-        public static final TagKey<Item> SOULFORGE_TRIDENTS = createTag("soulforge/tridents");
         public static final TagKey<Item> SOULFORGE_MACES = createTag("soulforge/maces");
-        public static final TagKey<Item> SOULFORGE_SHIELDS = createTag("soulforge/shields");
 
 
 

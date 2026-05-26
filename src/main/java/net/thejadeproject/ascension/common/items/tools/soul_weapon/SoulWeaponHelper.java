@@ -1,8 +1,17 @@
 package net.thejadeproject.ascension.common.items.tools.soul_weapon;
 
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.thejadeproject.ascension.AscensionCraft;
 import net.thejadeproject.ascension.common.items.ModItems;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
 import net.thejadeproject.ascension.common.items.tools.data.soul_weapon.SoulWeaponComponent;
@@ -11,13 +20,17 @@ import net.thejadeproject.ascension.data_attachments.attachments.SoulWeaponData;
 import net.thejadeproject.ascension.util.ModTags;
 
 public final class SoulWeaponHelper {
-    private SoulWeaponHelper() {}
 
-    public static final float BASE_DAMAGE = 6.0F;
+    private static final ResourceLocation SOUL_DAMAGE_BONUS_ID = ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_damage_bonus");
+
+    private SoulWeaponHelper() {}
 
     public static boolean isSoulWeapon(ItemStack stack) {
         return !stack.isEmpty()
-                && stack.is(ModItems.SOULBOUND_WEAPON.get())
+                && (
+                stack.getItem() instanceof ISoulboundItem
+                        || stack.is(ModItems.SOULBOUND_WEAPON.get())
+        )
                 && stack.has(ModDataComponents.SOUL_WEAPON.get());
     }
 
@@ -26,18 +39,22 @@ public final class SoulWeaponHelper {
         return component != null && component.owner().equals(player.getUUID());
     }
 
-    public static float calculateSoulWeaponDamage(int soulMajor, int soulMinor, int grade, int forgedMarks, String type) {
-        float soulBonus = soulMajor * 2.5F
+    public static float calculateSoulWeaponBonus(
+            int soulMajor,
+            int soulMinor,
+            int grade,
+            int forgedMarks,
+            String type
+    ) {
+        float soulPower = soulMajor * 2.5F
                 + soulMinor * 0.25F
                 + grade * 2.0F
                 + forgedMarks * 1.25F;
 
-        return BASE_DAMAGE + soulBonus * getTypeMultiplier(type);
+        return soulPower * getTypeMultiplier(type);
     }
 
-    public static float calculateSoulWeaponBonus(int soulMajor, int soulMinor, int grade, int forgedMarks, String type) {
-        return calculateSoulWeaponDamage(soulMajor, soulMinor, grade, forgedMarks, type) - BASE_DAMAGE;
-    }
+
 
     public static int getTemperingGain(LivingEntity killed) {
         int gain = 1;
@@ -90,7 +107,9 @@ public final class SoulWeaponHelper {
                 data.weaponType,
                 data.currentGrade,
                 data.currentTempering,
-                data.lifetimeMarks
+                data.lifetimeMarks,
+                data.lastSoulMajor,
+                data.lastSoulMinor
         ));
     }
 
@@ -128,5 +147,107 @@ public final class SoulWeaponHelper {
 
         return removed;
     }
+
+    public static void copyForgedComponents(ItemStack original, ItemStack soulbound) {
+        copyComponent(original, soulbound, DataComponents.ATTRIBUTE_MODIFIERS);
+        copyComponent(original, soulbound, DataComponents.ENCHANTMENTS);
+        copyComponent(original, soulbound, DataComponents.CUSTOM_NAME);
+        copyComponent(original, soulbound, DataComponents.LORE);
+    }
+
+    private static <T> void copyComponent(
+            ItemStack from,
+            ItemStack to,
+            DataComponentType<T> component
+    ) {
+        T value = from.get(component);
+
+        if (value != null) {
+            to.set(component, value);
+        }
+    }
+
+    public static void saveSummonedSoulWeapon(
+            ItemStack stack,
+            Player player,
+            SoulWeaponData data
+    ) {
+        if (!isSoulWeapon(stack)) return;
+        if (!isOwner(stack, player)) return;
+
+        updateSoulWeaponAttributes(stack, data);
+        writeSoulWeaponComponent(stack, player, data);
+        data.storedWeapon = stack.copyWithCount(1);
+    }
+
+    public static ItemStack migrateLegacySoulWeapon(
+            ItemStack stack,
+            ServerPlayer player,
+            SoulWeaponData data
+    ) {
+        if (!stack.is(ModItems.SOULBOUND_WEAPON.get())) {
+            return stack;
+        }
+
+        SoulWeaponType type = SoulWeaponType.fromId(data.weaponType);
+        if (type == null) {
+            return stack;
+        }
+
+        ItemStack migrated = type.createSoulboundStack();
+
+        SoulWeaponHelper.copyForgedComponents(stack, migrated);
+        SoulWeaponHelper.writeSoulWeaponComponent(migrated, player, data);
+
+        data.storedWeapon = migrated.copyWithCount(1);
+
+        return migrated;
+    }
+
+    public static void updateSoulWeaponAttributes(ItemStack stack, SoulWeaponData data) {
+        ItemAttributeModifiers current = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
+
+        if (current == null) {current = ItemAttributeModifiers.EMPTY;}
+
+        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+
+        for (ItemAttributeModifiers.Entry entry : current.modifiers()) {
+            boolean isOldSoulDamageBonus =
+                    entry.attribute().equals(Attributes.ATTACK_DAMAGE)
+                            && entry.modifier().id().equals(SOUL_DAMAGE_BONUS_ID);
+
+            if (isOldSoulDamageBonus) {continue;}
+
+            builder.add(
+                    entry.attribute(),
+                    entry.modifier(),
+                    entry.slot()
+            );
+        }
+
+        float soulBonus = calculateSoulWeaponBonus(
+                data.lastSoulMajor,
+                data.lastSoulMinor,
+                data.currentGrade,
+                data.lifetimeMarks,
+                data.weaponType
+        );
+
+        if (soulBonus > 0.0F) {
+            builder.add(
+                    Attributes.ATTACK_DAMAGE,
+                    new AttributeModifier(
+                            SOUL_DAMAGE_BONUS_ID,
+                            soulBonus,
+                            AttributeModifier.Operation.ADD_VALUE
+                    ),
+                    EquipmentSlotGroup.MAINHAND
+            );
+        }
+
+        stack.set(DataComponents.ATTRIBUTE_MODIFIERS,
+                builder.build().withTooltip(current.showInTooltip()));
+    }
+
 
 }

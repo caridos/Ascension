@@ -95,9 +95,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.CRIMSON_LOTUS_FLAME.get());
 
         tag(ItemTags.SWORDS)
-                .addTag(ModTags.Items.BLADE)
-                .addTag(ModTags.Items.SPEAR)
-                .add(ModItems.CULTIVATORS_SWORD_IRON.get());
+                .add(ModItems.CULTIVATORS_SWORD_IRON.get())
+                .add(ModItems.SOULBOUND_SWORD.get());
 
         tag(ModTags.Items.BLADE)
                 .add(ModItems.WOODEN_BLADE.get())
@@ -105,7 +104,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.IRON_BLADE.get())
                 .add(ModItems.GOLD_BLADE.get())
                 .add(ModItems.DIAMOND_BLADE.get())
-                .add(ModItems.NETHERITE_BLADE.get());
+                .add(ModItems.NETHERITE_BLADE.get())
+                .add(ModItems.SOULBOUND_BLADE.get());
 
         tag(ModTags.Items.SPEAR)
                 .add(ModItems.WOODEN_SPEAR.get())
@@ -113,8 +113,77 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.IRON_SPEAR.get())
                 .add(ModItems.GOLD_SPEAR.get())
                 .add(ModItems.DIAMOND_SPEAR.get())
+                .add(ModItems.NETHERITE_SPEAR.get())
+                .add(ModItems.SOULBOUND_SPEAR.get());
+
+        tag(ItemTags.AXES)
+                .add(ModItems.SOULBOUND_AXE.get());
+
+        tag(ModTags.Items.MACE)
+                .add(Items.MACE)
+                .add(ModItems.SOULBOUND_MACE.get());
+
+        tag(ModTags.Items.SOULFORGE_SWORDS)
+                .add(Items.WOODEN_SWORD)
+                .add(Items.STONE_SWORD)
+                .add(Items.IRON_SWORD)
+                .add(Items.GOLDEN_SWORD)
+                .add(Items.DIAMOND_SWORD)
+                .add(Items.NETHERITE_SWORD)
+                .add(ModItems.CULTIVATORS_SWORD_IRON.get());
+
+        tag(ModTags.Items.SOULFORGE_BLADES)
+                .add(ModItems.WOODEN_BLADE.get())
+                .add(ModItems.STONE_BLADE.get())
+                .add(ModItems.IRON_BLADE.get())
+                .add(ModItems.GOLD_BLADE.get())
+                .add(ModItems.DIAMOND_BLADE.get())
+                .add(ModItems.NETHERITE_BLADE.get());
+
+        tag(ModTags.Items.SOULFORGE_SPEARS)
+                .add(ModItems.WOODEN_SPEAR.get())
+                .add(ModItems.STONE_SPEAR.get())
+                .add(ModItems.IRON_SPEAR.get())
+                .add(ModItems.GOLD_SPEAR.get())
+                .add(ModItems.DIAMOND_SPEAR.get())
                 .add(ModItems.NETHERITE_SPEAR.get());
 
+        tag(ModTags.Items.SOULFORGE_AXES)
+                .add(Items.WOODEN_AXE)
+                .add(Items.STONE_AXE)
+                .add(Items.IRON_AXE)
+                .add(Items.GOLDEN_AXE)
+                .add(Items.DIAMOND_AXE)
+                .add(Items.NETHERITE_AXE);
+
+        tag(ModTags.Items.SOULFORGE_MACES)
+                .add(Items.MACE);
+
+        tag(ItemTags.SWORD_ENCHANTABLE)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ModTags.Items.BLADE)
+                .addTag(ModTags.Items.SPEAR);
+
+        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ModTags.Items.BLADE)
+                .addTag(ModTags.Items.SPEAR)
+                .add(ModItems.SOULBOUND_AXE.get());
+
+        tag(ItemTags.WEAPON_ENCHANTABLE)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ModTags.Items.BLADE)
+                .addTag(ModTags.Items.SPEAR)
+                .add(ModItems.SOULBOUND_AXE.get())
+                .add(ModItems.SOULBOUND_MACE.get());
+
+        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
+                .addTag(ItemTags.SWORDS)
+                .addTag(ModTags.Items.BLADE)
+                .addTag(ModTags.Items.SPEAR);
+
+        tag(ItemTags.MACE_ENCHANTABLE)
+                .add(ModItems.SOULBOUND_MACE.get());
 
 
         tag(ItemTags.BREAKS_DECORATED_POTS)
@@ -137,17 +206,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
         tag(ModTags.Items.NUGGETS_FROST_SILVER)
                 .add(ModItems.FROST_SILVER_NUGGET.get());
-
-
-
-        tag(ModTags.Items.SOULFORGE_SWORDS).addTag(ItemTags.SWORDS);
-        tag(ModTags.Items.SOULFORGE_BLADES).addTag(ModTags.Items.BLADE);
-        tag(ModTags.Items.SOULFORGE_SPEARS).addTag(ModTags.Items.SPEAR);
-        tag(ModTags.Items.SOULFORGE_AXES).addTag(ItemTags.AXES);
-        tag(ModTags.Items.SOULFORGE_BOWS).addTag(ItemTags.BOW_ENCHANTABLE);
-        tag(ModTags.Items.SOULFORGE_TRIDENTS).add(Items.TRIDENT);
-        tag(ModTags.Items.SOULFORGE_MACES).add(Items.MACE);
-        tag(ModTags.Items.SOULFORGE_SHIELDS).add(Items.SHIELD);
 
 
 

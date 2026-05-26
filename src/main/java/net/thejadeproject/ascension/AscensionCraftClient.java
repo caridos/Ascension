@@ -39,7 +39,6 @@ import net.thejadeproject.ascension.particle.ModParticles;
 import net.thejadeproject.ascension.particle.aura.*;
 import net.thejadeproject.ascension.particle.particles.CultivationParticles;
 import net.thejadeproject.ascension.refactor_packages.gui.ModOverlays;
-import net.thejadeproject.ascension.common.items.tools.soul_weapon.SoulWeaponType;
 import net.thejadeproject.ascension.refactor_packages.skills.vfx.weaponvfx.WeaponSwingVfxRenderer;
 import net.thejadeproject.ascension.shaders.client.ModShaders;
 import net.thejadeproject.ascension.shaders.client.RiftRenderer;
@@ -192,18 +191,6 @@ public class AscensionCraftClient {
                             if (clientLevel == null) return 0.0F;
                             return ((int)(clientLevel.getGameTime() / 12L) % 5) * 0.2f;
                         });
-
-                ItemProperties.register(
-                        ModItems.SOULBOUND_WEAPON.get(),
-                        ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "soul_weapon_type"),
-                        (stack, level, entity, seed) -> {
-                            var soulWeapon = stack.get(ModDataComponents.SOUL_WEAPON.get());
-                            if (soulWeapon == null) return 0.0F;
-
-                            SoulWeaponType type = SoulWeaponType.fromId(soulWeapon.type());
-                            return type == null ? 0.0F : type.modelPredicate();
-                        }
-                );
             });
         }
 

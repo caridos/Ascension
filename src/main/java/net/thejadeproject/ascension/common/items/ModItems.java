@@ -1,5 +1,6 @@
 package net.thejadeproject.ascension.common.items;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -22,7 +23,7 @@ import net.thejadeproject.ascension.common.items.tools.*;
 import net.thejadeproject.ascension.common.items.tools.herbs.MortarAndPestle;
 import net.thejadeproject.ascension.common.items.tools.herbs.SpiritualMeal;
 import net.thejadeproject.ascension.common.items.tools.hidden_weapons.NeedleItem;
-import net.thejadeproject.ascension.common.items.tools.soul_weapon.SoulboundWeaponItem;
+import net.thejadeproject.ascension.common.items.tools.soul_weapon.*;
 import net.thejadeproject.ascension.entity.ModEntities;
 import net.thejadeproject.ascension.common.items.artifacts.*;
 import net.thejadeproject.ascension.common.items.data_components.ModDataComponents;
@@ -150,6 +151,10 @@ public class ModItems {
     public static final DeferredItem<SwordItem> CULTIVATORS_SWORD_IRON = ITEMS.register("cultivators_sword_iron",
             () -> new SwordItem(Tiers.IRON, new Item.Properties().durability(675).attributes(SwordItem.createAttributes((Tier) Tiers.IRON, 2.4f, (float) -2))));
 
+
+    // Soulbound Items
+
+        // Legacy Item that will be removed in a later version :)
     public static final DeferredItem<Item> SOULBOUND_WEAPON = ITEMS.register(
             "soulbound_weapon",
             () -> new SoulboundWeaponItem(
@@ -157,6 +162,67 @@ public class ModItems {
                     new Item.Properties()
                             .stacksTo(1)
                             .rarity(Rarity.RARE)
+            )
+    );
+
+        // Actual Soul Bound Items
+        public static final DeferredItem<SoulboundConstructItem> SOULBOUND_SWORD = ITEMS.register(
+                "soulbound_sword",
+                () -> new SoulboundConstructItem(
+                        SoulWeaponType.SWORD,
+                        new Item.Properties()
+                                .stacksTo(1)
+                                .rarity(Rarity.RARE)
+                                .attributes(SwordItem.createAttributes(Tiers.IRON, 3.0F, -2.4F))
+                )
+        );
+
+    public static final DeferredItem<SoulboundConstructItem> SOULBOUND_BLADE = ITEMS.register(
+            "soulbound_blade",
+            () -> new SoulboundConstructItem(
+                    SoulWeaponType.BLADE,
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .rarity(Rarity.RARE)
+                            .attributes(BladeItem.createAttributes(Tiers.IRON, 3.0F, -2.4F))
+            )
+    );
+
+    public static final DeferredItem<SoulboundConstructItem> SOULBOUND_SPEAR = ITEMS.register(
+            "soulbound_spear",
+            () -> new SoulboundConstructItem(
+                    SoulWeaponType.SPEAR,
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .rarity(Rarity.RARE)
+                            .attributes(ItemUtil.createAscensionItemAttributes(
+                                    Tiers.IRON,
+                                    3.0F,
+                                    -2.4F,
+                                    1.5D
+                            ))
+            )
+    );
+
+    public static final DeferredItem<SoulboundConstructItem> SOULBOUND_AXE = ITEMS.register(
+            "soulbound_axe",
+            () -> new SoulboundConstructItem(
+                    SoulWeaponType.AXE,
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .rarity(Rarity.RARE)
+                            .attributes(AxeItem.createAttributes(Tiers.IRON, 4.0F, -3.1F))
+            )
+    );
+
+    public static final DeferredItem<SoulboundMaceItem> SOULBOUND_MACE = ITEMS.register(
+            "soulbound_mace",
+            () -> new SoulboundMaceItem(
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .rarity(Rarity.RARE)
+                            .attributes(MaceItem.createAttributes())
+                            .component(DataComponents.TOOL, MaceItem.createToolProperties())
             )
     );
 
