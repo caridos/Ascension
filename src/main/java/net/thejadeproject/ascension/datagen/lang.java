@@ -759,6 +759,10 @@ public class lang extends LanguageProvider {
         add("ascension.skill.blade_cleave.description", "Sweep your blade in a wide crescent arc, cleaving through enemies before you.");
         add("ascension.skill.spear_thrust", "Hundred Spear Thrust");
         add("ascension.skill.spear_thrust.description", "Launch the spear out many times in rapid succession, dealing consistent damage in a flurry.");
+        add("ascension.skills.qi_pull", "Qi Pull");
+        add("ascension.skills.qi_pull.desc", "Condenses Qi at a targeted point, pulling nearby entities toward it.");
+        add("ascension.skills.qi_release", "Qi Release");
+        add("ascension.skills.qi_release.desc", "Releases a burst of Qi, pushing away nearby entities.");
 
         // Body cultivation — T1
         add("ascension.skill.body_cultivation_fire", "§6Fire Body Tempering");

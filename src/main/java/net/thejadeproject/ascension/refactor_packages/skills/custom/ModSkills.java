@@ -50,6 +50,7 @@ import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.elem
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.universal.TrueFlightSkill;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.weapon.mastery.*;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.passive.weapon.projections.SwordProjectionSkill;
+import net.thejadeproject.ascension.refactor_packages.skills.custom.qi.QiPull;
 import net.thejadeproject.ascension.refactor_packages.skills.custom.qi.QiRelease;
 import net.thejadeproject.ascension.util.ModTags;
 
@@ -110,6 +111,8 @@ public class ModSkills {
     // Actives
     public static final DeferredHolder<ISkill,? extends QiRelease> QI_RELEASE =
             SKILLS.register("qi_release", QiRelease::new);
+    public static final DeferredHolder<ISkill,? extends QiPull> QI_PULL =
+            SKILLS.register("qi_pull", QiPull::new);
 
     // ──── ELEMENTAL SKILLS ────────────────────────────────────────────
     // Cultivation
