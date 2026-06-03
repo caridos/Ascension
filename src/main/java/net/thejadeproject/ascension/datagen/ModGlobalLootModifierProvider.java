@@ -306,6 +306,22 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                 ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "water_essence_technique")
         ));
 
+        this.add("water_essence_technique_from_fishing_treasure", new AddTechniqueManualModifier(
+                new LootItemCondition[]{
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("gameplay/fishing/treasure")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.04F).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "water_essence_technique")
+        ));
+
+        this.add("kidney_water_technique_from_fishing_treasure", new AddTechniqueManualModifier(
+                new LootItemCondition[]{
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("gameplay/fishing/treasure")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.04F).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "kidney_water_technique")
+        ));
+
         add("wood_essence_technique_from_jungle_temple", new AddTechniqueManualModifier(
                 new LootItemCondition[]{
                         LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("chests/jungle_temple")).build(),
@@ -732,6 +748,26 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                         MobRankLootCondition.between("qi_gathering", 1, "qi_gathering", 3).build()
                 },
                 ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "open_sky_breathing_scripture")
+        ));
+
+        // Physiques from Fishing
+
+        add("water_attuned_from_fishing_treasure", new AddPhysiqueRandomPurityModifier(
+                new LootItemCondition[]{
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("gameplay/fishing/treasure")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.05F).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "water_attuned"),
+                15, 55
+        ));
+
+        add("water_body_from_fishing_treasure", new AddPhysiqueRandomPurityModifier(
+                new LootItemCondition[]{
+                        LootTableIdCondition.builder(ResourceLocation.withDefaultNamespace("gameplay/fishing/treasure")).build(),
+                        LootItemRandomChanceCondition.randomChance(0.05F).build()
+                },
+                ResourceLocation.fromNamespaceAndPath(AscensionCraft.MOD_ID, "water_body"),
+                15, 55
         ));
 
         //Herbs
