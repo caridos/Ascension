@@ -15,7 +15,7 @@ import net.thejadeproject.ascension.refactor_packages.physiques.custom.helpers.P
 import java.util.List;
 
 public class DisembodiedNetherSoulItem extends Item {
-    public static final int REQUIRED_SOUL_GUILT = 333;
+    public static final int REQUIRED_SOUL_GUILT = 3333;
 
     public DisembodiedNetherSoulItem(Properties properties) {
         super(properties);
